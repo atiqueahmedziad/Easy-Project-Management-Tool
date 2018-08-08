@@ -48,7 +48,7 @@ import javafx.stage.Stage;
 
                     //isConnected.setText("Connected");
                     stage = (Stage) loginbutton.getScene().getWindow();
-                    //load up OTHER FXML document
+                    
                     root = FXMLLoader.load(getClass().getResource("IntroPage/intropage.fxml"));
 
                     Scene scene = new Scene(root);

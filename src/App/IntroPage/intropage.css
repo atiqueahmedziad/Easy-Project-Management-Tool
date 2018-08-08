@@ -1,0 +1,14 @@
+VBox {
+    -fx-alignment: center;
+    -fx-font-size: 15px;
+}
+Label {
+    -fx-padding: 10px;
+}
+
+JFXButton {
+    -fx-start-margin: 20px;
+    -fx-padding: 15px;
+    -fx-background-color: #009688;
+    -fx-text-fill: #fff;
+}

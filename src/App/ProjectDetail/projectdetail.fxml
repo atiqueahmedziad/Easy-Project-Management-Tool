@@ -41,20 +41,20 @@
         <Label alignment="CENTER" layoutX="394.0" layoutY="178.0" prefHeight="54.0" prefWidth="90.0" text="End Date" />
         <JFXDatePicker fx:id="start_date" layoutX="117.0" layoutY="184.0" />
         <JFXDatePicker fx:id="end_date" layoutX="518.0" layoutY="191.0" onAction="#showDays" />
-        <JFXButton layoutX="557.0" layoutY="637.0" prefHeight="40.0" prefWidth="143.0" ripplerFill="#2c751a" style="-fx-background-color: #009688#009688 #009688#009688;" text="Show Gantt Chart" textFill="WHITE" />
+        <JFXButton layoutX="557.0" layoutY="637.0" prefHeight="40.0" prefWidth="143.0" ripplerFill="#2c751a" style="-fx-background-color: #009688;" text="Show Gantt Chart" textFill="WHITE" />
       <JFXTextField fx:id="ProjectName" focusColor="#009688" layoutX="518.0" layoutY="113.0" />
       <Label alignment="CENTER" layoutX="394.0" layoutY="100.0" prefHeight="54.0" prefWidth="117.0" text="Project name">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <JFXButton fx:id="LoadTaskButton" layoutX="216.0" layoutY="637.0" onAction="#LoadTaskHandle" prefHeight="40.0" prefWidth="104.0" style="-fx-background-color: #009688#009688;" text="Load Task" textFill="WHITE" />
-      <JFXButton fx:id="DeleteTaskButton" layoutX="374.0" layoutY="637.0" onAction="#DeleteTaskHandle" prefHeight="40.0" prefWidth="104.0" style="-fx-background-color: #009688#009688;" text="Delete Task" textFill="WHITE" />
+      <JFXButton fx:id="LoadTaskButton" layoutX="216.0" layoutY="637.0" onAction="#LoadTaskHandle" prefHeight="40.0" prefWidth="104.0" style="-fx-background-color: #009688;" text="Load Task" textFill="WHITE" />
+      <JFXButton fx:id="DeleteTaskButton" layoutX="374.0" layoutY="637.0" onAction="#DeleteTaskHandle" prefHeight="40.0" prefWidth="104.0" style="-fx-background-color: #009688;" text="Delete Task" textFill="WHITE" />
       <Label fx:id="isidexist" layoutX="117.0" layoutY="153.0" prefHeight="27.0" prefWidth="207.0" textFill="#a80c0c" />
-      <JFXButton buttonType="RAISED" graphicTextGap="5.0" layoutX="567.0" layoutY="28.0" prefHeight="47.0" prefWidth="124.0" ripplerFill="#170404" style="-fx-background-color: #009688#009688 #009688#009688;" text="Search project" textAlignment="CENTER" textFill="WHITE" />
+      <JFXButton fx:id="searchproject" buttonType="RAISED" graphicTextGap="5.0" layoutX="567.0" layoutY="28.0" onAction="#SearchProjectAction" prefHeight="47.0" prefWidth="124.0" ripplerFill="#170404" style="-fx-background-color: #009688;" text="Search project" textAlignment="CENTER" textFill="WHITE" />
       <Separator layoutX="-1.0" layoutY="88.0" prefHeight="12.0" prefWidth="748.0" />
-      <JFXButton fx:id="allproject" buttonType="RAISED" graphicTextGap="5.0" layoutX="66.0" layoutY="28.0" onAction="#allproject" prefHeight="47.0" prefWidth="124.0" ripplerFill="#170404" style="-fx-background-color: #009688#009688 #009688#009688;" text="All projects" textAlignment="CENTER" textFill="WHITE" />
-      <JFXButton fx:id="btnProjectDetail" buttonType="RAISED" graphicTextGap="5.0" layoutX="300.0" layoutY="28.0" onAction="#ProjectDetail" prefHeight="48.0" prefWidth="147.0" ripplerFill="#170404" style="-fx-background-color: #009688#009688 #009688#009688;" text="Add new project" textAlignment="CENTER" textFill="WHITE">
+      <JFXButton fx:id="allproject" buttonType="RAISED" graphicTextGap="5.0" layoutX="66.0" layoutY="28.0" onAction="#allproject" prefHeight="47.0" prefWidth="124.0" ripplerFill="#170404" style="-fx-background-color: #009688;" text="All projects" textAlignment="CENTER" textFill="WHITE" />
+      <JFXButton fx:id="btnProjectDetail" buttonType="RAISED" graphicTextGap="5.0" layoutX="300.0" layoutY="28.0" onAction="#ProjectDetail" prefHeight="48.0" prefWidth="147.0" ripplerFill="#170404" style="-fx-background-color: #009688;" text="Add new project" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>

@@ -42,6 +42,7 @@ public class ProjectDetailController implements Initializable {
     public JFXButton DeleteTaskButton;
     public Label isidexist;
     public JFXButton btnProjectDetail;
+    public JFXButton searchproject;
 
     Stage stage;
     Parent root;
@@ -357,6 +358,26 @@ public class ProjectDetailController implements Initializable {
 
             Parent p = Loader.getRoot();
             stage = (Stage) btnProjectDetail.getScene().getWindow();
+            Scene scene = new Scene(p);
+            stage.setScene(scene);
+            stage.show();
+        }
+    }
+
+    public void SearchProjectAction(ActionEvent event) {
+        if(event.getSource() == searchproject) {
+            FXMLLoader Loader = new FXMLLoader();
+
+            Loader.setLocation(getClass().getResource("../SearchProject/searchproject.fxml"));
+
+            try{
+                Loader.load();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            Parent p = Loader.getRoot();
+            stage = (Stage) searchproject.getScene().getWindow();
             Scene scene = new Scene(p);
             stage.setScene(scene);
             stage.show();

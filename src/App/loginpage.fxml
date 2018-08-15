@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="416.0" prefWidth="485.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controller">
+<AnchorPane id="AnchorPane" prefHeight="416.0" prefWidth="485.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.LoginController">
     <children>
         <JFXButton fx:id="loginbutton" layoutX="190.0" layoutY="299.0" onAction="#Login" prefHeight="44.0" prefWidth="117.0" ripplerFill="#009688" style="-fx-background-color: #6db5ad#6db5ad;" text="Login" textFill="WHITE">
          <font>
@@ -25,7 +25,7 @@
                 <Font size="14.0" />
             </font>
         </JFXTextField>
-        <ImageView fitHeight="90.0" fitWidth="90.0" layoutX="198.0" layoutY="14.0">
+        <ImageView fitHeight="69.0" fitWidth="69.0" layoutX="208.0" layoutY="37.0">
             <image>
                 <Image url="@login-icon-main-green.png" />
             </image>

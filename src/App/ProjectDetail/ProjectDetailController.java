@@ -133,9 +133,6 @@ public class ProjectDetailController implements Initializable {
     }
 
     public void checkProjectID(JFXTextField id) throws Exception {
-
-        int i=0;
-        String valuearr;
         
         Connect connect =new Connect();
         Connection connection=connect.getConnection();
@@ -282,6 +279,7 @@ public class ProjectDetailController implements Initializable {
         Statement statement = connection.prepareStatement(sql);
         statement.executeUpdate(sql);
         statement.close();
+        connection.close();
     }
 
     @Override

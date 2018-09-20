@@ -6,7 +6,6 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
-
 import com.jfoenix.controls.JFXButton;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -20,7 +19,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -137,8 +135,8 @@ public class ProjectDetailController implements Initializable {
         Connect connect =new Connect();
         Connection connection=connect.getConnection();
 
-        Statement stmt = connection.createStatement();
         String sql ="SELECT project_id FROM project_task";
+        Statement stmt = connection.createStatement();
         ResultSet resultSet=stmt.executeQuery(sql);
 
         while(resultSet.next()){
@@ -162,7 +160,8 @@ public class ProjectDetailController implements Initializable {
         connection.close();
     }
 
-    public void onreleaseID(KeyEvent keyEvent) {
+    @FXML
+    private void onreleaseID(KeyEvent keyEvent) {
         try {
             checkProjectID(ProjectID);
         } catch (Exception e) {
@@ -170,6 +169,7 @@ public class ProjectDetailController implements Initializable {
         }
     }
 
+    // When end date of the project is chosen, this function works
     @FXML
     private void showDays(ActionEvent event) throws IOException {
         getEsti_time();
@@ -189,10 +189,16 @@ public class ProjectDetailController implements Initializable {
             ps.executeUpdate();
 
             ps.close();
+            connection.close();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        getProjectName().setDisable(true);
+        getProjectID().setDisable(true);
+        getStart_date().setEditable(false);
+        getEnd_date().setEditable(false);
     }
 
     @FXML
@@ -278,6 +284,7 @@ public class ProjectDetailController implements Initializable {
 
         Statement statement = connection.prepareStatement(sql);
         statement.executeUpdate(sql);
+
         statement.close();
         connection.close();
     }

@@ -1,0 +1,21 @@
+.status-red {
+    -fx-background-color:rgba(128,0,0,0.7);
+}
+.status-green {
+    -fx-background-color:rgba(0,128,0,0.7);
+}
+.status-blue {
+    -fx-background-color: rgba(0, 67, 128, 0.7);
+}
+.status-voilet {
+    -fx-background-color: rgba(40, 28, 128, 0.79);
+}
+.status-pink {
+    -fx-background-color: rgb(255, 153, 255);
+}
+.status-orange {
+    -fx-background-color: rgb(255, 153, 51);
+}
+.status-brown {
+    -fx-background-color: rgb(153, 51, 51);
+}

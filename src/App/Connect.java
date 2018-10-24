@@ -9,8 +9,8 @@ public class Connect {
 
         // Database name, username and password
         String dbaseName = "gantt-chart";
-        String user = "root";
-        String pass = "root";
+        String user = "ziad";
+        String pass = "ziad07";
         Connection connect = null;
 
         try {

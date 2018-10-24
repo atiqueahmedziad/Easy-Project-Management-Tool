@@ -9,29 +9,25 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.TitledPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 
 public class SearchProject {
+
+    Stage stage;
+
     public Label isprojectfound;
+    public JFXTextField inputprojectid;
+    public JFXButton searchprojectid;
+    public JFXButton btnProjectDetail;
+    public JFXButton allproject;
 
     public JFXTextField getInputprojectid() {
         return inputprojectid;
     }
-
-    public JFXTextField inputprojectid;
-    public JFXButton searchprojectid;
-    Stage stage;
-
-    public JFXButton btnProjectDetail;
-    public JFXButton allproject;
 
     public void allproject(ActionEvent event) {
         if (event.getSource() == allproject) {
@@ -85,44 +81,43 @@ public class SearchProject {
             String sql = "SELECT * FROM project_info WHERE id=" + getInputprojectid().getText();
             ResultSet rs = statement.executeQuery(sql);
 
-                while (rs.next()) {
-                    isprojectfound.setText("");
-                    String id = rs.getString("id");
-                    String projectname = rs.getString("project_name");
-                    String startdate = rs.getString("start_date");
-                    String enddate = rs.getString("end_date");
-                    String estitime = rs.getString("estimated_time");
+            if(rs.next()) {
+                isprojectfound.setText("");
+                String id = rs.getString("id");
+                String projectname = rs.getString("project_name");
+                String startdate = rs.getString("start_date");
+                String enddate = rs.getString("end_date");
+                String estitime = rs.getString("estimated_time");
 
-                    FXMLLoader Loader = new FXMLLoader();
+                FXMLLoader Loader = new FXMLLoader();
 
-                    Loader.setLocation(getClass().getResource("../ProjectDetail/projectdetail.fxml"));
-                    try {
-                        Loader.load();
-                    } catch (Exception e) {
+                Loader.setLocation(getClass().getResource("../ProjectDetail/projectdetail.fxml"));
+                try {
+                    Loader.load();
+                } catch (Exception e) {
                         e.printStackTrace();
-                    }
+                }
 
-                    ProjectDetailController display = Loader.getController();
-                    display.setProjectID(id);
-                    display.getProjectID().setDisable(true);
-                    display.setProjectName(projectname);
-                    display.getProjectName().setEditable(false);
-                    display.setStart_date(LocalDate.parse(startdate));
-                    display.getStart_date().setDisable(true);
-                    display.setEnd_date(LocalDate.parse(enddate));
-                    display.getEnd_date().setDisable(true);
-                    display.setEsti_time(estitime);
-                    display.getEsti_time().setEditable(false);
-                    display.getTableData();
+                ProjectDetailController display = Loader.getController();
+                display.setProjectID(id);
+                display.getProjectID().setDisable(true);
+                display.setProjectName(projectname);
+                display.getProjectName().setEditable(false);
+                display.setStart_date(LocalDate.parse(startdate));
+                display.getStart_date().setDisable(true);
+                display.setEnd_date(LocalDate.parse(enddate));
+                display.getEnd_date().setDisable(true);
+                display.setEsti_time(estitime);
+                display.getEsti_time().setEditable(false);
+                display.getTableData();
 
-                    Parent p = Loader.getRoot();
-                    stage = (Stage) searchprojectid.getScene().getWindow();
-                    Scene scene = new Scene(p);
-                    stage.setScene(scene);
-                    stage.show();
-
+                Parent p = Loader.getRoot();
+                stage = (Stage) searchprojectid.getScene().getWindow();
+                Scene scene = new Scene(p);
+                stage.setScene(scene);
+                stage.show();
             }
-            if (!rs.next()){
+            else {
                 isprojectfound.setText("Project ID has not found!");
             }
         }

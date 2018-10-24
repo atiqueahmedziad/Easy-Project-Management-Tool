@@ -39,7 +39,7 @@ public class LoginController implements Initializable {
 
         try {
             Statement statement=connection.createStatement();
-            String sql="SELECT * FROM user WHERE username = '"+username.getText()+"' AND pass = '"+password.getText()+"';";
+            String sql="SELECT * FROM user WHERE username = '"+username.getText()+"' AND password = '"+password.getText()+"';";
             ResultSet resultSet=statement.executeQuery(sql);
 
             // Resultset contains all the username and password

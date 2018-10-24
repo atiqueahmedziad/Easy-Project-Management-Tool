@@ -3,6 +3,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane prefHeight="553.0" prefWidth="683.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.chart.ChartController">
+<AnchorPane prefHeight="553.0" prefWidth="683.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.chart.GanttChart">
 
 </AnchorPane>

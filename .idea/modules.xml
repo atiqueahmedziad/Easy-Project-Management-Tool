@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Gantt-chart.iml" filepath="$PROJECT_DIR$/Gantt-chart.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Easy Project Management Tool.iml" filepath="$PROJECT_DIR$/Easy Project Management Tool.iml" />
     </modules>
   </component>
 </project>

@@ -17,7 +17,6 @@ public class Task {
     private SimpleStringProperty TaskDependency;
     private SimpleStringProperty TaskAssinged;
 
-
     public Task(String taskName, String taskTime, String taskStartDate, String taskEndDate, String taskProgress, String taskColor, String taskDependency, String taskAssinged) {
         TaskName = new SimpleStringProperty(taskName);
         TaskTime = new SimpleStringProperty(taskTime);

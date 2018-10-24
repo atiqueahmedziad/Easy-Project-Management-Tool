@@ -8,7 +8,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-//import App.chart.GanttChart;
 import App.chart.DateAxis;
 import App.chart.GanttChartController;
 import App.chart.GanttChartController.ExtraData;
@@ -403,7 +402,6 @@ public class ProjectDetailController implements Initializable {
     public void showGanttChart(ActionEvent event) {
         ArrayList<java.util.Date> ProjectDates = new ArrayList<java.util.Date>();
         ArrayList<java.util.Date> TaskDates = new ArrayList<java.util.Date>();
-        //private ObservableList<String> Date;
         ArrayList<String> TaskNames = new ArrayList<String>();
         int count = 0;
 
@@ -456,13 +454,9 @@ public class ProjectDetailController implements Initializable {
                 e.printStackTrace();
             }
 
-            //stage.setTitle("Gantt Chart Sample");
-            //String[] machines = new String[] { "Machine 1", "Machine 2", "Machine 3" };
-
             final DateAxis xAxis = new DateAxis();
             final CategoryAxis yAxis = new CategoryAxis();
 
-            //String date = new SimpleDateFormat("12/12/2018");
             final GanttChartController<java.util.Date,String> chart = new GanttChartController<>(xAxis,yAxis);
             xAxis.setLabel("");
             xAxis.setTickLabelFill(Color.CHOCOLATE);
@@ -470,14 +464,11 @@ public class ProjectDetailController implements Initializable {
             xAxis.setLowerBound(ProjectDates.get(0));
             xAxis.setUpperBound(ProjectDates.get(1));
             xAxis.averageTickGap();
-
+            xAxis.setTickLength(15);
+            xAxis.setMaxWidth(1000);
+            xAxis.setMinWidth(1000);
             xAxis.setAutoRanging(false);
-
             xAxis.setTickLabelRotation(90);
-
-            //Date d2 = new Date(2018,9,26);
-            //System.out.println(b);
-            //System.out.println(c);
 
             yAxis.setLabel("");
             yAxis.setTickLabelFill(Color.CHOCOLATE);
@@ -488,13 +479,8 @@ public class ProjectDetailController implements Initializable {
             chart.setLegendVisible(false);
             chart.setBlockHeight(50);
 
-            xAxis.setTickLength(15);
-            xAxis.setMaxWidth(1000);
-            xAxis.setMinWidth(1000);
-
             int j = 0;
             int k = 1;
-
 
             for (int i =0; i<count; i++) {
                 double length = xAxis.getDisplayPositionDate(TaskDates.get(j), TaskDates.get(k));
@@ -503,48 +489,6 @@ public class ProjectDetailController implements Initializable {
                 chart.getData().add(series);
                 j+=2; k+=2;
             }
-
-            xAxis.getWidth();
-            System.out.println(xAxis.getWidth());
-            //length = xAxis.getDisplayPositionDate(TaskDates.get(0), TaskDates.get(1));
-            //XYChart.Series series1 = new XYChart.Series();
-            //series1.getData().add(new XYChart.Data(TaskDates.get(0), TaskNames.get(0), new ExtraData(length, "status-red")));
-
-            //chart.getData().addAll(series1);
-
-
-            //series1.getData().add(new XYChart.Data(Date, machine, new ExtraData( 8, "status-red")));
-        /*
-        machine = TaskNames.get(1);
-        Date = this.Date.get(2);
-        XYChart.Series series2 = new XYChart.Series();
-        series2.getData().add(new XYChart.Data(Date, machine, new ExtraData( 1, "status-green")));
-
-        machine = TaskNames.get(2);
-        Date = this.Date.get(4);
-        XYChart.Series series3 = new XYChart.Series();
-        series3.getData().add(new XYChart.Data(Date, machine, new ExtraData( 110, "status-blue")));
-
-        chart.getData().addAll(series1, series2, series3);
-        */
-
-
-            //long length = DAYS.between(LocalDate.of(2014, Month.JULY, 4), LocalDate.of(2014, Month.JULY, 12));
-            //System.out.println(length);
-
-        /*
-        ObservableList<XYChart.Series<Date, Number>> series = FXCollections.observableArrayList();
-
-        ObservableList<XYChart.Data<Date, Number>> series2Data = FXCollections.observableArrayList();
-        series2Data.add(new XYChart.Data<Date, Number>(new GregorianCalendar(2014, 1, 13).getTime(), 9));
-        series2Data.add(new XYChart.Data<Date, Number>(new GregorianCalendar(2014, 2, 27).getTime(), 8));
-
-        series.add(new XYChart.Series<>("Series2", series2Data));
-        NumberAxis numberAxis = new NumberAxis();
-        DateAxis dateAxis = new DateAxis();
-
-        LineChart<Date, Number> lineChart = new LineChart<Date, Number>(dateAxis, numberAxis, series);
-        */
 
             chart.getStylesheets().add(getClass().getResource("../chart/GanttChart.css").toExternalForm());
 

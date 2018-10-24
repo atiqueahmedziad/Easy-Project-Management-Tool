@@ -1,1 +1,1 @@
-# Gantt-chart
+# Easy Project Management Tool

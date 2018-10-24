@@ -34,7 +34,7 @@ public class LoginController implements Initializable {
 
     @FXML
     private void Login(ActionEvent actionEvent) throws IOException {
-        Connect connect =new Connect();
+        Connect connect = new Connect();
         Connection connection=connect.getConnection();
 
         try {

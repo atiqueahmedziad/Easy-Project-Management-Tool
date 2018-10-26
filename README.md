@@ -12,7 +12,7 @@ This project is made using Intellij IDEA. So, I would **recommand** you to build
 
     Table name    | Column Name (String)   |  Column Name (String)
     ------------- | -------------  | ------------
-    user          | ```username```   |  ```passowrd```
+    user          | ```username```   |  ```password```
 
     Table name    | Column Name (int)|  Column Name (String)| Column Name (Date) | Column Name (Date) | Column Name (String)
     ------------- | -------------  | -------------       | ------------        | ------------    | ------------

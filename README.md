@@ -23,4 +23,4 @@ This project is made using Intellij IDEA. So, I would **recommand** you to build
     ------------- | -------------    | -------------        | ------------- | ------------       | ------------    | ------------ |---------- | ----------- | -------------
     project_task  | ```project_id``` |  ```task_name```     | ```time``` | ```task_start_date```   | ```task_end_date```  | ```progress``` | ```color``` |   ```dependency```  | ```assigned``` 
 4. Config the database with application. You may need to edit [```Connnect.java```](https://github.com/atiqueahmedziad/Easy-Project-Management-Tool/blob/master/src/App/Connect.java) with your database name, user and password.
-5. In ```User``` Table, make a row with ```username``` and ```password```. You will use the username and password for login authentication.
+5. In ```User``` Table, make a row with filling with ```username``` and ```password```. You will use the username and password for login authentication.

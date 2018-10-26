@@ -5,7 +5,7 @@ Easy project management tool is a desktop application made with Java and Javafx 
 You can find how to use the tool [here](https://www.youtube.com/watch?v=W6fC6OQOjd0)
 
 ### How to Build this tool in your local environment ?
-This project is made with Intellij IDEA. So, I would **recommand** you to build this project using Intellij IDEA. 
+This project is made using Intellij IDEA. So, I would **recommand** you to build this project using Intellij IDEA. 
 1. Install Intellij IDEA from [here](https://www.jetbrains.com/idea/) if you don't already have it installed. You can install Community Edition. But if you are a student you can get the Ultimate Edition for free submitting your student identity info.
 2. Fork & clone / download the source code of this repository in your PC.
 3. We have stored information about different projects in a MySQL Database. You need the create a database with following 3 Tables with columns with mentioned datatypes. If you use the Ultimate Edition of Intellij IDEA, you can create the database inside the IDE. If you are a Community Edition user you can make the database with [sequel pro](https://www.sequelpro.com/) / [MAMP](https://www.mamp.info/en/downloads/)  

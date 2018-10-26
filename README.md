@@ -2,6 +2,8 @@
 
 Easy project management tool is a desktop application made with Java and Javafx which enables you to manage your personal/office projects. You can add serveral projects & project’s tasks with milestone which will help you to complete the project successfully.
 
+You can find how to use the tool (here)[https://www.youtube.com/watch?v=W6fC6OQOjd0]
+
 ### How to Build this tool in your local environment ?
 This project is made with Intellij IDEA. So, I would **recommand** you to build this project using Intellij IDEA. 
 1. Install Intellij IDEA from [here](https://www.jetbrains.com/idea/) if you don't already have it installed. You can install Community Edition. But if you are a student you can get the Ultimate Edition for free submitting your student identity info.

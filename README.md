@@ -10,7 +10,7 @@ This project is made with Intellij IDEA. So, I would **recommand** you to build 
 2. Fork & clone / download the source code of this repository in your PC.
 3. We have stored information about different projects in a MySQL Database. You need the create a database with following 3 Tables with columns with mentioned datatypes. If you use the Ultimate Edition of Intellij IDEA, you can create the database inside the IDE. If you are a Community Edition user you can make the database with [sequel pro](https://www.sequelpro.com/) / [MAMP](https://www.mamp.info/en/downloads/)  
 
-    Table name    | Column Name    |  Column Name
+    Table name    | Column Name (String)   |  Column Name (String)
     ------------- | -------------  | ------------
     user          | ```username```   |  ```passowrd```
 

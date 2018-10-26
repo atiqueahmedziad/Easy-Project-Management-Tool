@@ -45,7 +45,7 @@ public class GanttChartController<X,Y> extends XYChart<X,Y> {
         }
     }
 
-    private double blockHeight = 20;
+    private double blockHeight = 16;
 
     public GanttChartController(@NamedArg("xAxis") Axis<X> xAxis, @NamedArg("yAxis") Axis<Y> yAxis) {
         this(xAxis, yAxis, FXCollections.<Series<X, Y>>observableArrayList());

@@ -361,7 +361,6 @@ public class ProjectDetailController implements Initializable {
         if(event.getSource() == btnProjectDetail) {
             FXMLLoader Loader = new FXMLLoader();
 
-
             Loader.setLocation(getClass().getResource("projectdetail.fxml"));
 
             try{

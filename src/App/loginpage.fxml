@@ -9,23 +9,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="416.0" prefWidth="485.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.LoginController">
+<AnchorPane id="AnchorPane" prefHeight="416.0" prefWidth="411.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.LoginController">
     <children>
-        <JFXButton fx:id="loginbutton" layoutX="190.0" layoutY="299.0" onAction="#Login" prefHeight="44.0" prefWidth="117.0" ripplerFill="#009688" style="-fx-background-color: #6db5ad#6db5ad;" text="Login" textFill="WHITE">
+        <JFXButton fx:id="loginbutton" layoutX="165.0" layoutY="293.0" onAction="#Login" prefHeight="44.0" prefWidth="117.0" ripplerFill="#009688" style="-fx-background-color: #6db5ad#6db5ad;" text="Login" textFill="WHITE">
          <font>
             <Font name="SansSerif Regular" size="14.0" />
          </font></JFXButton>
-        <JFXPasswordField fx:id="password" focusColor="#2d7212" layoutX="150.0" layoutY="194.0" prefHeight="57.0" prefWidth="196.0" promptText="Password">
+        <JFXPasswordField fx:id="password" focusColor="#2d7212" layoutX="126.0" layoutY="201.0" prefHeight="57.0" prefWidth="196.0" promptText="Password">
             <font>
                 <Font size="14.0" />
             </font>
         </JFXPasswordField>
-        <JFXTextField fx:id="username" focusColor="#2d7212" layoutX="150.0" layoutY="126.0" prefHeight="57.0" prefWidth="196.0" promptText="Username">
+        <JFXTextField fx:id="username" focusColor="#2d7212" layoutX="126.0" layoutY="137.0" prefHeight="57.0" prefWidth="196.0" promptText="Username">
             <font>
                 <Font size="14.0" />
             </font>
         </JFXTextField>
-        <ImageView fitHeight="69.0" fitWidth="69.0" layoutX="208.0" layoutY="37.0">
+        <ImageView fitHeight="69.0" fitWidth="69.0" layoutX="190.0" layoutY="33.0">
             <image>
                 <Image url="@login-icon-main-green.png" />
             </image>

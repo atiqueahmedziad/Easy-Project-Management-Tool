@@ -55,7 +55,7 @@ public class SearchProject {
         if (event.getSource() == btnProjectDetail) {
             FXMLLoader Loader = new FXMLLoader();
 
-            Loader.setLocation(getClass().getResource("projectdetail.fxml"));
+            Loader.setLocation(getClass().getResource("../ProjectDetail/projectdetail.fxml"));
 
             try {
                 Loader.load();
@@ -97,6 +97,8 @@ public class SearchProject {
                 } catch (Exception e) {
                         e.printStackTrace();
                 }
+                statement.close();
+                connection.close();
 
                 ProjectDetailController display = Loader.getController();
                 display.setProjectID(id);

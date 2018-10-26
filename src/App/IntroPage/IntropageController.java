@@ -125,6 +125,7 @@ public class IntropageController implements Initializable {
                 content.getChildren().add(new Label("Project End Date: " + enddate));
                 content.getChildren().add(new Label("Estimated Time: " + estitime + " Days"));
                 JFXButton showporject = new JFXButton("Show Project Detail");
+                //JFXButton deleteproject  = new JFXButton("Delete this project");
                 content.getChildren().add(showporject);
 
                 titledpane.setContent(content);

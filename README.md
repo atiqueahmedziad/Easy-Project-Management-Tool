@@ -4,7 +4,7 @@ Easy project management tool is a desktop application made with Java and Javafx 
 
 You can find how to use the tool [here](https://www.youtube.com/watch?v=W6fC6OQOjd0)
 
-## How to build this software in your local machine
+## How to build this application in your local machine
 This project is made using Intellij IDEA. So, I would **recommand** you to build this project using Intellij IDEA. 
 1. Install Intellij IDEA from [here](https://www.jetbrains.com/idea/) if you don't already have it installed. You can install the Community Edition. But if you are a student you can get the Ultimate Edition for free submitting your student identity info to jetbrains.
 2. Fork & clone / download the source code of this repository in your PC.
@@ -27,8 +27,8 @@ This project is made using Intellij IDEA. So, I would **recommand** you to build
 6. In ```User``` Table, make a row with filling with ```username``` and ```password```. You will use the username and password for login authentication.
 
 ## How to Contribute
-Follow the above instruction to build the software in your local machine. Feel free to fix any unassigned issues from [here](https://github.com/atiqueahmedziad/Easy-Project-Management-Tool/issues). If you are a first time contributor, I would recommand you to pick one of [these issues](https://github.com/atiqueahmedziad/Easy-Project-Management-Tool/labels/good%20first%20issue) and work on it to get familiar with the codebase.
+Follow the above instruction to build the application in your local machine. Feel free to fix any unassigned issues from [here](https://github.com/atiqueahmedziad/Easy-Project-Management-Tool/issues). If you are a first time contributor, I would recommand you to pick one of [these issues](https://github.com/atiqueahmedziad/Easy-Project-Management-Tool/labels/good%20first%20issue) and work on it to get familiar with the codebase.
 Feel free to submit pull request when you make a patch for any issue.
 
 ## How to get help
-It's a prerequisite that you know Java to work on this project. However, if you face any issue with building the software in your local machine or while making a patch for any issue, feel free to ping me at ziad07rock@gmail.com
+It's a prerequisite that you know Java to work on this project. However, if you face any issue with building the application in your local machine or while making a patch for any issue, feel free to ping me at ziad07rock@gmail.com

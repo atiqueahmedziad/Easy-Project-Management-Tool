@@ -11,7 +11,7 @@ import java.util.ResourceBundle;
 import App.chart.DateAxis;
 import App.chart.GanttChartController;
 import App.chart.GanttChartController.ExtraData;
-import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.*;
 import javafx.collections.FXCollections;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.XYChart;
@@ -19,8 +19,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import App.AddTask.AddtaskController;
 import App.Connect;
-import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,6 +29,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -183,6 +183,18 @@ public class ProjectDetailController implements Initializable {
     @FXML
     private void showDays(ActionEvent event) throws IOException {
         getEsti_time();
+
+        if (start_date.getValue() != null) {
+            final Date startDate = Date.valueOf(start_date.getValue());
+            Date endDate = Date.valueOf(end_date.getValue());
+            if (endDate.compareTo(startDate) < 0) {
+                Label label = new Label("End date must be equal or greater than start date");
+                JFXPopup popup = new JFXPopup(label);
+                popup.show(end_date, JFXPopup.PopupVPosition.BOTTOM, JFXPopup.PopupHPosition.RIGHT);
+                end_date.setValue(null);
+                return; //We return because there is no need to search for tasks
+            }
+         }
 
         try {
             Connect connect =new Connect();

@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="538.0" prefWidth="652.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AddTask.AddtaskController">
+<AnchorPane id="AnchorPane" prefHeight="538.0" prefWidth="652.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AddTask.AddtaskController">
     <children>
         <JFXTextField fx:id="TaskProjectName" editable="false" focusColor="#299365" layoutX="435.0" layoutY="43.0" prefHeight="37.0" prefWidth="172.0" />
         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="251.0" layoutY="118.0" prefHeight="62.0" prefWidth="151.0" text="Task Details" textAlignment="CENTER">
@@ -28,12 +28,12 @@
             </font>
         </JFXButton>
         <JFXColorPicker fx:id="task_color" editable="true" layoutX="121.0" layoutY="324.0" />
-        <JFXDatePicker fx:id="task_start_date" layoutX="121.0" layoutY="264.0" />
+        <JFXDatePicker fx:id="task_start_date" layoutX="121.0" layoutY="264.0" onAction="#onDateChange" />
         <JFXDrawer layoutX="244.0" layoutY="419.0" />
         <JFXToolbar layoutX="67.0" layoutY="463.0" />
         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="27.0" layoutY="260.0" prefHeight="37.0" prefWidth="94.0" text="Start Date" textAlignment="CENTER" />
         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="344.0" layoutY="260.0" prefHeight="37.0" prefWidth="94.0" text="End Date" textAlignment="CENTER" />
-        <JFXDatePicker fx:id="task_end_date" layoutX="448.0" layoutY="264.0" />
+        <JFXDatePicker fx:id="task_end_date" layoutX="448.0" layoutY="264.0" onAction="#onDateChange" />
         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="34.0" layoutY="319.0" prefHeight="37.0" prefWidth="66.0" text="Color" textAlignment="CENTER" />
         <JFXNodesList layoutX="344.0" layoutY="337.0" prefHeight="82.0" prefWidth="80.0" />
         <JFXTogglePane layoutX="432.0" layoutY="431.0" />
@@ -46,5 +46,10 @@
       <JFXTextField fx:id="TaskProjectID" editable="false" focusColor="#299365" layoutX="85.0" layoutY="39.0" prefHeight="37.0" prefWidth="172.0" />
       <Label alignment="CENTER" layoutX="43.0" layoutY="43.0" prefHeight="29.0" prefWidth="37.0" text="ID" />
       <JFXTextField fx:id="Task_name" focusColor="#009688" layoutX="121.0" layoutY="196.0" />
+      <Label fx:id="invalid_date_label" alignment="CENTER" layoutX="130.0" layoutY="480.0" prefHeight="16.0" prefWidth="392.0" textFill="#790000" visible="false">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

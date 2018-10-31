@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="721.0" prefWidth="748.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.ProjectDetail.ProjectDetailController">
+<AnchorPane id="AnchorPane" prefHeight="721.0" prefWidth="748.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.ProjectDetail.ProjectDetailController">
     <children>
         <Label alignment="CENTER" layoutX="66.0" layoutY="112.0" prefHeight="29.0" prefWidth="34.0" text="ID">
             <font>
@@ -39,7 +39,7 @@
         <JFXTextField fx:id="esti_time" editable="false" focusColor="#009688" layoutX="377.0" layoutY="252.0" />
         <Label alignment="CENTER" layoutX="7.0" layoutY="178.0" prefHeight="54.0" prefWidth="117.0" text="Start Date" />
         <Label alignment="CENTER" layoutX="394.0" layoutY="178.0" prefHeight="54.0" prefWidth="90.0" text="End Date" />
-        <JFXDatePicker fx:id="start_date" layoutX="117.0" layoutY="184.0" />
+        <JFXDatePicker fx:id="start_date" layoutX="117.0" layoutY="184.0" onAction="#startDateChanged" />
         <JFXDatePicker fx:id="end_date" layoutX="518.0" layoutY="191.0" onAction="#showDays" />
         <JFXButton fx:id="GanttChartButton" layoutX="557.0" layoutY="637.0" onAction="#showGanttChart" prefHeight="40.0" prefWidth="143.0" ripplerFill="#2c751a" style="-fx-background-color: #009688;" text="Show Gantt Chart" textFill="WHITE" />
       <JFXTextField fx:id="ProjectName" focusColor="#009688" layoutX="518.0" layoutY="113.0" />
@@ -59,5 +59,9 @@
             <Font size="14.0" />
          </font>
       </JFXButton>
+      <Label fx:id="invalid_date_label" alignment="CENTER" layoutX="401.0" layoutY="224.0" prefHeight="16.0" prefWidth="333.0" textAlignment="CENTER" textFill="#790000" visible="false">
+         <font>
+            <Font size="12.0" />
+         </font></Label>
     </children>
 </AnchorPane>

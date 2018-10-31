@@ -1,6 +1,5 @@
 package App.ProjectDetail;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
@@ -29,8 +28,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -55,6 +52,10 @@ public class ProjectDetailController implements Initializable {
     Stage stage;
     Parent root;
 
+    //Error messages used when changing the end_date value
+    final private String NO_START_DATE_ERROR = "Start date cannot be empty";
+    final private String INVALID_END_DATE = "End date must be equal or greater than start date";
+
     @FXML
     JFXTextField ProjectID;
     @FXML
@@ -67,6 +68,8 @@ public class ProjectDetailController implements Initializable {
     @FXML
     JFXDatePicker end_date = new JFXDatePicker();
     LocalDate end_dateValue = end_date.getValue();
+    @FXML
+    Label invalid_date_label = new Label();
     @FXML
     private JFXButton btnAddTask;
     @FXML
@@ -127,6 +130,51 @@ public class ProjectDetailController implements Initializable {
         this.end_dateValue = end_dateValue;
     }
 
+    /**
+     * Validates if start and end date have a valid range, that happens when start_date is lower or equals to end_date
+     * @return True if is valid, false if it isn't
+     */
+    private boolean hasValidDateRange() {
+        if (start_date.getValue() == null || end_date.getValue() == null) {
+            return false;
+        }
+        final Date startDate = Date.valueOf(start_date.getValue());
+        final Date endDate = Date.valueOf(end_date.getValue());
+
+        //If endDate is greater than startDate return true (is valid) else return false (is invalid)
+        return endDate.compareTo(startDate) >= 0;
+    }
+
+    private void insertProjectInfo() {
+        getEsti_time();
+
+        try {
+            Connect connect =new Connect();
+            Connection connection=connect.getConnection();
+            PreparedStatement ps;
+
+            String sql = "insert into project_info(id,project_name, start_date, end_date, estimated_time) values (?,?,?,?,?)";
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, getProjectID().getText());
+            ps.setString(2, getProjectName().getText());
+            ps.setDate(3, Date.valueOf(start_date.getValue()));
+            ps.setDate(4, Date.valueOf(end_date.getValue()));
+            ps.setString(5, calcDays(start_date,end_date));
+            ps.executeUpdate();
+
+            ps.close();
+            connection.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        getProjectName().setDisable(true);
+        getProjectID().setDisable(true);
+        getStart_date().setEditable(false);
+        getEnd_date().setEditable(false);
+    }
+
 
     @FXML
     private String calcDays(JFXDatePicker start_date, JFXDatePicker end_date) {
@@ -181,46 +229,28 @@ public class ProjectDetailController implements Initializable {
 
     // When end date of the project is chosen, this function works
     @FXML
-    private void showDays(ActionEvent event) throws IOException {
-        getEsti_time();
-
-        if (start_date.getValue() != null) {
-            final Date startDate = Date.valueOf(start_date.getValue());
-            Date endDate = Date.valueOf(end_date.getValue());
-            if (endDate.compareTo(startDate) < 0) {
-                Label label = new Label("End date must be equal or greater than start date");
-                JFXPopup popup = new JFXPopup(label);
-                popup.show(end_date, JFXPopup.PopupVPosition.BOTTOM, JFXPopup.PopupHPosition.RIGHT);
-                end_date.setValue(null);
-                return; //We return because there is no need to search for tasks
-            }
-         }
-
-        try {
-            Connect connect =new Connect();
-            Connection connection=connect.getConnection();
-            PreparedStatement ps;
-
-            String sql = "insert into project_info(id,project_name, start_date, end_date, estimated_time) values (?,?,?,?,?)";
-            ps = connection.prepareStatement(sql);
-            ps.setString(1, getProjectID().getText());
-            ps.setString(2, getProjectName().getText());
-            ps.setDate(3, Date.valueOf(start_date.getValue()));
-            ps.setDate(4, Date.valueOf(end_date.getValue()));
-            ps.setString(5, calcDays(start_date,end_date));
-            ps.executeUpdate();
-
-            ps.close();
-            connection.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
+    private void showDays(ActionEvent event) {
+        if (hasValidDateRange()) {
+            invalid_date_label.setVisible(false);
+            insertProjectInfo();
+            return;
+        } else if (start_date.getValue() == null ) {
+            end_date.setValue(null);
+            invalid_date_label.setText(NO_START_DATE_ERROR);
+        } else {
+            invalid_date_label.setText(INVALID_END_DATE);
         }
+        invalid_date_label.setVisible(true);
+    }
 
-        getProjectName().setDisable(true);
-        getProjectID().setDisable(true);
-        getStart_date().setEditable(false);
-        getEnd_date().setEditable(false);
+    @FXML
+    private void startDateChanged(ActionEvent event) {
+        if (end_date.getValue() != null) {
+            showDays(null);
+        } else if (invalid_date_label.isVisible()) {
+            //This means we were showing the NO_START_DATE_ERROR label error
+            invalid_date_label.setVisible(false);
+        }
     }
 
     @FXML

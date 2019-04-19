@@ -169,8 +169,8 @@ public class GanttChartController<X,Y> extends XYChart<X,Y> {
             item.setNode(container);
         }
 
-        container.getStyleClass().add( getStyleClass( item.getExtraValue()));
-
+        //container.getStyleClass().add( getStyleClass( item.getExtraValue()));
+        container.setStyle("-fx-background-color: "+getStyleClass(item.getExtraValue()));
         return container;
     }
 

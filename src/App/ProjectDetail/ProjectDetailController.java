@@ -4,6 +4,7 @@ import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -442,7 +443,8 @@ public class ProjectDetailController implements Initializable {
 
     public void showGanttChart(ActionEvent event) {
         ArrayList<java.util.Date> ProjectDates = new ArrayList<java.util.Date>();
-        ArrayList<java.util.Date> TaskDates = new ArrayList<java.util.Date>();
+        List<java.util.Date> startDates = new ArrayList<java.util.Date>();
+        List<java.util.Date> endDates = new ArrayList<java.util.Date>();
         ArrayList<String> TaskNames = new ArrayList<String>();
         ArrayList<String> TaskColors = new ArrayList<>();
         int count = 0;
@@ -465,8 +467,8 @@ public class ProjectDetailController implements Initializable {
 
                     TaskColors.add(toRGBCode(Color.valueOf(TaskColor)));
                     TaskNames.add(TaskName);
-                    TaskDates.add(StartDate);
-                    TaskDates.add(EndDate);
+                    startDates.add(StartDate);
+                    endDates.add(EndDate);
                     ++count;
                 }
                 rs.close();
@@ -522,15 +524,11 @@ public class ProjectDetailController implements Initializable {
             chart.setLegendVisible(false);
             chart.setBlockHeight(50);
 
-            int j = 0;
-            int k = 1;
-
             for (int i =0; i<count; i++) {
-                double length = xAxis.getDisplayPositionDate(TaskDates.get(j), TaskDates.get(k));
+                double length = xAxis.getDisplayPositionDate(startDates.get(i), endDates.get(i));
                 XYChart.Series series = new XYChart.Series();
-                series.getData().add(new XYChart.Data(TaskDates.get(j), TaskNames.get(i), new ExtraData( length, TaskColors.get(i))));
+                series.getData().add(new XYChart.Data(startDates.get(i), TaskNames.get(i), new ExtraData( length, TaskColors.get(i))));
                 chart.getData().add(series);
-                j+=2; k+=2;
             }
 
             chart.getStylesheets().add(getClass().getResource("../chart/GanttChart.css").toExternalForm());

@@ -4,6 +4,7 @@ import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -442,11 +443,11 @@ public class ProjectDetailController implements Initializable {
 
     public void showGanttChart(ActionEvent event) {
         ArrayList<java.util.Date> ProjectDates = new ArrayList<java.util.Date>();
-        ArrayList<java.util.Date> TaskDates = new ArrayList<java.util.Date>();
+        List<java.util.Date> startDates = new ArrayList<java.util.Date>();
+        List<java.util.Date> endDates = new ArrayList<java.util.Date>();
         ArrayList<String> TaskNames = new ArrayList<String>();
+        ArrayList<String> TaskColors = new ArrayList<>();
         int count = 0;
-
-        String[] colors =  new String[] {"status-red", "status-green", "status-blue", "status-voilet", "status-pink", "status-orange", "status-brown"};
 
         if(event.getSource() == GanttChartButton){
 
@@ -455,16 +456,19 @@ public class ProjectDetailController implements Initializable {
                 Connection connection=connect.getConnection();
 
                 Statement statement = connection.createStatement();
-                String sql = "SELECT task_name,task_start_date,task_end_date FROM project_task WHERE project_id = "+getProjectID().getText();
+                String sql = "SELECT task_name,task_start_date,task_end_date,color FROM project_task WHERE project_id = "+getProjectID().getText();
                 ResultSet rs = statement.executeQuery(sql);
 
                 while (rs.next()) {
                     String TaskName = rs.getString("task_name");
                     java.util.Date StartDate =  rs.getDate("task_start_date");
                     java.util.Date EndDate = rs.getDate("task_end_date");
+                    String TaskColor = rs.getString("color");
+
+                    TaskColors.add(toRGBCode(Color.valueOf(TaskColor)));
                     TaskNames.add(TaskName);
-                    TaskDates.add(StartDate);
-                    TaskDates.add(EndDate);
+                    startDates.add(StartDate);
+                    endDates.add(EndDate);
                     ++count;
                 }
                 rs.close();
@@ -500,7 +504,7 @@ public class ProjectDetailController implements Initializable {
 
             final GanttChartController<java.util.Date,String> chart = new GanttChartController<>(xAxis,yAxis);
             xAxis.setLabel("");
-            xAxis.setTickLabelFill(Color.CHOCOLATE);
+            xAxis.setTickLabelFill(Color.DARKRED);
             xAxis.setTickLabelGap(10);
             xAxis.setLowerBound(ProjectDates.get(0));
             xAxis.setUpperBound(ProjectDates.get(1));
@@ -512,7 +516,7 @@ public class ProjectDetailController implements Initializable {
             xAxis.setTickLabelRotation(90);
 
             yAxis.setLabel("");
-            yAxis.setTickLabelFill(Color.CHOCOLATE);
+            yAxis.setTickLabelFill(Color.GREEN);
             yAxis.setTickLabelGap(10);
             yAxis.setCategories(FXCollections.observableList(TaskNames));
 
@@ -520,15 +524,11 @@ public class ProjectDetailController implements Initializable {
             chart.setLegendVisible(false);
             chart.setBlockHeight(50);
 
-            int j = 0;
-            int k = 1;
-
             for (int i =0; i<count; i++) {
-                double length = xAxis.getDisplayPositionDate(TaskDates.get(j), TaskDates.get(k));
+                double length = xAxis.getDisplayPositionDate(startDates.get(i), endDates.get(i));
                 XYChart.Series series = new XYChart.Series();
-                series.getData().add(new XYChart.Data(TaskDates.get(j), TaskNames.get(i), new ExtraData( length, colors[i])));
+                series.getData().add(new XYChart.Data(startDates.get(i), TaskNames.get(i), new ExtraData( length, TaskColors.get(i))));
                 chart.getData().add(series);
-                j+=2; k+=2;
             }
 
             chart.getStylesheets().add(getClass().getResource("../chart/GanttChart.css").toExternalForm());
@@ -539,5 +539,11 @@ public class ProjectDetailController implements Initializable {
             stage.setScene(scene);
             stage.show();
         }
+    }
+    private String toRGBCode(Color color) {
+        return String.format( "#%02X%02X%02X",
+                (int)( color.getRed() * 255 ),
+                (int)( color.getGreen() * 255 ),
+                (int)( color.getBlue() * 255 ) );
     }
 }

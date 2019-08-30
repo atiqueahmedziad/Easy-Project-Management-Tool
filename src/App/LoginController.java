@@ -86,14 +86,14 @@ public class LoginController implements Initializable {
     public void adminToggleOnAction(ActionEvent event) {
         if(adminToggle.isSelected()){
             employeeToggle.setSelected(false);
-            userRole = "ADMIN_AUTH"; // userRole 1 for Admin
+            userRole = "ADMIN_AUTH";
         }
     }
 
     public void employeeToggleOnAction(ActionEvent event) {
         if(employeeToggle.isSelected()){
             adminToggle.setSelected(false);
-            userRole = "EMPLOYEE_AUTH"; // useRole 2 for Employee
+            userRole = "EMPLOYEE_AUTH";
         }
     }
 }

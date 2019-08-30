@@ -16,5 +16,6 @@
     <orderEntry type="library" name="junit:junit:4.12" level="project" />
     <orderEntry type="library" name="org.loadui:testFx:3.1.2" level="project" />
     <orderEntry type="library" exported="" name="com.google.guava:guava:14.0.1" level="project" />
+    <orderEntry type="library" name="mssql-jdbc-7.0.0.jre8" level="project" />
   </component>
 </module>

@@ -8,16 +8,17 @@ public class Connect {
     public Connection getConnection() {
 
         // Database name, username and password
-        String dbaseName = "gantt-chart";
-        String user = "ziad";
-        String pass = "ziad07";
+        String dbaseName = "epmtdb";
+        String user = "sa";
+        String pass = "ziad07rock";
         Connection connect = null;
 
         try {
             // Java Driver for connecting MySQL Database
-            Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
             // port number is 3306
-            connect = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/" + dbaseName, user, pass);
+            connect = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;" +
+                    "databaseName="+dbaseName+";user="+user+";password="+pass+";");
         } catch (Exception e) {
             e.printStackTrace();
         }

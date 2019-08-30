@@ -194,12 +194,12 @@ public class ProjectDetailController implements Initializable {
         Connect connect =new Connect();
         Connection connection=connect.getConnection();
 
-        String sql ="SELECT project_id FROM project_task";
+        String sql ="SELECT id FROM project_task";
         Statement stmt = connection.createStatement();
         ResultSet resultSet=stmt.executeQuery(sql);
 
         while(resultSet.next()){
-            String project_id = resultSet.getString("project_id");
+            String project_id = resultSet.getString("id");
 
             if(project_id.equals(id.getText())){
                 isidexist.setText("ID already exists!");
@@ -296,12 +296,12 @@ public class ProjectDetailController implements Initializable {
             Connection connection=connect.getConnection();
 
             Statement statement = connection.createStatement();
-            String sql = "SELECT task_name, time, task_start_date, task_end_date, progress, color, dependency, assigned FROM project_task WHERE project_id = "+getProjectID().getText();
+            String sql = "SELECT task_name, task_time, task_start_date, task_end_date, progress, color, dependency, assigned FROM project_task WHERE id = "+getProjectID().getText();
             ResultSet rs = statement.executeQuery(sql);
 
             while (rs.next()) {
                 String task_name = rs.getString("task_name");
-                String time = rs.getString("time");
+                String time = rs.getString("task_time");
                 String task_start_date = rs.getString("task_start_date");
                 String task_end_date = rs.getString("task_end_date");
                 String progress = rs.getString("progress");
@@ -456,7 +456,7 @@ public class ProjectDetailController implements Initializable {
                 Connection connection=connect.getConnection();
 
                 Statement statement = connection.createStatement();
-                String sql = "SELECT task_name,task_start_date,task_end_date,color FROM project_task WHERE project_id = "+getProjectID().getText();
+                String sql = "SELECT task_name,task_start_date,task_end_date,color FROM project_task WHERE id = "+getProjectID().getText();
                 ResultSet rs = statement.executeQuery(sql);
 
                 while (rs.next()) {

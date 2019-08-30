@@ -88,12 +88,6 @@ public class AddtaskController implements Initializable {
     @FXML
     ChoiceBox<String> dependency = new ChoiceBox<String>();
 
-    int i=0;
-    int numberRow;
-    String[] dependencyItems;
-    public String dependencyItem ="";
-    int columnsNumber;
-
     /**
      * Validates if start and end date have a valid range, that happens when start_date is lower or equals to end_date
      * @return True if is valid, false if it isn't
@@ -114,7 +108,7 @@ public class AddtaskController implements Initializable {
         Connection connection=connect.getConnection();
 
         Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("SELECT task_name FROM project_task WHERE project_id="+getTaskProjectID().getText());
+        ResultSet rs = statement.executeQuery("SELECT task_name FROM project_task WHERE id="+getTaskProjectID().getText());
 
         while (rs.next()) {
             list.add(rs.getString("task_name"));
@@ -178,7 +172,7 @@ public class AddtaskController implements Initializable {
         PreparedStatement ps = null;
 
         try {
-            String sql = "insert into project_task(project_id,task_name, time, task_start_date, task_end_date, progress, color, dependency, assigned) values (?,?,?,?,?,?,?,?,?)";
+            String sql = "insert into project_task(id,task_name, task_time, task_start_date, task_end_date, progress, color, dependency, assigned) values (?,?,?,?,?,?,?,?,?)";
             ps = connection.prepareStatement(sql);
             ps.setString(1, getTaskProjectID().getText());
             ps.setString(2, getTask_name().getText());

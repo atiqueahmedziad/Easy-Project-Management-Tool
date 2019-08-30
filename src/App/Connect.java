@@ -14,9 +14,9 @@ public class Connect {
         Connection connect = null;
 
         try {
-            // Java Driver for connecting MySQL Database
+            // Java Driver for connecting MSSQL Database
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
-            // port number is 3306
+            // port number is 1433
             connect = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;" +
                     "databaseName="+dbaseName+";user="+user+";password="+pass+";");
         } catch (Exception e) {

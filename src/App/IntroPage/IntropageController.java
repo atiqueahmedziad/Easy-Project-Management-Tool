@@ -100,7 +100,7 @@ public class IntropageController implements Initializable {
 
             // * = id, project_name, start_date, end_date, estimated_time
             // All above information are taken from project_info table
-            ResultSet rs = statement.executeQuery("SELECT * FROM project_info");
+            ResultSet rs = statement.executeQuery("SELECT * FROM PROJECT_INFO");
 
             while (rs.next()) {
 

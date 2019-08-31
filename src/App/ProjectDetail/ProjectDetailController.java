@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import App.IntroPage.IntropageController;
+import App.SearchProject.SearchProject;
 import App.chart.DateAxis;
 import App.chart.GanttChartController;
 import App.chart.GanttChartController.ExtraData;
@@ -57,6 +59,26 @@ public class ProjectDetailController implements Initializable {
     final private String NO_START_DATE_ERROR = "Start date cannot be empty";
     final private String INVALID_END_DATE = "End date must be equal or greater than start date";
 
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
+    }
+
+    private String userRole;
+
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    private int employeeId;
+
     @FXML
     JFXTextField ProjectID;
     @FXML
@@ -85,7 +107,6 @@ public class ProjectDetailController implements Initializable {
     public JFXTextField getProjectName() {
         return ProjectName;
     }
-
 
     public void setProjectID(String projectID) {
         ProjectID.setText(projectID);
@@ -392,6 +413,14 @@ public class ProjectDetailController implements Initializable {
                 e.printStackTrace();
             }
 
+            IntropageController intropageController = Loader.getController();
+            intropageController.setUserRole(getUserRole());
+            System.out.println(getUserRole());
+            if(getUserRole().matches("EMPLOYEE_AUTH")){
+                intropageController.setEmployeeId(getEmployeeId());
+            }
+            intropageController.initilizePorjects(getUserRole());
+
             Parent p = Loader.getRoot();
             Scene scene = new Scene(p);
             stage.setScene(scene);
@@ -402,22 +431,31 @@ public class ProjectDetailController implements Initializable {
 
     public void ProjectDetail(ActionEvent event) {
         if(event.getSource() == btnProjectDetail) {
-            FXMLLoader Loader = new FXMLLoader();
+            if(getUserRole().matches("ADMIN_AUTH")) {
+                FXMLLoader Loader = new FXMLLoader();
 
-            Loader.setLocation(getClass().getResource("projectdetail.fxml"));
+                Loader.setLocation(getClass().getResource("../ProjectDetail/projectdetail.fxml"));
 
-            try{
-                Loader.load();
-            } catch (Exception e){
-                e.printStackTrace();
+                try {
+                    Loader.load();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                ProjectDetailController projectDetailController = Loader.getController();
+                projectDetailController.setUserRole(getUserRole());
+                if (getUserRole().matches("EMPLOYEE_AUTH")) {
+                    projectDetailController.setEmployeeId(getEmployeeId());
+                }
+
+                Parent p = Loader.getRoot();
+                stage = (Stage) allproject.getScene().getWindow();
+                Scene scene = new Scene(p);
+                stage.setScene(scene);
+                stage.show();
+            } else {
+                System.out.println("Employee profile needed");
             }
-
-
-            Parent p = Loader.getRoot();
-            stage = (Stage) btnProjectDetail.getScene().getWindow();
-            Scene scene = new Scene(p);
-            stage.setScene(scene);
-            stage.show();
         }
     }
 
@@ -431,6 +469,12 @@ public class ProjectDetailController implements Initializable {
                 Loader.load();
             } catch (Exception e){
                 e.printStackTrace();
+            }
+
+            SearchProject searchProject = Loader.getController();
+            searchProject.setUserRole(getUserRole());
+            if(getUserRole().matches("EMPLOYEE_AUTH")){
+                searchProject.setEmployeeId(getEmployeeId());
             }
 
             Parent p = Loader.getRoot();
@@ -545,5 +589,11 @@ public class ProjectDetailController implements Initializable {
                 (int)( color.getRed() * 255 ),
                 (int)( color.getGreen() * 255 ),
                 (int)( color.getBlue() * 255 ) );
+    }
+
+    public void initialProjectDetail(){
+        if(getUserRole().matches("EMPLOYEE_AUTH")){
+            btnProjectDetail.setText("profile");
+        }
     }
 }

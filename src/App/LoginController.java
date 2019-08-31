@@ -20,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class LoginController implements Initializable {
@@ -38,7 +39,17 @@ public class LoginController implements Initializable {
     public RadioButton adminToggle;
     public RadioButton employeeToggle;
 
-    private String userRole;
+    public int getEmployeeId() {
+        return EmployeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        EmployeeId = employeeId;
+    }
+
+    private int EmployeeId;
+
+    public String userRole;
 
     public String getUserRole() {
         return userRole;
@@ -46,25 +57,71 @@ public class LoginController implements Initializable {
 
     @FXML
     private void Login(ActionEvent actionEvent) throws IOException {
-        Connect connect = new Connect();
-        Connection connection=connect.getConnection();
 
         if(!employeeToggle.isSelected() && !adminToggle.isSelected()){
             isConnected.setText("Select Admin or Employee from above");
             return;
         }
 
+        FXMLLoader Loader = new FXMLLoader();
+
+//        if(userRole.matches("EMPLOYEE_AUTH")){
+//            try {
+//                Connect connect = new Connect();
+//                Connection connection=connect.getConnection();
+//                Statement statement = connection.createStatement();
+//                String sql = "SELECT id FROM project_task WHERE id = "+getProjectID().getText();
+//                ResultSet rs = statement.executeQuery(sql);
+//
+//                while (rs.next()) {
+//                    String TaskName = rs.getString("task_name");
+//                    java.util.Date StartDate =  rs.getDate("task_start_date");
+//                    java.util.Date EndDate = rs.getDate("task_end_date");
+//                    String TaskColor = rs.getString("color");
+//
+//                    TaskColors.add(toRGBCode(Color.valueOf(TaskColor)));
+//                    TaskNames.add(TaskName);
+//                    startDates.add(StartDate);
+//                    endDates.add(EndDate);
+//                    ++count;
+//                }
+//                statement.close();
+//                connection.close();
+//            }
+//            catch (Exception e){
+//                e.printStackTrace();
+//            }
+//        }
+
         try {
+            Connect connect = new Connect();
+            Connection connection=connect.getConnection();
             Statement statement = connection.createStatement();
             String sql = "SELECT * FROM "+userRole+" WHERE username = '" + username.getText() + "' AND password = '" + password.getText() + "';";
             ResultSet resultSet = statement.executeQuery(sql);
-
             // Resultset contains all the username and password
             // if the username and password from database matches only then intropage loads
             if (resultSet.next()) {
-                stage = (Stage) loginbutton.getScene().getWindow();
-                root = FXMLLoader.load(getClass().getResource("IntroPage/intropage.fxml"));
-                Scene scene = new Scene(root);
+                //load up OTHER FXML document
+                int employeeid = resultSet.getInt("id");
+                Loader.setLocation(getClass().getResource("IntroPage/intropage.fxml"));
+                try{
+                    Loader.load();
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+
+                IntropageController intropageController = Loader.getController();
+                intropageController.setUserRole(getUserRole());
+                if(userRole.matches("EMPLOYEE_AUTH")){
+                    intropageController.setEmployeeId(employeeid);
+                }
+
+                intropageController.initilizePorjects(getUserRole());
+
+                Parent p = Loader.getRoot();
+                stage = (Stage) adminToggle.getScene().getWindow();
+                Scene scene = new Scene(p);
                 stage.setScene(scene);
                 stage.show();
             } else {

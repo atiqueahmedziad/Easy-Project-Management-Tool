@@ -1,6 +1,7 @@
 package App.SearchProject;
 
 import App.Connect;
+import App.IntroPage.IntropageController;
 import App.ProjectDetail.ProjectDetailController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -18,6 +19,25 @@ import java.time.LocalDate;
 public class SearchProject {
 
     Stage stage;
+
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
+    }
+
+    public int getEmployeeId() {
+        return EmployeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        EmployeeId = employeeId;
+    }
+
+    private String userRole;
+    private int EmployeeId;
 
     public Label isprojectfound;
     public JFXTextField inputprojectid;
@@ -44,6 +64,13 @@ public class SearchProject {
                 e.printStackTrace();
             }
 
+            IntropageController intropageController = Loader.getController();
+            intropageController.setUserRole(getUserRole());
+            if(getUserRole().matches("EMPLOYEE_AUTH")) {
+                intropageController.setEmployeeId(getEmployeeId());
+            }
+            intropageController.initilizePorjects(getUserRole());
+
             Parent p = Loader.getRoot();
             Scene scene = new Scene(p);
             stage.setScene(scene);
@@ -52,22 +79,32 @@ public class SearchProject {
     }
 
     public void ProjectDetail(ActionEvent event) {
-        if (event.getSource() == btnProjectDetail) {
-            FXMLLoader Loader = new FXMLLoader();
+        if(event.getSource() == btnProjectDetail) {
+            if(getUserRole().matches("ADMIN_AUTH")) {
+                FXMLLoader Loader = new FXMLLoader();
 
-            Loader.setLocation(getClass().getResource("../ProjectDetail/projectdetail.fxml"));
+                Loader.setLocation(getClass().getResource("../ProjectDetail/projectdetail.fxml"));
 
-            try {
-                Loader.load();
-            } catch (Exception e) {
-                e.printStackTrace();
+                try {
+                    Loader.load();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                ProjectDetailController projectDetailController = Loader.getController();
+                projectDetailController.setUserRole(getUserRole());
+                if (getUserRole().matches("EMPLOYEE_AUTH")) {
+                    projectDetailController.setEmployeeId(getEmployeeId());
+                }
+
+                Parent p = Loader.getRoot();
+                stage = (Stage) allproject.getScene().getWindow();
+                Scene scene = new Scene(p);
+                stage.setScene(scene);
+                stage.show();
+            } else {
+                System.out.println("Employee profile needed");
             }
-
-            Parent p = Loader.getRoot();
-            stage = (Stage) btnProjectDetail.getScene().getWindow();
-            Scene scene = new Scene(p);
-            stage.setScene(scene);
-            stage.show();
         }
     }
 
@@ -122,6 +159,12 @@ public class SearchProject {
             else {
                 isprojectfound.setText("Project ID has not found!");
             }
+        }
+    }
+
+    public void initializeSearchProject(){
+        if(getUserRole().matches("EMPLOYEE_AUTH")) {
+            btnProjectDetail.setText("Profile");
         }
     }
 }

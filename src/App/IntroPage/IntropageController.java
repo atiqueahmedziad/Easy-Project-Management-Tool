@@ -253,6 +253,38 @@ public class IntropageController implements Initializable {
         }
     }
 
+    @FXML
+    private JFXButton btnAddEmployee;
+
+    //when Add Employee button is clicked
+    @FXML
+    private void AddEmployeeAction(ActionEvent event) {
+        if (event.getSource() == btnAddEmployee) {
+            if (getUserRole().matches("ADMIN_AUTH")) {
+                FXMLLoader Loader = new FXMLLoader();
+
+                Loader.setLocation(getClass().getResource("../AddEmployee/AddEmployee.fxml"));
+
+                try {
+                    Loader.load();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                /*Parent p = Loader.getRoot();
+                stage = (Stage) btnAddEmployee.getScene().getWindow();
+                Scene scene = new Scene(p);
+                stage.setScene(scene);
+                stage.showAndWait();*/
+
+                Parent p = Loader.getRoot();
+                Stage stage = new Stage();
+                Scene scene = new Scene(p);
+                stage.setScene(scene);
+                stage.showAndWait();
+            }
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

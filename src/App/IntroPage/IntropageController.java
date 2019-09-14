@@ -1,5 +1,6 @@
 package App.IntroPage;
 
+import java.beans.Visibility;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -156,6 +157,7 @@ public class IntropageController implements Initializable {
         else {
             sql = "SELECT distinct PROJECT_INFO.id, project_name, start_date, end_date, estimated_time FROM PROJECT_INFO, PROJECT_TASK WHERE PROJECT_INFO.id = PROJECT_TASK.id AND assigned = (SELECT name FROM EMPLOYEE WHERE EMPLOYEE.id="+getEmployeeId()+")";
             btnProjectDetail.setText("Profile");
+            btnAddEmployee.setVisible(false);
         }
 
 
@@ -253,6 +255,38 @@ public class IntropageController implements Initializable {
         }
     }
 
+    @FXML
+    private JFXButton btnAddEmployee;
+
+    //when Add Employee button is clicked
+    @FXML
+    private void AddEmployeeAction(ActionEvent event) {
+        if (event.getSource() == btnAddEmployee) {
+            if (getUserRole().matches("ADMIN_AUTH")) {
+                FXMLLoader Loader = new FXMLLoader();
+
+                Loader.setLocation(getClass().getResource("../AddEmployee/AddEmployee.fxml"));
+
+                try {
+                    Loader.load();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                /*Parent p = Loader.getRoot();
+                stage = (Stage) btnAddEmployee.getScene().getWindow();
+                Scene scene = new Scene(p);
+                stage.setScene(scene);
+                stage.showAndWait();*/
+
+                Parent p = Loader.getRoot();
+                Stage stage = new Stage();
+                Scene scene = new Scene(p);
+                stage.setScene(scene);
+                stage.showAndWait();
+            }
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="576.0" prefWidth="643.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AddEmployee.AddEmployeeController">
+    <children>
+        <JFXButton fx:id="AddEmployeeButton" layoutX="480.0" layoutY="481.0" onAction="#AddEmployee" prefHeight="44.0" prefWidth="117.0" ripplerFill="#009688" style="-fx-background-color: #6db5ad#6db5ad;" text="Add Employee" textFill="WHITE">
+         <font>
+            <Font name="SansSerif Regular" size="14.0" />
+         </font></JFXButton>
+        <JFXPasswordField fx:id="employee_password" focusColor="#2d7212" layoutX="138.0" layoutY="213.0" prefHeight="30.0" prefWidth="169.0" promptText="Password">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </JFXPasswordField>
+        <JFXTextField fx:id="employee_name" focusColor="#2d7212" layoutX="138.0" layoutY="141.0" prefHeight="30.0" prefWidth="169.0" promptText="Name">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </JFXTextField>
+
+      <JFXTextField fx:id="employee_username" focusColor="#2d7212" layoutX="138.0" layoutY="177.0" prefHeight="30.0" prefWidth="169.0" promptText="userame">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXTextField>
+      <Label alignment="CENTER" layoutX="42.0" layoutY="142.0" prefHeight="29.0" prefWidth="47.0" style="-fx-font-size: 16;" text="Name:" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="509.0" />
+      <Label alignment="CENTER" layoutX="49.0" layoutY="178.0" prefHeight="29.0" prefWidth="78.0" style="-fx-font-size: 16;" text="Username:" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="509.0" />
+      <Label alignment="CENTER" layoutX="38.0" layoutY="214.0" prefHeight="29.0" prefWidth="78.0" style="-fx-font-size: 16;" text="Password:" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="509.0" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="237.0" layoutY="14.0" prefHeight="62.0" prefWidth="169.0" text="Add New Employee" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="27.0" layoutY="253.0" prefHeight="29.0" prefWidth="78.0" style="-fx-font-size: 16;" text="Email:" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="509.0" />
+      <Label alignment="CENTER" layoutX="34.0" layoutY="292.0" prefHeight="29.0" prefWidth="78.0" style="-fx-font-size: 16;" text="Contact:" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="509.0" />
+      <Label alignment="CENTER" layoutX="42.0" layoutY="331.0" prefHeight="29.0" prefWidth="92.0" style="-fx-font-size: 16;" text="Department:" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="509.0" />
+      <JFXTextField fx:id="employee_email" focusColor="#2d7212" layoutX="138.0" layoutY="252.0" prefHeight="30.0" prefWidth="169.0" promptText="Email">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="employee_contact" focusColor="#2d7212" layoutX="138.0" layoutY="291.0" prefHeight="30.0" prefWidth="169.0" promptText="Contact No.">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="employee_department" focusColor="#2d7212" layoutX="138.0" layoutY="330.0" prefHeight="30.0" prefWidth="169.0" promptText="Department">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXTextField>
+      <Separator layoutX="222.0" layoutY="59.0" prefWidth="200.0" />
+      <Label alignment="CENTER" layoutX="42.0" layoutY="372.0" prefHeight="29.0" prefWidth="92.0" style="-fx-font-size: 16;" text="Designation:" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="509.0" />
+      <JFXTextField fx:id="employee_designation" focusColor="#2d7212" layoutX="138.0" layoutY="371.0" prefHeight="30.0" prefWidth="169.0" promptText="Designation">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXTextField>
+    </children>
+</AnchorPane>

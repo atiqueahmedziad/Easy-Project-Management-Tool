@@ -10,7 +10,7 @@ public class Connect {
         // Database name, username and password
         String dbaseName = "epmtdb";
         String user = "sa";
-        String pass = "123456";
+        String pass = "austDhaka123";
         Connection connect = null;
 
         try {

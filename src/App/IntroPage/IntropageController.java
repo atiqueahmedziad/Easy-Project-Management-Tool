@@ -1,5 +1,6 @@
 package App.IntroPage;
 
+import java.beans.Visibility;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -156,6 +157,7 @@ public class IntropageController implements Initializable {
         else {
             sql = "SELECT distinct PROJECT_INFO.id, project_name, start_date, end_date, estimated_time FROM PROJECT_INFO, PROJECT_TASK WHERE PROJECT_INFO.id = PROJECT_TASK.id AND assigned = (SELECT name FROM EMPLOYEE WHERE EMPLOYEE.id="+getEmployeeId()+")";
             btnProjectDetail.setText("Profile");
+            btnAddEmployee.setVisible(false);
         }
 
 

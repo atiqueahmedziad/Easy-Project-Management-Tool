@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
@@ -82,6 +83,8 @@ public class AddEmployeeController implements Initializable {
     private JFXTextField employee_designation;
     @FXML
     private JFXTextField employee_department;
+    @FXML
+    JFXComboBox<String>box_empGender = new JFXComboBox<>();
 
     @FXML
     private void AddEmployee(javafx.event.ActionEvent event) throws Exception {
@@ -89,19 +92,21 @@ public class AddEmployeeController implements Initializable {
     }
 
     private void insertEmployee() {
+
         Connect connect = new Connect();
         Connection connection = connect.getConnection();
         PreparedStatement ps = null;
         PreparedStatement psa = null;
 
         try {
-            String sql = "insert into EMPLOYEE(name, email, contact, department, designation) values (?,?,?,?,?)";
+            String sql = "insert into EMPLOYEE(name, email, contact, department, designation,gender) values (?,?,?,?,?,?)";
             ps = connection.prepareStatement(sql);
             ps.setString(1, getEmployee_name().getText());
             ps.setString(2, getEmployee_email().getText());
             ps.setString(3, getEmployee_contact().getText());
             ps.setString(4, getEmployee_department().getText());
             ps.setString(5, getEmployee_designation().getText());
+            ps.setString(6, box_empGender.getValue());
             ps.executeUpdate();
 
             ps.close();
@@ -124,5 +129,6 @@ public class AddEmployeeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        box_empGender.getItems().addAll("Male","Female");
     }
 }

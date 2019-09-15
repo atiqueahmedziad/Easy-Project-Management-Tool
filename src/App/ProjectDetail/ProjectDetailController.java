@@ -210,45 +210,6 @@ public class ProjectDetailController implements Initializable {
         return esti_time;
     }
 
-    public void checkProjectID(JFXTextField id) throws Exception {
-        
-        Connect connect =new Connect();
-        Connection connection=connect.getConnection();
-
-        String sql ="SELECT id FROM project_task";
-        Statement stmt = connection.createStatement();
-        ResultSet resultSet=stmt.executeQuery(sql);
-
-        while(resultSet.next()){
-            String project_id = resultSet.getString("id");
-
-            if(project_id.equals(id.getText())){
-                isidexist.setText("ID already exists!");
-                ProjectName.setDisable(true);
-                start_date.setDisable(true);
-                end_date.setDisable(true);
-                break;
-            }
-            else {
-                isidexist.setText("");
-                ProjectName.setDisable(false);
-                start_date.setDisable(false);
-                end_date.setDisable(false);
-            }
-        }
-        stmt.close();
-        connection.close();
-    }
-
-    @FXML
-    private void onreleaseID(KeyEvent keyEvent) {
-        try {
-            checkProjectID(ProjectID);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     // When end date of the project is chosen, this function works
     @FXML
     private void showDays(ActionEvent event) {
@@ -377,6 +338,32 @@ public class ProjectDetailController implements Initializable {
 
         tableview.setEditable(true);
         TaskProgress.setCellFactory(TextFieldTableCell.forTableColumn());
+
+        int id = 0;
+
+        try {
+            Connect connect =new Connect();
+            Connection connection=connect.getConnection();
+
+            Statement statement = connection.createStatement();
+            String sql = "SELECT MAX(id) as id FROM PROJECT_INFO";
+            ResultSet rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                id = (int) rs.getInt("id");
+            }
+
+            rs.close();
+            statement.close();
+            connection.close();
+
+            //increment id by 1 to set as new id
+            id += 1;
+            setProjectID(String.valueOf(id));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void DeleteTaskHandle(ActionEvent event) throws SQLException {

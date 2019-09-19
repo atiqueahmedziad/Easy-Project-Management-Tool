@@ -69,12 +69,12 @@
       </Label>
       <JFXRadioButton fx:id="adminToggle" layoutX="126.0" layoutY="301.0" onAction="#adminToggleOnAction" styleClass="radio-Btn" stylesheets="@login.css" text="Admin" textFill="WHITE">
          <font>
-            <Font size="14.0" />
+            <Font name="Gill Sans MT" size="15.0" />
          </font>
       </JFXRadioButton>
       <JFXRadioButton fx:id="employeeToggle" layoutX="238.0" layoutY="301.0" onAction="#employeeToggleOnAction" styleClass="radio-Btn" stylesheets="@login.css" text="Employee" textFill="WHITE">
          <font>
-            <Font size="14.0" />
+            <Font name="Gill Sans MT" size="15.0" />
          </font>
       </JFXRadioButton>
     </children>

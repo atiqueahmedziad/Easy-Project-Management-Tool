@@ -1,0 +1,22 @@
+.login-Btn {
+    /*-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #1625aa, #ae1d57);*/
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #6d57aa, #ae537a);
+}
+
+/*.AnchorPlaneBg{*/
+    /*-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #6488aa, #71ae91);;*/
+/*}*/
+
+.AnchorPlaneBg{
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #9a8eaa, #ae8981);;
+}
+
+.text-color {
+    -fx-text-fill: #ffffff;
+    -fx-prompt-text-fill: #ffffff;
+}
+
+.radio-Btn {
+    -jfx-selected-color: #ffffff;
+    -jfx-unselected-color: #ffffff;
+}

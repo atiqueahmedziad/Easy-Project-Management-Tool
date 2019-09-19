@@ -1,4 +1,4 @@
-package App;
+package App.Login;
 
 import java.io.IOException;
 import java.net.URL;
@@ -8,18 +8,20 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
+import App.Connect;
 import App.IntroPage.IntropageController;
-import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -36,8 +38,8 @@ public class LoginController implements Initializable {
     @FXML
     private Label isConnected;
 
-    public RadioButton adminToggle;
-    public RadioButton employeeToggle;
+    public JFXRadioButton adminToggle;
+    public JFXRadioButton employeeToggle;
 
     public int getEmployeeId() {
         return EmployeeId;
@@ -65,34 +67,6 @@ public class LoginController implements Initializable {
 
         FXMLLoader Loader = new FXMLLoader();
 
-//        if(userRole.matches("EMPLOYEE_AUTH")){
-//            try {
-//                Connect connect = new Connect();
-//                Connection connection=connect.getConnection();
-//                Statement statement = connection.createStatement();
-//                String sql = "SELECT id FROM project_task WHERE id = "+getProjectID().getText();
-//                ResultSet rs = statement.executeQuery(sql);
-//
-//                while (rs.next()) {
-//                    String TaskName = rs.getString("task_name");
-//                    java.util.Date StartDate =  rs.getDate("task_start_date");
-//                    java.util.Date EndDate = rs.getDate("task_end_date");
-//                    String TaskColor = rs.getString("color");
-//
-//                    TaskColors.add(toRGBCode(Color.valueOf(TaskColor)));
-//                    TaskNames.add(TaskName);
-//                    startDates.add(StartDate);
-//                    endDates.add(EndDate);
-//                    ++count;
-//                }
-//                statement.close();
-//                connection.close();
-//            }
-//            catch (Exception e){
-//                e.printStackTrace();
-//            }
-//        }
-
         try {
             Connect connect = new Connect();
             Connection connection=connect.getConnection();
@@ -104,7 +78,7 @@ public class LoginController implements Initializable {
             if (resultSet.next()) {
                 //load up OTHER FXML document
                 int employeeid = resultSet.getInt("id");
-                Loader.setLocation(getClass().getResource("IntroPage/intropage.fxml"));
+                Loader.setLocation(getClass().getResource("../IntroPage/intropage.fxml"));
                 try{
                     Loader.load();
                 } catch (Exception e){

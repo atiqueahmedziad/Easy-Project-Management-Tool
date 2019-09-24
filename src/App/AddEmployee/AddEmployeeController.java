@@ -2,23 +2,17 @@ package App.AddEmployee;
 
 
 import App.Connect;
-import com.jfoenix.controls.*;
 
-import App.IntroPage.IntropageController;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.util.ResourceBundle;
 

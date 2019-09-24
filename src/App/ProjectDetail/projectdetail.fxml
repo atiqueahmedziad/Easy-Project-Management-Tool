@@ -18,7 +18,10 @@
             </font>
         </Label>
         <JFXTextField fx:id="ProjectID" focusColor="#009688" layoutX="117.0" layoutY="113.0" />
-        <JFXButton fx:id="btnAddTask" layoutX="41.0" layoutY="637.0" onAction="#AddTask" prefHeight="40.0" prefWidth="104.0" style="-fx-background-color: #009688#009688;" text="Add Task" textFill="WHITE" />
+        <JFXButton fx:id="btnAddTask" buttonType="RAISED" layoutX="41.0" layoutY="637.0" onAction="#AddTask" prefHeight="40.0" prefWidth="104.0" styleClass="Btn" stylesheets="@../main.css" text="Add Task" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font></JFXButton>
         <TableView fx:id="tableview" layoutY="311.0" prefHeight="292.0" prefWidth="748.0">
             <columns>
                 <TableColumn fx:id="TaskName" prefWidth="132.0" text="Task Name" />
@@ -39,29 +42,49 @@
         <JFXTextField fx:id="esti_time" editable="false" focusColor="#009688" layoutX="377.0" layoutY="252.0" />
         <Label alignment="CENTER" layoutX="7.0" layoutY="178.0" prefHeight="54.0" prefWidth="117.0" text="Start Date" />
         <Label alignment="CENTER" layoutX="394.0" layoutY="178.0" prefHeight="54.0" prefWidth="90.0" text="End Date" />
-        <JFXDatePicker fx:id="start_date" layoutX="117.0" layoutY="184.0" onAction="#startDateChanged" />
-        <JFXDatePicker fx:id="end_date" layoutX="518.0" layoutY="191.0" onAction="#showDays" />
-        <JFXButton fx:id="GanttChartButton" layoutX="557.0" layoutY="637.0" onAction="#showGanttChart" prefHeight="40.0" prefWidth="143.0" ripplerFill="#2c751a" style="-fx-background-color: #009688;" text="Show Gantt Chart" textFill="WHITE" />
+        <JFXDatePicker fx:id="start_date" defaultColor="#26127c" layoutX="117.0" layoutY="184.0" onAction="#startDateChanged" />
+        <JFXDatePicker fx:id="end_date" defaultColor="#26127c" layoutX="518.0" layoutY="191.0" onAction="#showDays" />
+        <JFXButton fx:id="GanttChartButton" buttonType="RAISED" layoutX="557.0" layoutY="637.0" onAction="#showGanttChart" prefHeight="40.0" prefWidth="143.0" styleClass="Btn" stylesheets="@../main.css" text="Show Gantt Chart" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font></JFXButton>
       <JFXTextField fx:id="ProjectName" focusColor="#009688" layoutX="518.0" layoutY="113.0" />
       <Label alignment="CENTER" layoutX="394.0" layoutY="100.0" prefHeight="54.0" prefWidth="117.0" text="Project name">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <JFXButton fx:id="LoadTaskButton" layoutX="216.0" layoutY="637.0" onAction="#LoadTaskHandle" prefHeight="40.0" prefWidth="104.0" style="-fx-background-color: #009688;" text="Load Task" textFill="WHITE" />
-      <JFXButton fx:id="DeleteTaskButton" layoutX="374.0" layoutY="637.0" onAction="#DeleteTaskHandle" prefHeight="40.0" prefWidth="104.0" style="-fx-background-color: #009688;" text="Delete Task" textFill="WHITE" />
-      <Label fx:id="isidexist" layoutX="117.0" layoutY="153.0" prefHeight="27.0" prefWidth="207.0" textFill="#a80c0c" />
-      <JFXButton fx:id="searchproject" buttonType="RAISED" graphicTextGap="5.0" layoutX="567.0" layoutY="28.0" onAction="#SearchProjectAction" prefHeight="47.0" prefWidth="124.0" ripplerFill="#170404" style="-fx-background-color: #009688;" text="Search project" textAlignment="CENTER" textFill="WHITE" />
-      <Separator layoutX="-1.0" layoutY="88.0" prefHeight="12.0" prefWidth="748.0" />
-      <JFXButton fx:id="allproject" buttonType="RAISED" graphicTextGap="5.0" layoutX="66.0" layoutY="28.0" onAction="#allproject" prefHeight="47.0" prefWidth="124.0" ripplerFill="#170404" style="-fx-background-color: #009688;" text="All projects" textAlignment="CENTER" textFill="WHITE" />
-      <JFXButton fx:id="btnProjectDetail" buttonType="RAISED" graphicTextGap="5.0" layoutX="300.0" layoutY="28.0" onAction="#ProjectDetail" prefHeight="48.0" prefWidth="147.0" ripplerFill="#170404" style="-fx-background-color: #009688;" text="Add new project" textAlignment="CENTER" textFill="WHITE">
+      <JFXButton fx:id="LoadTaskButton" buttonType="RAISED" layoutX="216.0" layoutY="637.0" onAction="#LoadTaskHandle" prefHeight="40.0" prefWidth="104.0" styleClass="Btn" stylesheets="@../main.css" text="Load Task" textFill="WHITE">
          <font>
-            <Font size="14.0" />
+            <Font name="Gill Sans MT" size="15.0" />
+         </font></JFXButton>
+      <JFXButton fx:id="DeleteTaskButton" buttonType="RAISED" layoutX="387.0" layoutY="637.0" onAction="#DeleteTaskHandle" prefHeight="40.0" prefWidth="104.0" styleClass="Btn" stylesheets="@../main.css" text="Delete Task" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font></JFXButton>
+      <Label fx:id="isidexist" layoutX="117.0" layoutY="153.0" prefHeight="27.0" prefWidth="207.0" textFill="#a80c0c" />
+      <JFXButton fx:id="searchproject" buttonType="RAISED" graphicTextGap="5.0" layoutX="576.0" layoutY="29.0" onAction="#SearchProjectAction" prefHeight="47.0" prefWidth="124.0" ripplerFill="#170404" styleClass="Btn" stylesheets="@../main.css" text="Search project" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font></JFXButton>
+      <Separator layoutX="-1.0" layoutY="88.0" prefHeight="29.0" prefWidth="748.0" />
+      <JFXButton fx:id="allproject" buttonType="RAISED" graphicTextGap="5.0" layoutX="206.0" layoutY="29.0" onAction="#allproject" prefHeight="47.0" prefWidth="124.0" ripplerFill="#170404" styleClass="Btn" stylesheets="@../main.css" text="All projects" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font></JFXButton>
+      <JFXButton fx:id="btnProjectDetail" buttonType="RAISED" graphicTextGap="5.0" layoutX="379.0" layoutY="28.0" onAction="#ProjectDetail" prefHeight="48.0" prefWidth="147.0" ripplerFill="#170404" styleClass="Btn" stylesheets="@../main.css" text="Add new project" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
          </font>
       </JFXButton>
       <Label fx:id="invalid_date_label" alignment="CENTER" layoutX="401.0" layoutY="224.0" prefHeight="16.0" prefWidth="333.0" textAlignment="CENTER" textFill="#790000" visible="false">
          <font>
             <Font size="12.0" />
          </font></Label>
+      <JFXButton fx:id="homeBackBtn" alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0" layoutX="31.0" layoutY="28.0" onAction="#homeBackBtnAction" prefHeight="47.0" prefWidth="124.0" styleClass="Btn" stylesheets="@../main.css" text="Home" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </JFXButton>
     </children>
 </AnchorPane>

@@ -1,6 +1,11 @@
 .login-Btn {
     /*-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #1625aa, #ae1d57);*/
-    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #6d57aa, #ae537a);
+    /*-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #6d57aa, #ae537a);*/
+    /*-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #31aa51, #71cc9d);*/
+    /*-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, rgba(44, 176, 171, 0.85), #7965ff);*/
+    /*-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #2e71aa, #5c33ae);*/
+    /*-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #aa80aa, #ae2137);*/
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #80bf4f, #69d6b1);
 }
 
 /*.AnchorPlaneBg{*/
@@ -8,7 +13,9 @@
 /*}*/
 
 .AnchorPlaneBg{
-    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #9a8eaa, #ae8981);;
+    /*-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #5634aa, #ae255f);*/
+    -fx-background-color: linear-gradient(from 50% 25% to 100% 100%, #66bea6, #0b9acb);
+    /*-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #aa80aa, #ae2137);*/
 }
 
 .text-color {

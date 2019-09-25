@@ -1,6 +1,5 @@
-package App.IntroPage;
+package App.ProjectSummary;
 
-import java.beans.Visibility;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -9,6 +8,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 import App.Connect;
+import App.IntroPageAdmin.IntroPageAdmin;
 import App.ProjectDetail.ProjectDetailController;
 import App.SearchProject.SearchProject;
 import com.jfoenix.controls.JFXButton;
@@ -19,12 +19,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class IntropageController implements Initializable {
+public class ProjectSummaryController implements Initializable {
     Stage stage;
-    Parent root;
 
     @FXML
     private JFXButton btnProjectDetail;
@@ -34,7 +35,12 @@ public class IntropageController implements Initializable {
     private JFXButton searchproject;
     @FXML
     private Accordion accordion;
+    @FXML
+    private JFXButton homeBackBtn;
 
+    private String userRole;
+    private int employeeId;
+    private int adminId;
 
     public String getUserRole() {
         return userRole;
@@ -43,8 +49,6 @@ public class IntropageController implements Initializable {
     public void setUserRole(String userRole) {
         this.userRole = userRole;
     }
-
-    private String userRole;
 
     public int getEmployeeId() {
         return employeeId;
@@ -55,37 +59,42 @@ public class IntropageController implements Initializable {
         System.out.println(employeeId);
     }
 
-    private int employeeId;
+    public int getAdminId() {
+        return adminId;
+    }
+
+    public void setAdminId(int adminId) {
+        this.adminId = adminId;
+    }
 
     // When user clicks on Add new Project button
     @FXML
     private void ProjectDetail(ActionEvent event) throws IOException {
         if(event.getSource() == btnProjectDetail) {
-            if(getUserRole().matches("ADMIN_AUTH")) {
-                FXMLLoader Loader = new FXMLLoader();
 
-                Loader.setLocation(getClass().getResource("../ProjectDetail/projectdetail.fxml"));
+            FXMLLoader Loader = new FXMLLoader();
 
-                try {
-                    Loader.load();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            Loader.setLocation(getClass().getResource("../ProjectDetail/projectdetail.fxml"));
 
-                ProjectDetailController projectDetailController = Loader.getController();
-                projectDetailController.setUserRole(getUserRole());
-                if (getUserRole().matches("EMPLOYEE_AUTH")) {
-                    projectDetailController.setEmployeeId(getEmployeeId());
-                }
-
-                Parent p = Loader.getRoot();
-                stage = (Stage) allproject.getScene().getWindow();
-                Scene scene = new Scene(p);
-                stage.setScene(scene);
-                stage.show();
-            } else {
-                System.out.println("Employee profile needed");
+            try {
+                Loader.load();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+
+            ProjectDetailController projectDetailController = Loader.getController();
+            projectDetailController.setUserRole(getUserRole());
+            if (getUserRole().matches("ADMIN_AUTH")) {
+                projectDetailController.setAdminId(getAdminId());
+            } else {
+                projectDetailController.setEmployeeId(getEmployeeId());
+            }
+
+            Parent p = Loader.getRoot();
+            stage = (Stage) allproject.getScene().getWindow();
+            Scene scene = new Scene(p);
+            stage.setScene(scene);
+            stage.show();
         }
     }
 
@@ -95,7 +104,7 @@ public class IntropageController implements Initializable {
         if(event.getSource() == allproject) {
             FXMLLoader Loader = new FXMLLoader();
 
-            Loader.setLocation(getClass().getResource("intropage.fxml"));
+            Loader.setLocation(getClass().getResource("projectsummary.fxml"));
 
             try{
                 Loader.load();
@@ -103,12 +112,14 @@ public class IntropageController implements Initializable {
                 e.printStackTrace();
             }
 
-            IntropageController intropageController = Loader.getController();
-            intropageController.setUserRole(getUserRole());
-            if(getUserRole().matches("EMPLOYEE_AUTH")) {
-                intropageController.setEmployeeId(getEmployeeId());
+            ProjectSummaryController projectSummaryController = Loader.getController();
+            projectSummaryController.setUserRole(getUserRole());
+            if(getUserRole().matches("ADMIN_AUTH")) {
+                projectSummaryController.setAdminId(getEmployeeId());
+            } else {
+                projectSummaryController.setEmployeeId(getEmployeeId());
             }
-            intropageController.initilizePorjects(getUserRole());
+            projectSummaryController.initilizePorjects(getUserRole());
 
             Parent p = Loader.getRoot();
             stage = (Stage) allproject.getScene().getWindow();
@@ -134,10 +145,11 @@ public class IntropageController implements Initializable {
 
             SearchProject searchProject = Loader.getController();
             searchProject.setUserRole(getUserRole());
-            if(getUserRole().matches("EMPLOYEE_AUTH")){
+            if(getUserRole().matches("ADMIN_AUTH")){
+                searchProject.setAdminId(getAdminId());
+            } else {
                 searchProject.setEmployeeId(getEmployeeId());
             }
-            searchProject.initializeSearchProject();
 
             Parent p = Loader.getRoot();
             stage = (Stage) searchproject.getScene().getWindow();
@@ -156,8 +168,8 @@ public class IntropageController implements Initializable {
         }
         else {
             sql = "SELECT distinct PROJECT_INFO.id, project_name, start_date, end_date, estimated_time FROM PROJECT_INFO, PROJECT_TASK WHERE PROJECT_INFO.id = PROJECT_TASK.id AND assigned = (SELECT name FROM EMPLOYEE WHERE EMPLOYEE.id="+getEmployeeId()+")";
-            btnProjectDetail.setText("Profile");
-            btnAddEmployee.setVisible(false);
+            btnProjectDetail.setDisable(true);
+            homeBackBtn.setDisable(true); //Enable it and link to Employee Intro page once it is made
         }
 
 
@@ -192,6 +204,7 @@ public class IntropageController implements Initializable {
                 content.getChildren().add(new Label("Project End Date: " + enddate));
                 content.getChildren().add(new Label("Estimated Time: " + estitime + " Days"));
                 JFXButton showporject = new JFXButton("Show Project Detail");
+                showporject.setStyle("-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #4a3f99, #42649d);");
                 //JFXButton deleteproject  = new JFXButton("Delete this project");
                 content.getChildren().add(showporject);
 
@@ -213,6 +226,9 @@ public class IntropageController implements Initializable {
                     // A ProjectDetailController object is created
                     // to send information of the project detail page
                     ProjectDetailController projectDetailController = Loader.getController();
+
+                    projectDetailController.setAdminId(getAdminId());
+                    projectDetailController.setUserRole(getUserRole());
 
                     projectDetailController.setProjectID(id);
                     projectDetailController.getProjectID().setDisable(true);
@@ -239,7 +255,6 @@ public class IntropageController implements Initializable {
                     if(getUserRole().matches("EMPLOYEE_AUTH")) {
                         projectDetailController.setEmployeeId(getEmployeeId());
                     }
-                    projectDetailController.initialProjectDetail();
 
                     Parent p = Loader.getRoot();
                     stage = (Stage) showporject.getScene().getWindow();
@@ -273,12 +288,6 @@ public class IntropageController implements Initializable {
                     e.printStackTrace();
                 }
 
-                /*Parent p = Loader.getRoot();
-                stage = (Stage) btnAddEmployee.getScene().getWindow();
-                Scene scene = new Scene(p);
-                stage.setScene(scene);
-                stage.showAndWait();*/
-
                 Parent p = Loader.getRoot();
                 Stage stage = new Stage();
                 Scene scene = new Scene(p);
@@ -290,6 +299,36 @@ public class IntropageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Image imageDecline = new Image(getClass().getResourceAsStream("../icons/home-icon.png"));
+        ImageView cameraIconView = new ImageView(imageDecline);
+        cameraIconView.setFitHeight(25);
+        cameraIconView.setFitWidth(25);
+        homeBackBtn.setGraphic(cameraIconView);
+    }
+
+    public void homeBackBtnAction(ActionEvent event) {
+        if(event.getSource() == homeBackBtn){
+            FXMLLoader Loader = new FXMLLoader();
+
+            Loader.setLocation(getClass().getResource("../IntroPageAdmin/intropageadmin.fxml"));
+
+            try {
+                Loader.load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            IntroPageAdmin introPageAdmin = Loader.getController();
+            introPageAdmin.setAdminId(getAdminId());
+            introPageAdmin.setUserRole(getUserRole());
+            introPageAdmin.getAdminName(getAdminId());
+
+            Parent p = Loader.getRoot();
+            stage = (Stage) homeBackBtn.getScene().getWindow();
+            Scene scene = new Scene(p);
+            stage.setScene(scene);
+            stage.show();
+        }
 
     }
 }

@@ -1,0 +1,52 @@
+.Btn {
+    /*-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #e88a26, #e88a26);*/
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #4a3f99, #42649d);
+    /*-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #bf395c, #d6488d);*/
+    /*-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #393839, #393839);*/
+    /*-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #80bf4f, #69d6b1);*/
+}
+
+.main-bg {
+    /*-fx-background-color: linear-gradient(from 50% 25% to 100% 100%, #66bea6, #3081be);*/
+    -fx-background-color: linear-gradient(from 50% 25% to 100% 100%, #66bea6, #0b9acb);
+    /*-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #5634aa, #ae255f);*/
+}
+
+.table-view *.scroll-bar:horizontal *.increment-button,
+.table-view *.scroll-bar:horizontal *.decrement-button {
+    -fx-background-color: null;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.table-view *.scroll-bar:horizontal *.increment-arrow,
+.table-view *.scroll-bar:horizontal *.decrement-arrow {
+    -fx-background-color: null;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-shape: null;
+}
+
+/*.table-view .column-header {*/
+    /*-fx-background-color: linear-gradient(#131313 0.0%, #424141 100.0%);*/
+/*}*/
+
+.table-view .table-cell {
+    -fx-font-size: 14px;
+    -fx-font-family: "Gill Sans MT" !important;
+    /* -fx-text-fill:orange; */
+
+}
+
+.table-view .table-column {
+    -fx-alignment:center;
+    -fx-font-family: Lato;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #189782;
+    -fx-background-insets: 0;
+    -fx-background-radius: 1;
+}

@@ -22,8 +22,9 @@
          <ripplerFill>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
-                  <Stop color="#797fae" />
-                  <Stop color="#ab6d87" offset="1.0" />
+                  <Stop color="#dfeece" />
+                  <Stop color="#dfeece" offset="0.0074487895716946" />
+                  <Stop color="#7aab6d" offset="1.0" />
                </stops>
             </LinearGradient>
          </ripplerFill>
@@ -33,26 +34,26 @@
          </styleClass></JFXButton>
         <JFXPasswordField fx:id="password" layoutX="126.0" layoutY="222.0" prefHeight="34.0" prefWidth="196.0" promptText="Password" styleClass="text-color" stylesheets="@login.css" unFocusColor="WHITE">
             <font>
-                <Font name="Gill Sans MT" size="15.0" />
+                <Font name="Gill Sans MT" size="16.0" />
             </font>
          <focusColor>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
-                  <Stop color="#2132a4" />
-                  <Stop color="#90144a" offset="1.0" />
+                  <Stop color="#012518" />
+                  <Stop color="#15959e" offset="1.0" />
                </stops>
             </LinearGradient>
          </focusColor>
         </JFXPasswordField>
         <JFXTextField fx:id="username" layoutX="126.0" layoutY="162.0" prefHeight="34.0" prefWidth="196.0" promptText="Username" styleClass="text-color" stylesheets="@login.css" unFocusColor="WHITE">
             <font>
-                <Font name="Gill Sans MT" size="15.0" />
+                <Font name="Gill Sans MT" size="16.0" />
             </font>
          <focusColor>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
-                  <Stop color="#1625aa" />
-                  <Stop color="#ae1d57" offset="1.0" />
+                  <Stop color="#012518" />
+                  <Stop color="#15959e" offset="1.0" />
                </stops>
             </LinearGradient>
          </focusColor>
@@ -62,7 +63,7 @@
                 <Image url="@login.png" />
             </image>
         </ImageView>
-      <Label fx:id="isConnected" alignment="CENTER" contentDisplay="CENTER" layoutX="28.0" layoutY="419.0" prefHeight="44.0" prefWidth="398.0" style="-fx-font-weight: bold;" textAlignment="CENTER" textFill="#bf0006">
+      <Label fx:id="isConnected" alignment="CENTER" contentDisplay="CENTER" layoutX="28.0" layoutY="419.0" prefHeight="44.0" prefWidth="398.0" style="-fx-font-weight: bold;" textAlignment="CENTER" textFill="#65080d">
          <font>
             <Font name="Lato Regular" size="14.0" />
          </font>

@@ -1,24 +1,36 @@
 package App.SearchProject;
 
 import App.Connect;
-import App.IntroPage.IntropageController;
+import App.IntroPageAdmin.IntroPageAdmin;
+import App.ProjectSummary.ProjectSummaryController;
 import App.ProjectDetail.ProjectDetailController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
-public class SearchProject {
+public class SearchProject implements Initializable {
 
     Stage stage;
+
+    private String userRole;
+    private int EmployeeId;
+    private int adminId;
 
     public String getUserRole() {
         return userRole;
@@ -36,14 +48,20 @@ public class SearchProject {
         EmployeeId = employeeId;
     }
 
-    private String userRole;
-    private int EmployeeId;
+    public int getAdminId() {
+        return adminId;
+    }
+
+    public void setAdminId(int adminId) {
+        this.adminId = adminId;
+    }
 
     public Label isprojectfound;
     public JFXTextField inputprojectid;
     public JFXButton searchprojectid;
     public JFXButton btnProjectDetail;
     public JFXButton allproject;
+    public JFXButton homeBackBtn;
 
     public JFXTextField getInputprojectid() {
         return inputprojectid;
@@ -56,7 +74,7 @@ public class SearchProject {
 
             stage = (Stage) allproject.getScene().getWindow();
             //load up OTHER FXML document
-            Loader.setLocation(getClass().getResource("../IntroPage/intropage.fxml"));
+            Loader.setLocation(getClass().getResource("../ProjectSummary/projectsummary.fxml"));
 
             try {
                 Loader.load();
@@ -64,12 +82,14 @@ public class SearchProject {
                 e.printStackTrace();
             }
 
-            IntropageController intropageController = Loader.getController();
-            intropageController.setUserRole(getUserRole());
-            if(getUserRole().matches("EMPLOYEE_AUTH")) {
-                intropageController.setEmployeeId(getEmployeeId());
+            ProjectSummaryController projectSummaryController = Loader.getController();
+            projectSummaryController.setUserRole(getUserRole());
+            if(getUserRole().matches("ADMIN_AUTH")) {
+                projectSummaryController.setAdminId(getAdminId());
+            } else {
+                projectSummaryController.setEmployeeId(getEmployeeId());
             }
-            intropageController.initilizePorjects(getUserRole());
+            projectSummaryController.initilizePorjects(getUserRole());
 
             Parent p = Loader.getRoot();
             Scene scene = new Scene(p);
@@ -80,35 +100,38 @@ public class SearchProject {
 
     public void ProjectDetail(ActionEvent event) {
         if(event.getSource() == btnProjectDetail) {
-            if(getUserRole().matches("ADMIN_AUTH")) {
-                FXMLLoader Loader = new FXMLLoader();
+            FXMLLoader Loader = new FXMLLoader();
 
-                Loader.setLocation(getClass().getResource("../ProjectDetail/projectdetail.fxml"));
+            Loader.setLocation(getClass().getResource("../ProjectDetail/projectdetail.fxml"));
 
-                try {
-                    Loader.load();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                ProjectDetailController projectDetailController = Loader.getController();
-                projectDetailController.setUserRole(getUserRole());
-                if (getUserRole().matches("EMPLOYEE_AUTH")) {
-                    projectDetailController.setEmployeeId(getEmployeeId());
-                }
-
-                Parent p = Loader.getRoot();
-                stage = (Stage) allproject.getScene().getWindow();
-                Scene scene = new Scene(p);
-                stage.setScene(scene);
-                stage.show();
-            } else {
-                System.out.println("Employee profile needed");
+            try {
+                Loader.load();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+
+            ProjectDetailController projectDetailController = Loader.getController();
+            projectDetailController.setUserRole(getUserRole());
+            if (getUserRole().matches("ADMIN_AUTH")) {
+                projectDetailController.setAdminId(getAdminId());
+            } else {
+                projectDetailController.setEmployeeId(getEmployeeId());
+            }
+
+            Parent p = Loader.getRoot();
+            stage = (Stage) allproject.getScene().getWindow();
+            Scene scene = new Scene(p);
+            stage.setScene(scene);
+            stage.show();
         }
     }
 
     public void SearchProjectid(ActionEvent event) throws Exception {
+        if(getInputprojectid().getText().trim().isEmpty() || !Pattern.matches("\\d+",getInputprojectid().getText())){
+            //we should display a message saying: Put a valid number
+            return;
+        }
+
         if (event.getSource() == searchprojectid) {
 
             Connect connect = new Connect();
@@ -137,18 +160,26 @@ public class SearchProject {
                 statement.close();
                 connection.close();
 
-                ProjectDetailController display = Loader.getController();
-                display.setProjectID(id);
-                display.getProjectID().setDisable(true);
-                display.setProjectName(projectname);
-                display.getProjectName().setEditable(false);
-                display.setStart_date(LocalDate.parse(startdate));
-                display.getStart_date().setDisable(true);
-                display.setEnd_date(LocalDate.parse(enddate));
-                display.getEnd_date().setDisable(true);
-                display.setEsti_time(estitime);
-                display.getEsti_time().setEditable(false);
-                display.getTableData();
+                ProjectDetailController projectDetailController = Loader.getController();
+                projectDetailController.setProjectID(id);
+                projectDetailController.getProjectID().setDisable(true);
+                projectDetailController.setProjectName(projectname);
+                projectDetailController.getProjectName().setEditable(false);
+                projectDetailController.setStart_date(LocalDate.parse(startdate));
+                projectDetailController.getStart_date().setDisable(true);
+                projectDetailController.setEnd_date(LocalDate.parse(enddate));
+                projectDetailController.getEnd_date().setDisable(true);
+                projectDetailController.setEsti_time(estitime);
+                projectDetailController.getEsti_time().setEditable(false);
+                projectDetailController.getTableData();
+
+                projectDetailController.setUserRole(getUserRole());
+
+                if(getUserRole().matches("ADMIN_AUTH")){
+                    projectDetailController.setAdminId(getAdminId());
+                } else {
+                    projectDetailController.setEmployeeId(getEmployeeId());
+                }
 
                 Parent p = Loader.getRoot();
                 stage = (Stage) searchprojectid.getScene().getWindow();
@@ -162,9 +193,40 @@ public class SearchProject {
         }
     }
 
-    public void initializeSearchProject(){
-        if(getUserRole().matches("EMPLOYEE_AUTH")) {
-            btnProjectDetail.setText("Profile");
+    public void homeBackBtnAction(ActionEvent event) {
+        if(event.getSource() == homeBackBtn){
+            FXMLLoader Loader = new FXMLLoader();
+
+            Loader.setLocation(getClass().getResource("../IntroPageAdmin/intropageadmin.fxml"));
+
+            try {
+                Loader.load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            IntroPageAdmin introPageAdmin = Loader.getController();
+            introPageAdmin.setAdminId(getAdminId());
+            introPageAdmin.setUserRole(getUserRole());
+            introPageAdmin.getAdminName(getAdminId());
+
+            Parent p = Loader.getRoot();
+            stage = (Stage) homeBackBtn.getScene().getWindow();
+            Scene scene = new Scene(p);
+            stage.setScene(scene);
+            stage.show();
         }
+    }
+
+    public void SearchProjectAction(ActionEvent event) {
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        Image imageDecline = new Image(getClass().getResourceAsStream("../icons/home-icon.png"));
+        ImageView cameraIconView = new ImageView(imageDecline);
+        cameraIconView.setFitHeight(25);
+        cameraIconView.setFitWidth(25);
+        homeBackBtn.setGraphic(cameraIconView);
     }
 }

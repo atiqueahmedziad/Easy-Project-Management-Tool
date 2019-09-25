@@ -169,7 +169,8 @@ public class ProjectSummaryController implements Initializable {
         else {
             sql = "SELECT distinct PROJECT_INFO.id, project_name, start_date, end_date, estimated_time FROM PROJECT_INFO, PROJECT_TASK WHERE PROJECT_INFO.id = PROJECT_TASK.id AND assigned = (SELECT name FROM EMPLOYEE WHERE EMPLOYEE.id="+getEmployeeId()+")";
             btnProjectDetail.setDisable(true);
-            homeBackBtn.setDisable(true); //Enable it and link to Employee Intro page once it is made
+            homeBackBtn.setDisable(true); // Remove it when home page for employee is done.
+            searchproject.setDisable(true); // Remove it when search project page for employee is done.
         }
 
 
@@ -254,6 +255,7 @@ public class ProjectSummaryController implements Initializable {
                     projectDetailController.setUserRole(getUserRole());
                     if(getUserRole().matches("EMPLOYEE_AUTH")) {
                         projectDetailController.setEmployeeId(getEmployeeId());
+                        projectDetailController.ifUserIsEmployee(getUserRole());
                     }
 
                     Parent p = Loader.getRoot();

@@ -331,7 +331,8 @@ public class ProjectDetailController implements Initializable {
 
         String sql = "UPDATE project_task SET progress= '"+task.getTaskProgress()+"' WHERE task_name='"+task.getTaskName()+"'";
 
-        Statement statement = connection.prepareStatement(sql);
+        Statement statement = connection.createStatement();
+
         statement.executeUpdate(sql);
 
         statement.close();
@@ -622,6 +623,17 @@ public class ProjectDetailController implements Initializable {
             Scene scene = new Scene(p);
             stage.setScene(scene);
             stage.show();
+        }
+    }
+
+    public void ifUserIsEmployee(String userRole){
+        if(userRole.matches("EMPLOYEE_AUTH")){
+            btnAddTask.setDisable(true);
+            DeleteTaskButton.setDisable(true);
+            btnProjectDetail.setDisable(true);
+            homeBackBtn.setDisable(true); // Remove it when home page for employee is done.
+            searchproject.setDisable(true); // Remove it when search project page for employee is done.
+            tableview.setEditable(false);
         }
     }
 }

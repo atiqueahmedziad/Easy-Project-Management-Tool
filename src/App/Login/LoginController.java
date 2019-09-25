@@ -125,13 +125,13 @@ public class LoginController implements Initializable {
                     ProjectSummaryController projectSummaryController = Loader.getController();
                     projectSummaryController.setUserRole(getUserRole());
                     projectSummaryController.setEmployeeId(employeeid);
-
                     projectSummaryController.initilizePorjects(getUserRole());
 
                     Parent p = Loader.getRoot();
                     stage = (Stage) adminToggle.getScene().getWindow();
                     Scene scene = new Scene(p);
                     stage.setScene(scene);
+                    stage.centerOnScreen();
                     stage.show();
                 } else {
                     // If username & password doesn't match

@@ -140,6 +140,11 @@
             <Font name="Gill Sans MT" size="15.0" />
          </font>
       </JFXButton>
+      <JFXButton fx:id="logoutBtn" buttonType="RAISED" cacheShape="false" graphicTextGap="5.0" layoutX="543.0" layoutY="21.0" mnemonicParsing="false" onAction="#logoutBtnAction" prefHeight="35.0" prefWidth="102.0" styleClass="logout-Btn" stylesheets="@../main.css" text="Logout" textFill="BLACK">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </JFXButton>
    </children>
    <opaqueInsets>
       <Insets />

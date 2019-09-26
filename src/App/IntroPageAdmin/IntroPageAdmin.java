@@ -16,6 +16,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -32,6 +34,7 @@ public class IntroPageAdmin implements Initializable {
     public JFXButton addClient;
     public JFXButton allClientBtn;
     public Label clientCountLabel;
+    public JFXButton logoutBtn;
 
     private int adminId;
 
@@ -199,6 +202,14 @@ public class IntroPageAdmin implements Initializable {
 
         clientCountLabel.setText(String.valueOf(clientCount));
     }
+    
+    public void getLogoutIcon(){
+        Image imageDecline = new Image(getClass().getResourceAsStream("../icons/log-out.png"));
+        ImageView cameraIconView = new ImageView(imageDecline);
+        cameraIconView.setFitHeight(18);
+        cameraIconView.setFitWidth(18);
+        logoutBtn.setGraphic(cameraIconView);
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -216,10 +227,13 @@ public class IntroPageAdmin implements Initializable {
         clientName.setCellValueFactory(new PropertyValueFactory<>("clientName"));
         contactPerson.setCellValueFactory(new PropertyValueFactory<>("contactPerson"));
         clientTableView.setEditable(false);
+
+        getLogoutIcon();
         
         getProjectTableData();
 
         getEmployeeTableData();
+        
         getClientTableData();
     }
 
@@ -357,6 +371,28 @@ public class IntroPageAdmin implements Initializable {
             Scene scene = new Scene(p);
             stage.setScene(scene);
             stage.show();
+        }
+    }
+
+    public void logoutBtnAction(ActionEvent event) {
+        if(event.getSource() == logoutBtn){
+            FXMLLoader Loader = new FXMLLoader();
+
+            Loader.setLocation(getClass().getResource("../Login/loginpage.fxml"));
+
+            try {
+                Loader.load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            Parent p = Loader.getRoot();
+            stage = (Stage) logoutBtn.getScene().getWindow();
+            Scene scene = new Scene(p);
+            stage.setScene(scene);
+            stage.centerOnScreen();
+            stage.show();
+
         }
     }
 }

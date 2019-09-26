@@ -19,7 +19,6 @@ import java.util.ResourceBundle;
 
 public class AddtaskController implements Initializable {
 
-
     public JFXTextField getTask_name() {
         return Task_name;
     }
@@ -75,7 +74,9 @@ public class AddtaskController implements Initializable {
     @FXML
     private javafx.scene.control.Label invalid_date_label = new javafx.scene.control.Label();
 
-    public ObservableList<String> list = FXCollections.observableArrayList();
+    private ObservableList<String> dependencyTaskList = FXCollections.observableArrayList();
+    private ObservableList<String> employeeList = FXCollections.observableArrayList();
+
 
     public void setDependency(ChoiceBox<String> dependency) {
         this.dependency = dependency;
@@ -87,6 +88,7 @@ public class AddtaskController implements Initializable {
 
     @FXML
     ChoiceBox<String> dependency = new ChoiceBox<String>();
+    public ChoiceBox<String> employeeAssigned = new ChoiceBox<String>();
 
     /**
      * Validates if start and end date have a valid range, that happens when start_date is lower or equals to end_date
@@ -103,21 +105,45 @@ public class AddtaskController implements Initializable {
         return endDate.compareTo(startDate) >= 0;
     }
 
-    public void getList(ChoiceBox<String> checkbox) throws SQLException {
-        Connect connect =new Connect();
+    public void getDependencyList() {
+        Connect connect = new Connect();
         Connection connection=connect.getConnection();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT task_name FROM project_task WHERE id=" + getTaskProjectID().getText());
 
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("SELECT task_name FROM project_task WHERE id="+getTaskProjectID().getText());
+            while (rs.next()) {
+                dependencyTaskList.add(rs.getString("task_name"));
+            }
 
-        while (rs.next()) {
-            list.add(rs.getString("task_name"));
+            dependency.setItems(dependencyTaskList);
+
+            rs.close();
+            connection.close();
+        } catch (Exception e){
+            e.printStackTrace();
         }
 
-        checkbox.setItems(list);
+    }
 
-        rs.close();
-        connection.close();
+    public void getEmployeeList() {
+        Connect connect = new Connect();
+        Connection connection=connect.getConnection();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT name FROM EMPLOYEE");
+
+            while (rs.next()) {
+                employeeList.add(rs.getString("name"));
+            }
+
+            employeeAssigned.setItems(employeeList);
+
+            rs.close();
+            connection.close();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
 
@@ -182,7 +208,7 @@ public class AddtaskController implements Initializable {
             ps.setString(6, "0%");
             ps.setString(7, String.valueOf(getTask_color().getValue()));
             ps.setString(8, dependency.getValue());
-            ps.setString(9, getAssignedto().getText());
+            ps.setString(9, employeeAssigned.getValue());
             ps.executeUpdate();
 
             ps.close();

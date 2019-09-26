@@ -264,18 +264,16 @@ public class ProjectDetailController implements Initializable {
                 e.printStackTrace();
             }
 
-            AddtaskController display = Loader.getController();
-            display.setProjectName(getProjectName());
-            display.setProject_id_task(getProjectID());
-            try {
-                display.getList(display.getDependency());
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            AddtaskController addtaskController = Loader.getController();
+            addtaskController.setProjectName(getProjectName());
+            addtaskController.setProject_id_task(getProjectID());
+            addtaskController.getDependencyList();
+            addtaskController.getEmployeeList();
 
             Parent p = Loader.getRoot();
             Stage stage = new Stage();
             Scene scene = new Scene(p);
+            stage.setTitle("Add New Task");
             stage.setScene(scene);
             stage.showAndWait();
 

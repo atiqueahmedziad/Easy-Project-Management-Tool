@@ -1,9 +1,19 @@
 .Btn {
     /*-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #e88a26, #e88a26);*/
-    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #4a3f99, #42649d);
+    /*-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #4a3f99, #42649d);*/
     /*-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #bf395c, #d6488d);*/
     /*-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #393839, #393839);*/
     /*-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #80bf4f, #69d6b1);*/
+    -fx-background-color: #34274e;
+}
+
+.logout-Btn {
+    /*-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #e88a26, #e88a26);*/
+    /*-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #4a3f99, #42649d);*/
+    /*-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #bf395c, #d6488d);*/
+    /*-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #393839, #393839);*/
+    /*-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #80bf4f, #69d6b1);*/
+    -fx-background-color: #ead1cd;
 }
 
 .main-bg {

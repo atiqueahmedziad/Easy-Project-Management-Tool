@@ -79,7 +79,7 @@
             <TableColumn fx:id="employeeDesignation" minWidth="0.0" prefWidth="122.5" text="Designation" />
          </columns>
       </TableView>
-      <TableView fx:id="tableview11" layoutX="361.0" layoutY="466.0" prefHeight="129.0" prefWidth="287.0">
+      <TableView fx:id="clientTableView" layoutX="361.0" layoutY="466.0" prefHeight="129.0" prefWidth="287.0">
          <columns>
             <TableColumn fx:id="clientId" prefWidth="32.5" text="ID" />
             <TableColumn fx:id="clientName" minWidth="0.0" prefWidth="113.03903198242188" text="Name" />
@@ -96,7 +96,7 @@
             <Font name="Lato Regular" size="13.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="allCientBtn" buttonType="RAISED" layoutX="361.0" layoutY="615.0" onAction="#allCientBtnAction" prefHeight="30.0" prefWidth="117.0" styleClass="Btn" stylesheets="@../main.css" text="View all clients" textFill="WHITE">
+      <JFXButton fx:id="allClientBtn" buttonType="RAISED" layoutX="361.0" layoutY="615.0" onAction="#allClientBtnAction" prefHeight="30.0" prefWidth="117.0" styleClass="Btn" stylesheets="@../main.css" text="View all clients" textFill="WHITE">
          <font>
             <Font name="Lato Regular" size="13.0" />
          </font>
@@ -118,7 +118,7 @@
                   <Font name="Lato Regular" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="projectCount11" layoutX="126.0" layoutY="6.0" prefHeight="23.0" prefWidth="30.0" text="N">
+            <Label fx:id="clientCountLabel" layoutX="126.0" layoutY="6.0" prefHeight="23.0" prefWidth="30.0" text="N">
                <font>
                   <Font size="14.0" />
                </font>

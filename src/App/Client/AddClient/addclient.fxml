@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Client.AddClient.AddClientController">
+   <children>
+      <JFXButton fx:id="homeBackBtn" alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0" layoutX="34.0" layoutY="38.0" onAction="#homeBackBtnAction" prefHeight="47.0" prefWidth="124.0" styleClass="Btn" stylesheets="@../../main.css" text="Home" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="AddClientBtn" alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0" layoutX="211.0" layoutY="38.0" onAction="#AddClientBtnAction" prefHeight="47.0" prefWidth="124.0" styleClass="Btn" stylesheets="@../../main.css" text="Add Client" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="viewAllClient" alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0" layoutX="375.0" layoutY="38.0" onAction="#viewAllClientAction" prefHeight="47.0" prefWidth="144.0" styleClass="Btn" stylesheets="@../../main.css" text="View All Clients" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="addNewClientBtn" alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0" layoutX="201.0" layoutY="497.0" onAction="#addNewClientAction" prefHeight="41.0" prefWidth="144.0" styleClass="Btn" stylesheets="@../../main.css" text="Add new client" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXDrawer layoutY="114.0" prefHeight="4.0" prefWidth="550.0" style="-fx-background-color: #dedede;" />
+      <JFXTextField fx:id="clientIdField" layoutX="244.0" layoutY="200.0" prefHeight="27.0" prefWidth="105.0">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font></JFXTextField>
+      <Label alignment="CENTER" layoutX="128.0" layoutY="200.0" prefHeight="27.0" prefWidth="105.0" text="Client Id">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="addressField" layoutX="244.0" layoutY="433.0" prefHeight="27.0" prefWidth="162.0">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="phoneField" layoutX="244.0" layoutY="377.0" prefHeight="27.0" prefWidth="162.0">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="clientNameField" layoutX="244.0" layoutY="260.0" prefHeight="27.0" prefWidth="162.0">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="contactPersonField" layoutX="244.0" layoutY="319.0" prefHeight="27.0" prefWidth="162.0">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </JFXTextField>
+      <Label alignment="CENTER" layoutX="128.0" layoutY="260.0" prefHeight="27.0" prefWidth="105.0" text="Client Name">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="128.0" layoutY="319.0" prefHeight="27.0" prefWidth="105.0" text="Contact Person">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="128.0" layoutY="377.0" prefHeight="27.0" prefWidth="105.0" text="Phone/ Mobile">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="128.0" layoutY="433.0" prefHeight="27.0" prefWidth="105.0" text="Address">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="178.0" layoutY="138.0" prefHeight="34.0" prefWidth="194.0" text="Add New Client" underline="true">
+         <font>
+            <Font name="Gill Sans MT" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="confirmationMsg" alignment="CENTER" layoutX="44.0" layoutY="552.0" prefHeight="27.0" prefWidth="464.0" textFill="#9e2222">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

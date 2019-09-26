@@ -1,5 +1,7 @@
 package App.IntroPageAdmin;
 
+import App.Client.AddClient.AddClientController;
+import App.Client.AllClient.AllClientController;
 import App.Connect;
 import App.ProjectDetail.ProjectDetailController;
 import App.ProjectSummary.ProjectSummaryController;
@@ -27,6 +29,10 @@ public class IntroPageAdmin implements Initializable {
     public JFXButton allProjectsBtn;
     public JFXButton addNewProjectBtn;
     public JFXButton searchProjectBtn;
+    public JFXButton addClient;
+    public JFXButton allClientBtn;
+    public Label clientCountLabel;
+
     private int adminId;
 
     private String UserRole;
@@ -52,6 +58,7 @@ public class IntroPageAdmin implements Initializable {
     public Label employeeCountLabel;
     public TableView<Project> projectTableView;
     public TableView<Employee> employeeTableView;
+    public TableView<Client> clientTableView;
 
 
     public TableColumn<Project,String> projectName;
@@ -61,6 +68,10 @@ public class IntroPageAdmin implements Initializable {
     public TableColumn<Employee,String> employeeId;
     public TableColumn<Employee, String> employeeName;
     public TableColumn<Employee, String> employeeDesignation;
+
+    public TableColumn<Client, String> clientId;
+    public TableColumn<Client, String> clientName;
+    public TableColumn<Client, String> contactPerson;
 
 
     private int projectCount, employeeCount, clientCount;
@@ -85,7 +96,6 @@ public class IntroPageAdmin implements Initializable {
                 String startDate = rs.getString("start_date");
                 String endDate = rs.getString("end_date");
 
-                //Task task = new Task(task_name, time, task_start_date, task_end_date, progress, color, dependency, assigned);
                 Project singleProject = new Project(projectName,startDate,endDate);
                 projectTableView.getItems().add(singleProject);
             }
@@ -121,7 +131,6 @@ public class IntroPageAdmin implements Initializable {
             e.printStackTrace();
         }
     }
-    
 
     private void getEmployeeTableData(){
         //Clear the all column data from table
@@ -142,8 +151,7 @@ public class IntroPageAdmin implements Initializable {
                 String employeeDesignation = rs.getString("designation");
 
                 String employeeId = String.valueOf(emId);
-                //Task task = new Task(task_name, time, task_start_date, task_end_date, progress, color, dependency, assigned);
-                //Project singleProject = new Project(projectName,startDate,endDate);
+
                 Employee singleEmployee = new Employee(employeeId,employeeName,employeeDesignation);
                 employeeTableView.getItems().add(singleEmployee);
             }
@@ -158,6 +166,40 @@ public class IntroPageAdmin implements Initializable {
         employeeCountLabel.setText(String.valueOf(employeeCount));
     }
 
+    private void getClientTableData(){
+        //Clear the all column data from table
+        clientTableView.getItems().clear();
+        clientCount = 0;
+
+        try {
+            Connect connect =new Connect();
+            Connection connection=connect.getConnection();
+
+            Statement statement = connection.createStatement();
+            String sql = "SELECT id, name, contact_person FROM CLIENT";
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                clientCount++;
+                int id = rs.getInt("id");
+                String clientName = rs.getString("name");
+                String contactPerson = rs.getString("contact_person");
+
+                String clientId = String.valueOf(id);
+
+                Client singleClient = new Client(clientId,clientName,contactPerson);
+                clientTableView.getItems().add(singleClient);
+            }
+
+            statement.close();
+            connection.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        clientCountLabel.setText(String.valueOf(clientCount));
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         projectName.setCellValueFactory(new PropertyValueFactory<>("projectName"));
@@ -170,9 +212,15 @@ public class IntroPageAdmin implements Initializable {
         employeeDesignation.setCellValueFactory(new PropertyValueFactory<>("designation"));
         employeeTableView.setEditable(false);
 
+        clientId.setCellValueFactory(new PropertyValueFactory<>("clientId"));
+        clientName.setCellValueFactory(new PropertyValueFactory<>("clientName"));
+        contactPerson.setCellValueFactory(new PropertyValueFactory<>("contactPerson"));
+        clientTableView.setEditable(false);
+        
         getProjectTableData();
 
         getEmployeeTableData();
+        getClientTableData();
     }
 
     public void ProfileBtnAction(ActionEvent event) {
@@ -256,16 +304,59 @@ public class IntroPageAdmin implements Initializable {
 
     public void addEmployeeBtnAction(ActionEvent event) {
     }
-
-    public void allCientBtnAction(ActionEvent event) {
-    }
-
+    
     public void addClientBtnAction(ActionEvent event) {
+        if(event.getSource() == addClient){
+            FXMLLoader Loader = new FXMLLoader();
+
+            Loader.setLocation(getClass().getResource("../Client/AddClient/addclient.fxml"));
+
+            try {
+                Loader.load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            AddClientController addClientController = Loader.getController();
+            addClientController.setUserRole(getUserRole());
+            addClientController.setAdminId(getAdminId());
+
+            Parent p = Loader.getRoot();
+            stage = (Stage) addClient.getScene().getWindow();
+            Scene scene = new Scene(p);
+            stage.setScene(scene);
+            stage.show();
+        }
     }
 
     public void pastProjectBtnAction(ActionEvent event) {
     }
 
     public void addAdminBtnAction(ActionEvent event) {
+
+    }
+
+    public void allClientBtnAction(ActionEvent event) {
+        if(event.getSource() == allClientBtn){
+            FXMLLoader Loader = new FXMLLoader();
+
+            Loader.setLocation(getClass().getResource("../Client/AllClient/allclient.fxml"));
+
+            try {
+                Loader.load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            AllClientController allClientController = Loader.getController();
+            allClientController.setUserRole(getUserRole());
+            allClientController.setAdminId(getAdminId());
+
+            Parent p = Loader.getRoot();
+            stage = (Stage) allClientBtn.getScene().getWindow();
+            Scene scene = new Scene(p);
+            stage.setScene(scene);
+            stage.show();
+        }
     }
 }

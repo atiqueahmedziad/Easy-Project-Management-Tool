@@ -11,7 +11,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="637.0" prefWidth="643.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AddEmployee.AddEmployeeController">
     <children>
-        <JFXButton fx:id="AddEmployeeButton" layoutX="263.0" layoutY="528.0" onAction="#AddEmployee" prefHeight="44.0" prefWidth="117.0" ripplerFill="#009688" style="-fx-background-color: #6db5ad#6db5ad;" text="Add Employee" textFill="WHITE">
+        <JFXButton fx:id="AddEmployeeButton" layoutX="263.0" layoutY="528.0" onAction="#AddEmployee" prefHeight="44.0" prefWidth="117.0" ripplerFill="#009688" style="-fx-background-color: #32b5af#6db5ad;" text="Add Employee" textFill="WHITE">
          <font>
             <Font name="SansSerif Regular" size="14.0" />
          </font></JFXButton>

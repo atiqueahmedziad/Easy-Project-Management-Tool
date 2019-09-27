@@ -319,7 +319,6 @@ public class IntroPageAdmin implements Initializable {
 
     public void addEmployeeBtnAction(ActionEvent event) {
         if (event.getSource() == addEmployeeBtn) {
-            if (getUserRole().matches("ADMIN_AUTH")) {
                 FXMLLoader Loader = new FXMLLoader();
 
                 Loader.setLocation(getClass().getResource("../AddEmployee/AddEmployee.fxml"));
@@ -341,7 +340,6 @@ public class IntroPageAdmin implements Initializable {
                 Scene scene = new Scene(p);
                 stage.setScene(scene);
                 stage.showAndWait();
-            }
         }
     }
     

@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 public class AddEmployeeController implements Initializable {
@@ -78,7 +79,23 @@ public class AddEmployeeController implements Initializable {
     @FXML
     private JFXTextField employee_department;
     @FXML
-    JFXComboBox<String> box_empGender = new JFXComboBox<>();
+    JFXComboBox<String>box_empGender = new JFXComboBox<>();
+    @FXML
+    private JFXTextField employee_id;
+
+    private void setEmployeeId() throws Exception{
+
+        Connect connect = new Connect();
+        Connection connection = connect.getConnection();
+        Statement statement = connection.createStatement();
+        String sql1 = "SELECT MAX(id) as id FROM EMPLOYEE";
+        ResultSet rs = statement.executeQuery(sql1);
+        if(rs.next()) {
+            int empid = rs.getInt("id");
+
+            employee_id.setText(Integer.toString(empid+1));
+        }
+    }
 
     @FXML
     private void AddEmployee(javafx.event.ActionEvent event) throws Exception {
@@ -92,7 +109,9 @@ public class AddEmployeeController implements Initializable {
         PreparedStatement ps = null;
         PreparedStatement psa = null;
 
+
         try {
+
             String sql = "insert into EMPLOYEE(name, email, contact, department, designation,gender) values (?,?,?,?,?,?)";
             ps = connection.prepareStatement(sql);
             ps.setString(1, getEmployee_name().getText());
@@ -123,6 +142,11 @@ public class AddEmployeeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        try {
+            setEmployeeId();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         box_empGender.getItems().addAll("Male","Female");
     }
 }

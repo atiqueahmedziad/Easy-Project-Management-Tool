@@ -79,7 +79,7 @@ public class AddEmployeeController implements Initializable {
     @FXML
     private JFXTextField employee_department;
     @FXML
-    JFXComboBox<String>box_empGender = new JFXComboBox<>();
+    JFXComboBox<String>boxEmpGender = new JFXComboBox<>();
     @FXML
     private JFXTextField employee_id;
     private int empid;
@@ -121,7 +121,7 @@ public class AddEmployeeController implements Initializable {
             ps.setString(3, getEmployee_contact().getText());
             ps.setString(4, getEmployee_department().getText());
             ps.setString(5, getEmployee_designation().getText());
-            ps.setString(6, box_empGender.getValue());
+            ps.setString(6, boxEmpGender.getValue());
             ps.executeUpdate();
 
             ps.close();
@@ -149,6 +149,6 @@ public class AddEmployeeController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        box_empGender.getItems().addAll("Male","Female");
+        boxEmpGender.getItems().addAll("Male","Female");
     }
 }

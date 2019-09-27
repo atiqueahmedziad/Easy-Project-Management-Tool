@@ -82,6 +82,7 @@ public class AddEmployeeController implements Initializable {
     JFXComboBox<String>box_empGender = new JFXComboBox<>();
     @FXML
     private JFXTextField employee_id;
+    private int empid;
 
     private void setEmployeeId() throws Exception{
 
@@ -91,10 +92,11 @@ public class AddEmployeeController implements Initializable {
         String sql1 = "SELECT MAX(id) as id FROM EMPLOYEE";
         ResultSet rs = statement.executeQuery(sql1);
         if(rs.next()) {
-            int empid = rs.getInt("id");
-
-            employee_id.setText(Integer.toString(empid+1));
+             empid = rs.getInt("id");
         }
+
+
+        employee_id.setText(Integer.toString(empid+1));
     }
 
     @FXML

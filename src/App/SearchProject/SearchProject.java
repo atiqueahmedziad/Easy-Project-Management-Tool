@@ -2,6 +2,7 @@ package App.SearchProject;
 
 import App.Connect;
 import App.IntroPageAdmin.IntroPageAdmin;
+import App.IntroPageEmployee.IntroPageEmployee;
 import App.ProjectSummary.ProjectSummaryController;
 import App.ProjectDetail.ProjectDetailController;
 import com.jfoenix.controls.JFXButton;
@@ -89,7 +90,7 @@ public class SearchProject implements Initializable {
             } else {
                 projectSummaryController.setEmployeeId(getEmployeeId());
             }
-            projectSummaryController.initilizePorjects(getUserRole());
+            projectSummaryController.initializeProjects(getUserRole());
 
             Parent p = Loader.getRoot();
             Scene scene = new Scene(p);
@@ -194,28 +195,53 @@ public class SearchProject implements Initializable {
     }
 
     public void homeBackBtnAction(ActionEvent event) {
-        if(event.getSource() == homeBackBtn){
+        if(event.getSource() == homeBackBtn) {
             FXMLLoader Loader = new FXMLLoader();
+            if (getUserRole() == "ADMIN_AUTH") {
+                Loader.setLocation(getClass().getResource("../IntroPageAdmin/intropageadmin.fxml"));
 
-            Loader.setLocation(getClass().getResource("../IntroPageAdmin/intropageadmin.fxml"));
+                try {
+                    Loader.load();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-            try {
-                Loader.load();
-            } catch (Exception e) {
-                e.printStackTrace();
+                IntroPageAdmin introPageAdmin = Loader.getController();
+                introPageAdmin.setAdminId(getAdminId());
+                introPageAdmin.setUserRole(getUserRole());
+                introPageAdmin.getAdminName(getAdminId());
+
+                Parent p = Loader.getRoot();
+                stage = (Stage) homeBackBtn.getScene().getWindow();
+                Scene scene = new Scene(p);
+                stage.setScene(scene);
+                stage.show();
             }
 
-            IntroPageAdmin introPageAdmin = Loader.getController();
-            introPageAdmin.setAdminId(getAdminId());
-            introPageAdmin.setUserRole(getUserRole());
-            introPageAdmin.getAdminName(getAdminId());
+            else{
+                Loader.setLocation(getClass().getResource("../IntroPageEmployee/intropageemployee.fxml"));
 
-            Parent p = Loader.getRoot();
-            stage = (Stage) homeBackBtn.getScene().getWindow();
-            Scene scene = new Scene(p);
-            stage.setScene(scene);
-            stage.show();
+                try {
+                    Loader.load();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                IntroPageEmployee introPageEmp = Loader.getController();
+                introPageEmp.setEmployeeId(getEmployeeId());
+                introPageEmp.setUserRole(getUserRole());
+                introPageEmp.getEmployeeName(getEmployeeId());
+
+                Parent p = Loader.getRoot();
+                stage = (Stage) homeBackBtn.getScene().getWindow();
+                Scene scene = new Scene(p);
+                stage.setScene(scene);
+                stage.centerOnScreen();
+                stage.show();
+
+            }
         }
+
     }
 
     public void SearchProjectAction(ActionEvent event) {

@@ -20,6 +20,15 @@ public class AddEmployeeController implements Initializable {
 
     Stage stage;
     Parent root;
+    private int adminId;
+
+    public int getAdminId() {
+        return adminId;
+    }
+
+    public void setAdminId(int adminId) {
+        this.adminId = adminId;
+    }
 
     public String getUserRole() {
         return userRole;

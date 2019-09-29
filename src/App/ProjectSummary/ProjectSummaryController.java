@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 import App.Connect;
 import App.IntroPageAdmin.IntroPageAdmin;
+import App.IntroPageEmployee.IntroPageEmployee;
 import App.ProjectDetail.ProjectDetailController;
 import App.SearchProject.SearchProject;
 import com.jfoenix.controls.JFXButton;
@@ -119,7 +120,7 @@ public class ProjectSummaryController implements Initializable {
             } else {
                 projectSummaryController.setEmployeeId(getEmployeeId());
             }
-            projectSummaryController.initilizePorjects(getUserRole());
+            projectSummaryController.initializeProjects(getUserRole());
 
             Parent p = Loader.getRoot();
             stage = (Stage) allproject.getScene().getWindow();
@@ -159,7 +160,7 @@ public class ProjectSummaryController implements Initializable {
         }
     }
 
-    public void initilizePorjects(String userRole){
+    public void initializeProjects(String userRole){
         FXMLLoader Loader = new FXMLLoader();
         String sql;
 
@@ -169,7 +170,6 @@ public class ProjectSummaryController implements Initializable {
         else {
             sql = "SELECT distinct PROJECT_INFO.id, project_name, start_date, end_date, estimated_time FROM PROJECT_INFO, PROJECT_TASK WHERE PROJECT_INFO.id = PROJECT_TASK.id AND assigned = (SELECT name FROM EMPLOYEE WHERE EMPLOYEE.id="+getEmployeeId()+")";
             btnProjectDetail.setDisable(true);
-            homeBackBtn.setDisable(true); // Remove it when home page for employee is done.
             searchproject.setDisable(true); // Remove it when search project page for employee is done.
         }
 
@@ -309,9 +309,10 @@ public class ProjectSummaryController implements Initializable {
     }
 
     public void homeBackBtnAction(ActionEvent event) {
-        if(event.getSource() == homeBackBtn){
+        if(event.getSource() == homeBackBtn) {
             FXMLLoader Loader = new FXMLLoader();
 
+            if(getUserRole()=="ADMIN_AUTH"){
             Loader.setLocation(getClass().getResource("../IntroPageAdmin/intropageadmin.fxml"));
 
             try {
@@ -330,6 +331,30 @@ public class ProjectSummaryController implements Initializable {
             Scene scene = new Scene(p);
             stage.setScene(scene);
             stage.show();
+            }
+
+            else{
+                Loader.setLocation(getClass().getResource("../IntroPageEmployee/intropageemployee.fxml"));
+
+                try {
+                    Loader.load();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                IntroPageEmployee introPageEmp = Loader.getController();
+                introPageEmp.setEmployeeId(getEmployeeId());
+                introPageEmp.setUserRole(getUserRole());
+                introPageEmp.getEmployeeName(getEmployeeId());
+
+                Parent p = Loader.getRoot();
+                stage = (Stage) homeBackBtn.getScene().getWindow();
+                Scene scene = new Scene(p);
+                stage.setScene(scene);
+                stage.centerOnScreen();
+                stage.show();
+
+            }
         }
 
     }

@@ -427,7 +427,7 @@ public class ProjectDetailController implements Initializable {
             } else {
                 projectSummaryController.setEmployeeId(getEmployeeId());
             }
-            projectSummaryController.initilizePorjects(getUserRole());
+            projectSummaryController.initializeProjects(getUserRole());
 
             Parent p = Loader.getRoot();
             Scene scene = new Scene(p);

@@ -131,15 +131,16 @@ public class AddtaskController implements Initializable {
         Connection connection=connect.getConnection();
         try {
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT name FROM EMPLOYEE");
+            ResultSet rs = statement.executeQuery("SELECT id, name FROM EMPLOYEE");
 
             while (rs.next()) {
-                employeeList.add(rs.getString("name"));
+                employeeList.add(rs.getInt("id") + " - " + rs.getString("name"));
             }
 
             employeeAssigned.setItems(employeeList);
 
             rs.close();
+            statement.close();
             connection.close();
         } catch (Exception e){
             e.printStackTrace();
@@ -193,12 +194,25 @@ public class AddtaskController implements Initializable {
     }
 
     private void insertProjectTask() {
+
+        // getting the id of assigned employee
+        String[] EmpArrayStr = employeeAssigned.getValue().split("-");
+        int assignedEmployeeId = Integer.parseInt(EmpArrayStr[0].trim());
+
+        if(assignedEmployeeId == 0){
+            invalid_date_label.setText("A valid employee must be selected.");
+            return;
+        } else {
+            invalid_date_label.setText("");
+        }
+
         Connect connect = new Connect();
-        Connection connection = connect.getConnection();
+        Connection connection=connect.getConnection();
+
         PreparedStatement ps = null;
 
         try {
-            String sql = "insert into project_task(id,task_name, task_time, task_start_date, task_end_date, progress, color, dependency, assigned) values (?,?,?,?,?,?,?,?,?)";
+            String sql = "insert into PROJECT_TASK(id,task_name, task_time, task_start_date, task_end_date, progress, color, dependency, assigned) values (?,?,?,?,?,?,?,?,?)";
             ps = connection.prepareStatement(sql);
             ps.setString(1, getTaskProjectID().getText());
             ps.setString(2, getTask_name().getText());
@@ -208,7 +222,7 @@ public class AddtaskController implements Initializable {
             ps.setString(6, "0%");
             ps.setString(7, String.valueOf(getTask_color().getValue()));
             ps.setString(8, dependency.getValue());
-            ps.setString(9, employeeAssigned.getValue());
+            ps.setInt(9, assignedEmployeeId);
             ps.executeUpdate();
 
             ps.close();
@@ -226,7 +240,6 @@ public class AddtaskController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //dependency.getItems().addAll(dependencyItems);
 
     }
 

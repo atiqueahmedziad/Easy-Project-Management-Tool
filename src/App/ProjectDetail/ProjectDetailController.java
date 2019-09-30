@@ -289,23 +289,23 @@ public class ProjectDetailController implements Initializable {
             Connection connection=connect.getConnection();
 
             Statement statement = connection.createStatement();
-            String sql = "SELECT task_name, task_time, task_start_date, task_end_date, progress, color, dependency, assigned FROM project_task WHERE id = "+getProjectID().getText();
-            ResultSet rs = statement.executeQuery(sql);
+            String taskSql = "SELECT task_name, task_time, task_start_date, task_end_date, progress, color, dependency, EMPLOYEE.name as assignedName FROM PROJECT_TASK JOIN EMPLOYEE ON PROJECT_TASK.assigned = EMPLOYEE.id WHERE PROJECT_TASK.id="+getProjectID().getText();
+            ResultSet taskResultSet = statement.executeQuery(taskSql);
 
-            while (rs.next()) {
-                String task_name = rs.getString("task_name");
-                String time = rs.getString("task_time");
-                String task_start_date = rs.getString("task_start_date");
-                String task_end_date = rs.getString("task_end_date");
-                String progress = rs.getString("progress");
-                String color = rs.getString("color");
-                String dependency = rs.getString("dependency");
-                String assigned = rs.getString("assigned");
+            while (taskResultSet.next()) {
+                String task_name = taskResultSet.getString("task_name");
+                String time = taskResultSet.getString("task_time");
+                String task_start_date = taskResultSet.getString("task_start_date");
+                String task_end_date = taskResultSet.getString("task_end_date");
+                String progress = taskResultSet.getString("progress");
+                String color = taskResultSet.getString("color");
+                String dependency = taskResultSet.getString("dependency");
+                String assigned = taskResultSet.getString("assignedName");
 
                 Task task = new Task(task_name, time, task_start_date, task_end_date, progress, color, dependency, assigned);
                 tableview.getItems().add(task);
             }
-
+            taskResultSet.close();
             statement.close();
             connection.close();
         }

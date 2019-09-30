@@ -141,6 +141,7 @@ public class AddClientController implements Initializable {
 
             } catch (SQLException e) {
                 e.printStackTrace();
+                confirmationMsg.setText(e.getMessage());
             }
 
         }

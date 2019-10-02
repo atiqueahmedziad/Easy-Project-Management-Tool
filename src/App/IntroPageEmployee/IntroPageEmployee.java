@@ -63,7 +63,7 @@ public class IntroPageEmployee implements Initializable {
 
     private Stage stage;
 
-    private void getProjectTableData(){
+    public void getProjectTableData(){
         //Clear the all column data from table
         projectTableView.getItems().clear();
         projectCount = 0;
@@ -73,7 +73,7 @@ public class IntroPageEmployee implements Initializable {
             Connection connection=connect.getConnection();
 
             Statement statement = connection.createStatement();
-            String sql = "SELECT project_name, start_date, end_date FROM PROJECT_INFO WHERE end_date > getdate()";
+            String sql = "SELECT distinct PROJECT_INFO.id, project_name, start_date, end_date, estimated_time FROM PROJECT_INFO, PROJECT_TASK WHERE PROJECT_INFO.id = PROJECT_TASK.id AND assigned = (SELECT name FROM EMPLOYEE WHERE EMPLOYEE.id="+getEmployeeId()+")";
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
                 projectCount++;
@@ -134,9 +134,6 @@ public class IntroPageEmployee implements Initializable {
         projectTableView.setEditable(false);
 
         getLogoutIcon();
-        
-        getProjectTableData();
-
     }
 
     public void ProfileBtnAction(ActionEvent event) {
@@ -156,7 +153,7 @@ public class IntroPageEmployee implements Initializable {
 
             ProjectSummaryController projectSummaryController = Loader.getController();
             projectSummaryController.setUserRole(getUserRole());
-            projectSummaryController.setAdminId(getEmployeeId());
+            projectSummaryController.setEmployeeId(getEmployeeId());
             projectSummaryController.initializeProjects(getUserRole());
 
             Parent p = Loader.getRoot();

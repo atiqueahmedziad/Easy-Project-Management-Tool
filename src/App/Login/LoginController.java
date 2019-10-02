@@ -127,6 +127,7 @@ public class LoginController implements Initializable {
                     introPageEmp.setEmployeeId(empid);
                     introPageEmp.setUserRole(getUserRole());
                     introPageEmp.getEmployeeName(empid);
+                    introPageEmp.getProjectTableData();
 
                     Parent p = Loader.getRoot();
                     stage = (Stage) employeeToggle.getScene().getWindow();

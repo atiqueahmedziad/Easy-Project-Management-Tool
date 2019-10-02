@@ -73,7 +73,7 @@ public class IntroPageEmployee implements Initializable {
             Connection connection=connect.getConnection();
 
             Statement statement = connection.createStatement();
-            String sql = "SELECT distinct PROJECT_INFO.id, project_name, start_date, end_date, estimated_time FROM PROJECT_INFO, PROJECT_TASK WHERE PROJECT_INFO.id = PROJECT_TASK.id AND assigned = (SELECT name FROM EMPLOYEE WHERE EMPLOYEE.id="+getEmployeeId()+")";
+            String sql = "SELECT distinct PROJECT_INFO.id, project_name, start_date, end_date, estimated_time FROM PROJECT_INFO, PROJECT_TASK WHERE PROJECT_INFO.id = PROJECT_TASK.id AND assigned="+ getEmployeeId();
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
                 projectCount++;

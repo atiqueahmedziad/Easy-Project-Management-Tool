@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 
 import App.Connect;
+import App.IntroPageEmployee.IntroPageEmployee;
 import App.ProjectSummary.ProjectSummaryController;
 import App.IntroPageAdmin.IntroPageAdmin;
 import com.jfoenix.controls.*;
@@ -114,21 +115,22 @@ public class LoginController implements Initializable {
                 // if the username and password from database matches only then intropage loads
                 if (resultSet.next()) {
                     //load up OTHER FXML document
-                    int employeeid = resultSet.getInt("id");
-                    Loader.setLocation(getClass().getResource("../ProjectSummary/projectsummary.fxml"));
+                    int empid = resultSet.getInt("id");
+                    Loader.setLocation(getClass().getResource("../IntroPageEmployee/intropageemployee.fxml"));
                     try{
                         Loader.load();
                     } catch (Exception e){
                         e.printStackTrace();
                     }
 
-                    ProjectSummaryController projectSummaryController = Loader.getController();
-                    projectSummaryController.setUserRole(getUserRole());
-                    projectSummaryController.setEmployeeId(employeeid);
-                    projectSummaryController.initilizePorjects(getUserRole());
+                    IntroPageEmployee introPageEmp = Loader.getController();
+                    introPageEmp.setEmployeeId(empid);
+                    introPageEmp.setUserRole(getUserRole());
+                    introPageEmp.getEmployeeName(empid);
+                    introPageEmp.getProjectTableData();
 
                     Parent p = Loader.getRoot();
-                    stage = (Stage) adminToggle.getScene().getWindow();
+                    stage = (Stage) employeeToggle.getScene().getWindow();
                     Scene scene = new Scene(p);
                     stage.setScene(scene);
                     stage.centerOnScreen();

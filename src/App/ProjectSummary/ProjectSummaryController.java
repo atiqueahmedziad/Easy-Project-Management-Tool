@@ -56,7 +56,6 @@ public class ProjectSummaryController implements Initializable {
 
     public void setEmployeeId(int employeeId) {
         this.employeeId = employeeId;
-        System.out.println(employeeId);
     }
 
     public int getAdminId() {
@@ -167,7 +166,7 @@ public class ProjectSummaryController implements Initializable {
             sql  = "SELECT * FROM PROJECT_INFO";
         }
         else {
-            sql = "SELECT distinct PROJECT_INFO.id, project_name, start_date, end_date, estimated_time FROM PROJECT_INFO, PROJECT_TASK WHERE PROJECT_INFO.id = PROJECT_TASK.id AND assigned = (SELECT name FROM EMPLOYEE WHERE EMPLOYEE.id="+getEmployeeId()+")";
+            sql = "SELECT distinct PROJECT_INFO.id, project_name, start_date, end_date, estimated_time FROM PROJECT_INFO, PROJECT_TASK WHERE PROJECT_INFO.id = PROJECT_TASK.id AND assigned="+ getEmployeeId();
             btnProjectDetail.setDisable(true);
             homeBackBtn.setDisable(true); // Remove it when home page for employee is done.
             searchproject.setDisable(true); // Remove it when search project page for employee is done.

@@ -119,6 +119,7 @@ public class AddtaskController implements Initializable {
             dependency.setItems(dependencyTaskList);
 
             rs.close();
+            statement.close();
             connection.close();
         } catch (Exception e){
             e.printStackTrace();

@@ -11,7 +11,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="637.0" prefWidth="643.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AddEmployee.AddEmployeeController">
     <children>
-        <JFXButton fx:id="AddEmployeeButton" layoutX="263.0" layoutY="528.0" onAction="#AddEmployee" prefHeight="44.0" prefWidth="117.0" ripplerFill="#009688" style="-fx-background-color: #34274e;" text="Add Employee" textFill="WHITE">
+        <JFXButton fx:id="AddEmployeeButton" layoutX="264.0" layoutY="525.0" onAction="#AddEmployee" prefHeight="44.0" prefWidth="117.0" ripplerFill="#009688" style="-fx-background-color: #34274e;" text="Add Employee" textFill="WHITE">
          <font>
             <Font name="SansSerif Regular" size="14.0" />
          </font></JFXButton>
@@ -52,14 +52,14 @@
             <Font size="14.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="employee_department" focusColor="#34274e" layoutX="292.0" layoutY="413.0" prefHeight="30.0" prefWidth="169.0">
+      <JFXTextField fx:id="employee_department" focusColor="#34274e" layoutX="286.0" layoutY="414.0" prefHeight="30.0" prefWidth="169.0">
          <font>
             <Font size="14.0" />
          </font>
       </JFXTextField>
       <Separator layoutX="222.0" layoutY="59.0" prefWidth="200.0" />
       <Label alignment="CENTER" layoutX="163.0" layoutY="458.0" prefHeight="29.0" prefWidth="104.0" style="-fx-font-size: 16;" text="Designation:" textAlignment="CENTER" />
-      <JFXTextField fx:id="employee_designation" focusColor="#34274e" layoutX="292.0" layoutY="457.0" prefHeight="30.0" prefWidth="169.0">
+      <JFXTextField fx:id="employee_designation" focusColor="#34274e" layoutX="286.0" layoutY="458.0" prefHeight="30.0" prefWidth="169.0">
          <font>
             <Font size="14.0" />
          </font>
@@ -72,5 +72,10 @@
          </font>
       </JFXTextField>
       <Label alignment="CENTER" layoutX="159.0" layoutY="162.0" prefHeight="29.0" prefWidth="117.0" style="-fx-font-size: 16;" text="Employee ID:" textAlignment="CENTER" />
+      <Label fx:id="errorMsg" alignment="CENTER" layoutX="91.0" layoutY="583.0" prefHeight="27.0" prefWidth="464.0" textFill="#9e2222">
+         <font>
+            <Font name="Gill Sans MT" size="15.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

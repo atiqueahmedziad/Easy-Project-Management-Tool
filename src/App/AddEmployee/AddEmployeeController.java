@@ -1,6 +1,7 @@
 package App.AddEmployee;
 
 
+import App.Alertbox;
 import App.Connect;
 
 import com.jfoenix.controls.JFXComboBox;
@@ -10,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -84,6 +86,8 @@ public class AddEmployeeController implements Initializable {
     private JFXTextField employee_id;
     private int empid;
 
+    public Label errorMsg;
+
     private void setEmployeeId() throws Exception{
 
         Connect connect = new Connect();
@@ -105,6 +109,17 @@ public class AddEmployeeController implements Initializable {
     }
 
     private void insertEmployee() {
+
+        String employeeName = getEmployee_name().getText();
+        String department = getEmployee_department().getText();
+        String password = getEmployee_password().getText();
+        String username = getEmployee_username().getText();
+
+        if(employeeName.trim().isEmpty() || department.trim().isEmpty() || password.trim().isEmpty() || username.trim().isEmpty()){
+            errorMsg.setText("Please fillup the form correctly.");
+            return;
+        }
+
 
         Connect connect = new Connect();
         Connection connection = connect.getConnection();
@@ -134,8 +149,11 @@ public class AddEmployeeController implements Initializable {
 
             psa.close();
 
+            Alertbox.display("Confirmation","Employee named "+getEmployee_name().getText()+" has been added.");
+
         } catch (Exception e) {
             e.printStackTrace();
+            errorMsg.setText(e.getMessage());
         }
 
         Stage stage = (Stage) AddEmployeeButton.getScene().getWindow();

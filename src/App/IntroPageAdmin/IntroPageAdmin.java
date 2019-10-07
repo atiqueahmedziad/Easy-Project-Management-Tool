@@ -35,6 +35,7 @@ public class IntroPageAdmin implements Initializable {
     public JFXButton allClientBtn;
     public Label clientCountLabel;
     public JFXButton logoutBtn;
+    public JFXButton addEmployeeBtn;
 
     private int adminId;
 
@@ -317,6 +318,29 @@ public class IntroPageAdmin implements Initializable {
     }
 
     public void addEmployeeBtnAction(ActionEvent event) {
+        if (event.getSource() == addEmployeeBtn) {
+                FXMLLoader Loader = new FXMLLoader();
+
+                Loader.setLocation(getClass().getResource("../AddEmployee/AddEmployee.fxml"));
+
+                try {
+                    Loader.load();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+//                Parent p = Loader.getRoot();
+//                stage = (Stage) btnAddEmployee.getScene().getWindow();
+//                Scene scene = new Scene(p);
+//                stage.setScene(scene);
+//                stage.showAndWait();
+
+                Parent p = Loader.getRoot();
+                Stage stage = new Stage();
+                Scene scene = new Scene(p);
+                stage.setScene(scene);
+                stage.showAndWait();
+        }
     }
     
     public void addClientBtnAction(ActionEvent event) {

@@ -11,7 +11,7 @@
 
 <AnchorPane centerShape="false" prefHeight="670.0" prefWidth="676.0" styleClass="main-bg" stylesheets="@../main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.IntroPageEmployee.IntroPageEmployee">
    <children>
-      <Label fx:id="nameUser" alignment="CENTER" layoutX="231.0" layoutY="40.0" prefHeight="23.0" prefWidth="215.0" text="Name">
+      <Label fx:id="nameUser" alignment="CENTER" layoutX="174.0" layoutY="40.0" prefHeight="35.0" prefWidth="327.0" text="Name">
          <font>
             <Font name="Lato Black" size="24.0" />
          </font>

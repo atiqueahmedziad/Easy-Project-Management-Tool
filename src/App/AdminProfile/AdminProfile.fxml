@@ -8,7 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+
 <AnchorPane prefHeight="597.0" prefWidth="535.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AdminProfile.AdminProfile">
+
    <children>
       <ImageView fitHeight="53.0" fitWidth="53.0" layoutX="69.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -55,12 +57,16 @@
          </font>
       </Label>
       <JFXTextField fx:id="adminPassText" layoutX="255.0" layoutY="308.0" />
+
       <JFXButton fx:id="saveBtn" alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0" layoutX="226.0" layoutY="490.0" onAction="#saveBtnAction" prefHeight="39.0" prefWidth="94.0" styleClass="Btn" stylesheets="@../main.css" text="Save" textAlignment="CENTER" textFill="WHITE">
+
          <font>
             <Font name="Gill Sans MT" size="15.0" />
          </font>
       </JFXButton>
+
       <Label fx:id="confirmationMsg" alignment="CENTER" layoutX="41.0" layoutY="543.0" prefHeight="27.0" prefWidth="464.0" textFill="#9e2222">
+
          <font>
             <Font name="Gill Sans MT" size="15.0" />
          </font>
@@ -77,5 +83,6 @@
          </font>
       </Label>
       <JFXTextField fx:id="adminContactText" layoutX="255.0" layoutY="400.0" />
+
    </children>
 </AnchorPane>

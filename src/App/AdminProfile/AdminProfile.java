@@ -46,6 +46,7 @@ public class AdminProfile implements Initializable {
     public JFXTextField adminDesText;
     public JFXTextField adminEmailText;
     public JFXTextField adminContactText;
+
     public Label confirmationMsg;
 
     public void setAdminInfo() throws SQLException {
@@ -62,6 +63,7 @@ public class AdminProfile implements Initializable {
             int id = rs.getInt("id");
             String name = rs.getString("name");
             String desig = rs.getString("designation");
+
             String email = rs.getString("email");
             String contact = rs.getString("contact");
 
@@ -70,6 +72,7 @@ public class AdminProfile implements Initializable {
             adminDesText.setText(desig);
             adminEmailText.setText(email);
             adminContactText.setText(contact);
+
         }
 
         ResultSet rs2 = statement.executeQuery(sql2);
@@ -172,13 +175,11 @@ public class AdminProfile implements Initializable {
 
                 saveBtn.setDisable(true);
                 saveBtn.setVisible(false);
-
                 adminNameText.setEditable(false);
                 adminPassText.setEditable(false);
                 adminDesText.setEditable(false);
                 adminEmailText.setEditable(false);
                 adminContactText.setEditable(false);
-
                 confirmationMsg.setStyle("-fx-text-fill: #24bb71");
                 confirmationMsg.setText("Saved Successfully!");
             }catch (Exception e){

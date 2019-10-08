@@ -1,5 +1,6 @@
 package App.IntroPageAdmin;
 
+import App.AdminProfile.AdminProfile;
 import App.Client.AddClient.AddClientController;
 import App.Client.AllClient.AllClientController;
 import App.Connect;
@@ -23,6 +24,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
@@ -238,7 +240,31 @@ public class IntroPageAdmin implements Initializable {
         getClientTableData();
     }
 
-    public void ProfileBtnAction(ActionEvent event) {
+    public JFXButton profileBtn;
+
+    public void ProfileBtnAction(ActionEvent event) throws SQLException {
+        if(event.getSource() == profileBtn){
+            FXMLLoader Loader = new FXMLLoader();
+
+            Loader.setLocation(getClass().getResource("../AdminProfile/AdminProfile.fxml"));
+
+            try {
+                Loader.load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            AdminProfile adminProfile = Loader.getController();
+            adminProfile.setAdminId(getAdminId());
+            adminProfile.setAdminInfo();
+            adminProfile.setUserRole(getUserRole());
+
+            Parent p = Loader.getRoot();
+            stage = (Stage) profileBtn.getScene().getWindow();
+            Scene scene = new Scene(p);
+            stage.setScene(scene);
+            stage.show();
+        }
     }
 
     public void allProjectsBtnAction(ActionEvent event) {

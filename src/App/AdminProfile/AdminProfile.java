@@ -148,7 +148,7 @@ public class AdminProfile implements Initializable {
 
                 preparedStmt.executeUpdate();
 
-                String sql2 = "UPDATE ADMIN_AUTH password=? WHERE id=?";
+                String sql2 = "UPDATE ADMIN_AUTH set password=? WHERE id=?";
 
                 PreparedStatement ps_auth = connection.prepareStatement(sql2);
                 ps_auth.setString(1,adminPass);

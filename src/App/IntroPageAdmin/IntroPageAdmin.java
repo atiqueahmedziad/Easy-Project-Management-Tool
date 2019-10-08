@@ -257,6 +257,7 @@ public class IntroPageAdmin implements Initializable {
             AdminProfile adminProfile = Loader.getController();
             adminProfile.setAdminId(getAdminId());
             adminProfile.setAdminInfo();
+            adminProfile.setUserRole(getUserRole());
 
             Parent p = Loader.getRoot();
             stage = (Stage) profileBtn.getScene().getWindow();

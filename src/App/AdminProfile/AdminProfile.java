@@ -44,6 +44,9 @@ public class AdminProfile implements Initializable {
     public JFXTextField adminUsernameText;
     public JFXTextField adminPassText;
     public JFXTextField adminDesText;
+    public JFXTextField adminEmailText;
+    public JFXTextField adminContactText;
+
     public Label confirmationMsg;
 
     public void setAdminInfo() throws SQLException {
@@ -61,9 +64,15 @@ public class AdminProfile implements Initializable {
             String name = rs.getString("name");
             String desig = rs.getString("designation");
 
+            String email = rs.getString("email");
+            String contact = rs.getString("contact");
+
             adminNameText.setText(name);
             adminIdText.setText(String.valueOf(id));
             adminDesText.setText(desig);
+            adminEmailText.setText(email);
+            adminContactText.setText(contact);
+
         }
 
         ResultSet rs2 = statement.executeQuery(sql2);
@@ -85,6 +94,8 @@ public class AdminProfile implements Initializable {
         adminNameText.setEditable(false);
         adminPassText.setEditable(false);
         adminDesText.setEditable(false);
+        adminContactText.setEditable(false);
+        adminEmailText.setEditable(false);
     }
 
     public void homeBackBtnAction(ActionEvent event) {
@@ -121,6 +132,8 @@ public class AdminProfile implements Initializable {
             adminNameText.setEditable(true);
             adminPassText.setEditable(true);
             adminDesText.setEditable(true);
+            adminEmailText.setEditable(true);
+            adminContactText.setEditable(true);
         }
     }
 
@@ -129,6 +142,8 @@ public class AdminProfile implements Initializable {
             String adminName = adminNameText.getText();
             String adminPass = adminPassText.getText();
             String adminDes = adminDesText.getText();
+            String adminEmail = adminEmailText.getText();
+            String adminContact = adminContactText.getText();
 
             if(adminName.trim().isEmpty() || adminPass.trim().isEmpty() || adminDes.trim().isEmpty()){
                 confirmationMsg.setText("Please fill up the form correctly.");
@@ -139,12 +154,14 @@ public class AdminProfile implements Initializable {
             Connection connection = connect.getConnection();
 
             try{
-                String sql = "UPDATE ADMIN set name=?, designation=? WHERE id=?";
+                String sql = "UPDATE ADMIN set name=?, designation=?, email =?, contact =? WHERE id=?";
 
                 PreparedStatement preparedStmt = connection.prepareStatement(sql);
                 preparedStmt.setString(1, adminName);
                 preparedStmt.setString(2, adminDes);
-                preparedStmt.setInt(3,adminId);
+                preparedStmt.setString(3, adminEmail);
+                preparedStmt.setString(4, adminContact);
+                preparedStmt.setInt(5,adminId);
 
                 preparedStmt.executeUpdate();
 
@@ -158,7 +175,11 @@ public class AdminProfile implements Initializable {
 
                 saveBtn.setDisable(true);
                 saveBtn.setVisible(false);
-
+                adminNameText.setEditable(false);
+                adminPassText.setEditable(false);
+                adminDesText.setEditable(false);
+                adminEmailText.setEditable(false);
+                adminContactText.setEditable(false);
                 confirmationMsg.setStyle("-fx-text-fill: #24bb71");
                 confirmationMsg.setText("Saved Successfully!");
             }catch (Exception e){

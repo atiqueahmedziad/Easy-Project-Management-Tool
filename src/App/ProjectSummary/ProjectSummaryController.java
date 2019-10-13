@@ -121,7 +121,7 @@ public class ProjectSummaryController implements Initializable {
             ProjectSummaryController projectSummaryController = Loader.getController();
             projectSummaryController.setUserRole(getUserRole());
             if(getUserRole().matches("ADMIN_AUTH")) {
-                projectSummaryController.setAdminId(getEmployeeId());
+                projectSummaryController.setAdminId(getAdminId());
             } else {
                 projectSummaryController.setEmployeeId(getEmployeeId());
             }
@@ -172,7 +172,7 @@ public class ProjectSummaryController implements Initializable {
         String sql;
 
         if(userRole.matches("ADMIN_AUTH")) {
-            sql  = "SELECT *,CLIENT.name FROM PROJECT_INFO,CLIENT WHERE CLIENT.id=client_id";
+            sql  = "SELECT * FROM PROJECT_INFO,CLIENT WHERE CLIENT.id=client_id";
         }
         else {
             sql = "SELECT distinct PROJECT_INFO.id, project_name, start_date, end_date, estimated_time,client_id,CLIENT.name FROM PROJECT_INFO, PROJECT_TASK,CLIENT WHERE PROJECT_INFO.id = PROJECT_TASK.id AND CLIENT.id = client_id AND assigned="+ getEmployeeId();
@@ -330,7 +330,7 @@ public class ProjectSummaryController implements Initializable {
         if(event.getSource() == homeBackBtn) {
             FXMLLoader Loader = new FXMLLoader();
 
-            if(getUserRole()=="ADMIN_AUTH"){
+            if(getUserRole().matches("ADMIN_AUTH")){
                 Loader.setLocation(getClass().getResource("../IntroPageAdmin/intropageadmin.fxml"));
 
                 try {

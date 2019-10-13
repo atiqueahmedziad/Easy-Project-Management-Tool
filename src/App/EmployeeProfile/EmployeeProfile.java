@@ -109,6 +109,7 @@ public class EmployeeProfile implements Initializable {
             introPageEmployee.setEmployeeId(empId);
             introPageEmployee.setUserRole(getUserRole());
             introPageEmployee.getEmployeeName(empId);
+            introPageEmployee.getProjectTableData();
 
             Parent p = Loader.getRoot();
             Stage stage = (Stage) homeBackBtn.getScene().getWindow();

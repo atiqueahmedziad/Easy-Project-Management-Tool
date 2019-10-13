@@ -216,8 +216,6 @@ public class IntroPageEmployee implements Initializable {
         }
     }
 
-    public void pastProjectBtnAction(ActionEvent event) {
-    }
 
     public void logoutBtnAction(ActionEvent event) {
         if(event.getSource() == logoutBtn){

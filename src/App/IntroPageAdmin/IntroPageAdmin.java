@@ -393,13 +393,6 @@ public class IntroPageAdmin implements Initializable {
         }
     }
 
-    public void pastProjectBtnAction(ActionEvent event) {
-    }
-
-    public void addAdminBtnAction(ActionEvent event) {
-
-    }
-
     public void allClientBtnAction(ActionEvent event) {
         if(event.getSource() == allClientBtn){
             FXMLLoader Loader = new FXMLLoader();

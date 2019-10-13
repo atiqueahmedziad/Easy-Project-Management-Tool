@@ -107,7 +107,7 @@ public class AddtaskController implements Initializable {
 
     public void getDependencyList() {
         Connect connect = new Connect();
-        Connection connection=connect.getConnection();
+        Connection connection = connect.getConnection();
         try {
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("SELECT task_name FROM project_task WHERE id=" + getTaskProjectID().getText());

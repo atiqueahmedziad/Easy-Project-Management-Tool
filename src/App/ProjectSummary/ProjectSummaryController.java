@@ -13,6 +13,10 @@ import App.IntroPageEmployee.IntroPageEmployee;
 import App.ProjectDetail.ProjectDetailController;
 import App.SearchProject.SearchProject;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
+import com.mysql.cj.protocol.Resultset;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -84,6 +88,8 @@ public class ProjectSummaryController implements Initializable {
 
             ProjectDetailController projectDetailController = Loader.getController();
             projectDetailController.setUserRole(getUserRole());
+            projectDetailController.getClientList();
+
             if (getUserRole().matches("ADMIN_AUTH")) {
                 projectDetailController.setAdminId(getAdminId());
             } else {
@@ -164,10 +170,10 @@ public class ProjectSummaryController implements Initializable {
         String sql;
 
         if(userRole.matches("ADMIN_AUTH")) {
-            sql  = "SELECT * FROM PROJECT_INFO";
+            sql  = "SELECT *,CLIENT.name FROM PROJECT_INFO,CLIENT WHERE CLIENT.id=client_id";
         }
         else {
-            sql = "SELECT distinct PROJECT_INFO.id, project_name, start_date, end_date, estimated_time FROM PROJECT_INFO, PROJECT_TASK WHERE PROJECT_INFO.id = PROJECT_TASK.id AND assigned="+ getEmployeeId();
+            sql = "SELECT distinct PROJECT_INFO.id, project_name, start_date, end_date, estimated_time,client_id,CLIENT.name FROM PROJECT_INFO, PROJECT_TASK,CLIENT WHERE PROJECT_INFO.id = PROJECT_TASK.id AND CLIENT.id = client_id AND assigned="+ getEmployeeId();
             btnProjectDetail.setDisable(true);
             searchproject.setDisable(true); // Remove it when search project page for employee is done.
         }
@@ -196,9 +202,11 @@ public class ProjectSummaryController implements Initializable {
                 String startdate = rs.getString("start_date");
                 String enddate = rs.getString("end_date");
                 String estitime = rs.getString("estimated_time");
+                String clientName = rs.getString("name");
 
                 // Save the information in VBox for TitledPane to display
                 content.getChildren().add(new Label("Project ID: " + id));
+                content.getChildren().add(new Label("Project Client: " + clientName));
                 content.getChildren().add(new Label("Project Name: " + projectname));
                 content.getChildren().add(new Label("Project Start Date: " + startdate));
                 content.getChildren().add(new Label("Project End Date: " + enddate));
@@ -250,8 +258,17 @@ public class ProjectSummaryController implements Initializable {
 
                     // Calling getTableData() method to fill the table data from database following the above information
                     projectDetailController.getTableData();
+                    projectDetailController.getClientList();
+
+//                    ObservableList<String> clientList = FXCollections.observableArrayList();
+//                    clientList.add(clientName);
+//                    projectDetailController.projectClient.setValue(clientName);
+                    projectDetailController.ClientNameText.setDisable(false);
+                    projectDetailController.ClientNameText.setText(clientName);
+                    projectDetailController.projectClient.setVisible(false);
 
                     projectDetailController.setUserRole(getUserRole());
+
                     if(getUserRole().matches("EMPLOYEE_AUTH")) {
                         projectDetailController.setEmployeeId(getEmployeeId());
                         projectDetailController.ifUserIsEmployee(getUserRole());

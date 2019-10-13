@@ -16,8 +16,10 @@ import App.chart.GanttChartController;
 import App.chart.GanttChartController.ExtraData;
 import com.jfoenix.controls.*;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import App.AddTask.AddtaskController;
@@ -182,19 +184,29 @@ public class ProjectDetailController implements Initializable {
 
     private void insertProjectInfo() {
         getEsti_time();
+        String[] ClientArrayStr = projectClient.getValue().split("-");
+        int projectClientId = Integer.parseInt(ClientArrayStr[0].trim());
+
+        if(projectClientId == 0){
+            invalid_date_label.setText("A valid employee must be selected.");
+            return;
+        } else {
+            invalid_date_label.setText("");
+        }
 
         try {
             Connect connect =new Connect();
             Connection connection=connect.getConnection();
             PreparedStatement ps;
 
-            String sql = "insert into project_info(id,project_name, start_date, end_date, estimated_time) values (?,?,?,?,?)";
+            String sql = "insert into project_info(id,project_name, start_date, end_date, estimated_time,client_id) values (?,?,?,?,?,?)";
             ps = connection.prepareStatement(sql);
             ps.setString(1, getProjectID().getText());
             ps.setString(2, getProjectName().getText());
             ps.setDate(3, Date.valueOf(start_date.getValue()));
             ps.setDate(4, Date.valueOf(end_date.getValue()));
             ps.setString(5, calcDays(start_date,end_date));
+            ps.setInt(6,projectClientId);
             ps.executeUpdate();
 
             ps.close();
@@ -337,6 +349,34 @@ public class ProjectDetailController implements Initializable {
         connection.close();
     }
 
+    //CLient Choicebox
+
+    public JFXTextField ClientNameText;
+    private ObservableList<String> clientList = FXCollections.observableArrayList();
+    public ChoiceBox<String> projectClient = new ChoiceBox<String>();
+
+    public void getClientList() {
+        Connect connect = new Connect();
+        Connection connection=connect.getConnection();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT id, name FROM CLIENT");
+
+            while (rs.next()) {
+                clientList.add(rs.getInt("id") + " - " + rs.getString("name"));
+            }
+
+            projectClient.setItems(clientList);
+
+            rs.close();
+            statement.close();
+            connection.close();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -357,6 +397,8 @@ public class ProjectDetailController implements Initializable {
         cameraIconView.setFitHeight(25);
         cameraIconView.setFitWidth(25);
         homeBackBtn.setGraphic(cameraIconView);
+
+        ClientNameText.setDisable(true);
 
         int id = 0;
 
@@ -451,6 +493,8 @@ public class ProjectDetailController implements Initializable {
 
             ProjectDetailController projectDetailController = Loader.getController();
             projectDetailController.setUserRole(getUserRole());
+            projectDetailController.getClientList();
+
             if (getUserRole().matches("ADMIN_AUTH")) {
                 projectDetailController.setAdminId(getAdminId());
             } else {

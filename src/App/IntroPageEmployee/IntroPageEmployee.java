@@ -144,7 +144,7 @@ public class IntroPageEmployee implements Initializable {
         if (event.getSource() == profileBtn) {
             FXMLLoader Loader = new FXMLLoader();
 
-            Loader.setLocation(getClass().getResource("../EmployeeProfile/EmployeeProfile.fxml"));
+            Loader.setLocation(getClass().getResource("../EmployeeProfile/employeeprofile.fxml"));
 
             try {
                 Loader.load();

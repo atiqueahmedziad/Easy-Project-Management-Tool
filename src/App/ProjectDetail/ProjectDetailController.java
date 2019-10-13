@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import App.IntroPageAdmin.IntroPageAdmin;
+import App.IntroPageEmployee.IntroPageEmployee;
 import App.ProjectSummary.ProjectSummaryController;
 import App.SearchProject.SearchProject;
 import App.chart.DateAxis;
@@ -515,7 +516,7 @@ public class ProjectDetailController implements Initializable {
 
             Loader.setLocation(getClass().getResource("../SearchProject/searchproject.fxml"));
 
-            try{
+            try {
                 Loader.load();
             } catch (Exception e){
                 e.printStackTrace();
@@ -523,6 +524,8 @@ public class ProjectDetailController implements Initializable {
 
             SearchProject searchProject = Loader.getController();
             searchProject.setUserRole(getUserRole());
+            searchProject.initializeSearchPage(getUserRole());
+
             if(getUserRole().matches("ADMIN_AUTH")){
                 searchProject.setAdminId(getAdminId());
             } else {
@@ -644,38 +647,60 @@ public class ProjectDetailController implements Initializable {
     }
 
     public void homeBackBtnAction(ActionEvent event) {
-        if(event.getSource() == homeBackBtn){
+        if(event.getSource() == homeBackBtn) {
             FXMLLoader Loader = new FXMLLoader();
+            if (getUserRole().matches("ADMIN_AUTH")) {
+                Loader.setLocation(getClass().getResource("../IntroPageAdmin/intropageadmin.fxml"));
 
-            Loader.setLocation(getClass().getResource("../IntroPageAdmin/intropageadmin.fxml"));
+                try {
+                    Loader.load();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-            try {
-                Loader.load();
-            } catch (Exception e) {
-                e.printStackTrace();
+                IntroPageAdmin introPageAdmin = Loader.getController();
+                introPageAdmin.setAdminId(getAdminId());
+                introPageAdmin.setUserRole(getUserRole());
+                introPageAdmin.getAdminName(getAdminId());
+
+                Parent p = Loader.getRoot();
+                stage = (Stage) homeBackBtn.getScene().getWindow();
+                Scene scene = new Scene(p);
+                stage.setScene(scene);
+                stage.show();
             }
 
-            IntroPageAdmin introPageAdmin = Loader.getController();
-            introPageAdmin.setAdminId(getAdminId());
-            introPageAdmin.setUserRole(getUserRole());
-            introPageAdmin.getAdminName(getAdminId());
+            else{
+                Loader.setLocation(getClass().getResource("../IntroPageEmployee/intropageemployee.fxml"));
 
-            Parent p = Loader.getRoot();
-            stage = (Stage) homeBackBtn.getScene().getWindow();
-            Scene scene = new Scene(p);
-            stage.setScene(scene);
-            stage.show();
+                try {
+                    Loader.load();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                IntroPageEmployee introPageEmp = Loader.getController();
+                introPageEmp.setEmployeeId(getEmployeeId());
+                introPageEmp.setUserRole(getUserRole());
+                introPageEmp.getEmployeeName(getEmployeeId());
+                introPageEmp.getProjectTableData();
+
+                Parent p = Loader.getRoot();
+                stage = (Stage) homeBackBtn.getScene().getWindow();
+                Scene scene = new Scene(p);
+                stage.setScene(scene);
+                stage.centerOnScreen();
+                stage.show();
+
+            }
         }
+
     }
 
-    public void ifUserIsEmployee(String userRole){
-        if(userRole.matches("EMPLOYEE_AUTH")){
+    public void userIsEmployee(){
             btnAddTask.setDisable(true);
             DeleteTaskButton.setDisable(true);
             btnProjectDetail.setDisable(true);
-            homeBackBtn.setDisable(true); // Remove it when home page for employee is done.
-            searchproject.setDisable(true); // Remove it when search project page for employee is done.
             tableview.setEditable(false);
-        }
     }
 }

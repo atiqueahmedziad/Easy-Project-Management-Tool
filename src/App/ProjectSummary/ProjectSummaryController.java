@@ -151,6 +151,8 @@ public class ProjectSummaryController implements Initializable {
 
             SearchProject searchProject = Loader.getController();
             searchProject.setUserRole(getUserRole());
+            searchProject.initializeSearchPage(getUserRole());
+
             if(getUserRole().matches("ADMIN_AUTH")){
                 searchProject.setAdminId(getAdminId());
             } else {
@@ -174,8 +176,8 @@ public class ProjectSummaryController implements Initializable {
         }
         else {
             sql = "SELECT distinct PROJECT_INFO.id, project_name, start_date, end_date, estimated_time,client_id,CLIENT.name FROM PROJECT_INFO, PROJECT_TASK,CLIENT WHERE PROJECT_INFO.id = PROJECT_TASK.id AND CLIENT.id = client_id AND assigned="+ getEmployeeId();
+
             btnProjectDetail.setDisable(true);
-            searchproject.setDisable(true); // Remove it when search project page for employee is done.
         }
 
 
@@ -271,7 +273,7 @@ public class ProjectSummaryController implements Initializable {
 
                     if(getUserRole().matches("EMPLOYEE_AUTH")) {
                         projectDetailController.setEmployeeId(getEmployeeId());
-                        projectDetailController.ifUserIsEmployee(getUserRole());
+                        projectDetailController.userIsEmployee();
                     }
 
                     Parent p = Loader.getRoot();
@@ -329,24 +331,24 @@ public class ProjectSummaryController implements Initializable {
             FXMLLoader Loader = new FXMLLoader();
 
             if(getUserRole()=="ADMIN_AUTH"){
-            Loader.setLocation(getClass().getResource("../IntroPageAdmin/intropageadmin.fxml"));
+                Loader.setLocation(getClass().getResource("../IntroPageAdmin/intropageadmin.fxml"));
 
-            try {
-                Loader.load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+                try {
+                    Loader.load();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-            IntroPageAdmin introPageAdmin = Loader.getController();
-            introPageAdmin.setAdminId(getAdminId());
-            introPageAdmin.setUserRole(getUserRole());
-            introPageAdmin.getAdminName(getAdminId());
+                IntroPageAdmin introPageAdmin = Loader.getController();
+                introPageAdmin.setAdminId(getAdminId());
+                introPageAdmin.setUserRole(getUserRole());
+                introPageAdmin.getAdminName(getAdminId());
 
-            Parent p = Loader.getRoot();
-            stage = (Stage) homeBackBtn.getScene().getWindow();
-            Scene scene = new Scene(p);
-            stage.setScene(scene);
-            stage.show();
+                Parent p = Loader.getRoot();
+                stage = (Stage) homeBackBtn.getScene().getWindow();
+                Scene scene = new Scene(p);
+                stage.setScene(scene);
+                stage.show();
             }
 
             else{

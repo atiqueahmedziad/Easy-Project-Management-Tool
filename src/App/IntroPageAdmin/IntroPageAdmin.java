@@ -427,6 +427,9 @@ public class IntroPageAdmin implements Initializable {
 
     public void logoutBtnAction(ActionEvent event) {
         if(event.getSource() == logoutBtn){
+            setAdminId(-1);
+            setUserRole("");
+
             FXMLLoader Loader = new FXMLLoader();
 
             Loader.setLocation(getClass().getResource("../Login/loginpage.fxml"));

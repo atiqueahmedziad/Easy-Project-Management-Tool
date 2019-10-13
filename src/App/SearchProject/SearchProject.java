@@ -138,8 +138,15 @@ public class SearchProject implements Initializable {
             Connect connect = new Connect();
             Connection connection = connect.getConnection();
 
+            String sql;
+
             Statement statement = connection.createStatement();
-            String sql = "SELECT * FROM project_info WHERE id=" + getInputprojectid().getText();
+            if(userRole.matches("ADMIN_AUTH")){
+                sql = "SELECT * FROM project_info WHERE id=" + getInputprojectid().getText();
+            } else {
+                sql = "SELECT distinct PROJECT_INFO.id, project_name, start_date, end_date, estimated_time FROM PROJECT_INFO INNER JOIN PROJECT_TASK ON PROJECT_INFO.id = PROJECT_TASK.id AND assigned="+getEmployeeId()+" AND PROJECT_INFO.id="+getInputprojectid().getText();
+            }
+
             ResultSet rs = statement.executeQuery(sql);
 
             if(rs.next()) {
@@ -180,6 +187,7 @@ public class SearchProject implements Initializable {
                     projectDetailController.setAdminId(getAdminId());
                 } else {
                     projectDetailController.setEmployeeId(getEmployeeId());
+                    projectDetailController.userIsEmployee();
                 }
 
                 Parent p = Loader.getRoot();
@@ -197,7 +205,7 @@ public class SearchProject implements Initializable {
     public void homeBackBtnAction(ActionEvent event) {
         if(event.getSource() == homeBackBtn) {
             FXMLLoader Loader = new FXMLLoader();
-            if (getUserRole() == "ADMIN_AUTH") {
+            if (getUserRole().matches("ADMIN_AUTH")) {
                 Loader.setLocation(getClass().getResource("../IntroPageAdmin/intropageadmin.fxml"));
 
                 try {
@@ -246,6 +254,15 @@ public class SearchProject implements Initializable {
     }
 
     public void SearchProjectAction(ActionEvent event) {
+    }
+
+    public void initializeSearchPage(String userRole){
+        if(userRole.matches("ADMIN_AUTH")){
+
+        } else {
+            allproject.setDisable(true);
+            btnProjectDetail.setDisable(true);
+        }
     }
 
     @Override

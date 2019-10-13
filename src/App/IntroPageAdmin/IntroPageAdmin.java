@@ -308,6 +308,7 @@ public class IntroPageAdmin implements Initializable {
             ProjectDetailController projectDetailController = Loader.getController();
             projectDetailController.setUserRole(getUserRole());
             projectDetailController.setAdminId(getAdminId());
+            projectDetailController.getClientList();
 
             Parent p = Loader.getRoot();
             stage = (Stage) addNewProjectBtn.getScene().getWindow();

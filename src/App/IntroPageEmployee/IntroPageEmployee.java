@@ -1,6 +1,8 @@
 package App.IntroPageEmployee;
 
 import App.Connect;
+import App.EmployeeProfile.EmployeeProfile;
+import App.IntroPageAdmin.Employee;
 import App.ProjectSummary.ProjectSummaryController;
 import App.SearchProject.SearchProject;
 import com.jfoenix.controls.JFXButton;
@@ -20,6 +22,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 import App.IntroPageAdmin.Project;
@@ -135,8 +138,31 @@ public class IntroPageEmployee implements Initializable {
 
         getLogoutIcon();
     }
+    public JFXButton profileBtn;
 
-    public void ProfileBtnAction(ActionEvent event) {
+    public void ProfileBtnAction(ActionEvent event) throws SQLException {
+        if (event.getSource() == profileBtn) {
+            FXMLLoader Loader = new FXMLLoader();
+
+            Loader.setLocation(getClass().getResource("../EmployeeProfile/employeeprofile.fxml"));
+
+            try {
+                Loader.load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            EmployeeProfile empProfile = Loader.getController();
+            empProfile.setEmpId(getEmployeeId());
+            empProfile.setEmpInfo();
+            empProfile.setUserRole(getUserRole());
+
+            Parent p = Loader.getRoot();
+            stage = (Stage) profileBtn.getScene().getWindow();
+            Scene scene = new Scene(p);
+            stage.setScene(scene);
+            stage.show();
+        }
     }
 
     public void allProjectsBtnAction(ActionEvent event) {
@@ -179,7 +205,8 @@ public class IntroPageEmployee implements Initializable {
 
             SearchProject searchProject = Loader.getController();
             searchProject.setUserRole(getUserRole());
-            searchProject.setAdminId(getEmployeeId());
+            searchProject.setEmployeeId(getEmployeeId());
+
             Parent p = Loader.getRoot();
             stage = (Stage) searchProjectBtn.getScene().getWindow();
             Scene scene = new Scene(p);

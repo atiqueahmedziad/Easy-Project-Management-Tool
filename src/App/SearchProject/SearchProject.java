@@ -231,6 +231,7 @@ public class SearchProject implements Initializable {
                 introPageEmp.setEmployeeId(getEmployeeId());
                 introPageEmp.setUserRole(getUserRole());
                 introPageEmp.getEmployeeName(getEmployeeId());
+                introPageEmp.getProjectTableData();
 
                 Parent p = Loader.getRoot();
                 stage = (Stage) homeBackBtn.getScene().getWindow();

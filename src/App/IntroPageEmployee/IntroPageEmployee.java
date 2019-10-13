@@ -205,7 +205,8 @@ public class IntroPageEmployee implements Initializable {
 
             SearchProject searchProject = Loader.getController();
             searchProject.setUserRole(getUserRole());
-            searchProject.setAdminId(getEmployeeId());
+            searchProject.setEmployeeId(getEmployeeId());
+
             Parent p = Loader.getRoot();
             stage = (Stage) searchProjectBtn.getScene().getWindow();
             Scene scene = new Scene(p);

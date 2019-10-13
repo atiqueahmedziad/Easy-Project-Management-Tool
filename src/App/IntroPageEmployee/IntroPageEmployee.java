@@ -206,6 +206,7 @@ public class IntroPageEmployee implements Initializable {
             SearchProject searchProject = Loader.getController();
             searchProject.setUserRole(getUserRole());
             searchProject.setEmployeeId(getEmployeeId());
+            searchProject.initializeSearchPage(getUserRole());
 
             Parent p = Loader.getRoot();
             stage = (Stage) searchProjectBtn.getScene().getWindow();
@@ -220,6 +221,9 @@ public class IntroPageEmployee implements Initializable {
 
     public void logoutBtnAction(ActionEvent event) {
         if(event.getSource() == logoutBtn){
+            setEmployeeId(-1);
+            setUserRole("");
+
             FXMLLoader Loader = new FXMLLoader();
 
             Loader.setLocation(getClass().getResource("../Login/loginpage.fxml"));

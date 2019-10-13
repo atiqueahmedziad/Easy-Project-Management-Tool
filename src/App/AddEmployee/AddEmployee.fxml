@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="637.0" prefWidth="643.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AddEmployee.AddEmployeeController">
+<AnchorPane id="AnchorPane" prefHeight="637.0" prefWidth="643.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AddEmployee.AddEmployeeController">
     <children>
         <JFXButton fx:id="AddEmployeeButton" layoutX="264.0" layoutY="525.0" onAction="#AddEmployee" prefHeight="44.0" prefWidth="117.0" ripplerFill="#009688" style="-fx-background-color: #34274e;" text="Add Employee" textFill="WHITE">
          <font>
@@ -31,9 +31,9 @@
             <Font size="14.0" />
          </font>
       </JFXTextField>
-      <Label alignment="CENTER" layoutX="199.0" layoutY="113.0" prefHeight="29.0" prefWidth="47.0" style="-fx-font-size: 16;" text="Name:" textAlignment="CENTER" />
-      <Label alignment="CENTER" layoutX="179.0" layoutY="207.0" prefHeight="29.0" prefWidth="78.0" style="-fx-font-size: 16;" text="Username:" textAlignment="CENTER" />
-      <Label alignment="CENTER" layoutX="184.0" layoutY="249.0" prefHeight="29.0" prefWidth="78.0" style="-fx-font-size: 16;" text="Password:" textAlignment="CENTER" />
+      <Label alignment="CENTER" layoutX="169.0" layoutY="113.0" prefHeight="29.0" prefWidth="93.0" style="-fx-font-size: 16;" text="Name:" textAlignment="CENTER" />
+      <Label alignment="CENTER" layoutX="157.0" layoutY="207.0" prefHeight="29.0" prefWidth="117.0" style="-fx-font-size: 16;" text="Username:" textAlignment="CENTER" />
+      <Label alignment="CENTER" layoutX="159.0" layoutY="249.0" prefHeight="29.0" prefWidth="117.0" style="-fx-font-size: 16;" text="Password:" textAlignment="CENTER" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="237.0" layoutY="14.0" prefHeight="62.0" prefWidth="169.0" text="Add New Employee" textAlignment="CENTER">
          <font>
             <Font size="18.0" />
@@ -58,14 +58,14 @@
          </font>
       </JFXTextField>
       <Separator layoutX="222.0" layoutY="59.0" prefWidth="200.0" />
-      <Label alignment="CENTER" layoutX="163.0" layoutY="458.0" prefHeight="29.0" prefWidth="104.0" style="-fx-font-size: 16;" text="Designation:" textAlignment="CENTER" />
+      <Label alignment="CENTER" layoutX="166.0" layoutY="459.0" prefHeight="29.0" prefWidth="104.0" style="-fx-font-size: 16;" text="Designation:" textAlignment="CENTER" />
       <JFXTextField fx:id="employee_designation" focusColor="#34274e" layoutX="286.0" layoutY="458.0" prefHeight="30.0" prefWidth="169.0">
          <font>
             <Font size="14.0" />
          </font>
       </JFXTextField>
-      <Label alignment="CENTER" layoutX="177.0" layoutY="375.0" prefHeight="29.0" prefWidth="78.0" style="-fx-font-size: 16;" text="Gender:" textAlignment="CENTER" />
-      <JFXComboBox fx:id="boxEmpGender" focusColor="#34274e" layoutX="300.0" layoutY="375.0" prefHeight="29.0" prefWidth="131.0" promptText="   choose gender" style="-jfx-label-float: false;" unFocusColor="#8a8a8a" visibleRowCount="2" />
+      <Label alignment="CENTER" layoutX="183.0" layoutY="375.0" prefHeight="29.0" prefWidth="78.0" style="-fx-font-size: 16;" text="Gender:" textAlignment="CENTER" />
+      <JFXComboBox fx:id="boxEmpGender" focusColor="#34274e" layoutX="286.0" layoutY="375.0" prefHeight="29.0" prefWidth="131.0" promptText="   choose gender" style="-jfx-label-float: false;" unFocusColor="#8a8a8a" visibleRowCount="2" />
       <JFXTextField fx:id="employee_id" editable="false" focusColor="#34274e" layoutX="285.0" layoutY="161.0" prefHeight="30.0" prefWidth="169.0">
          <font>
             <Font size="14.0" />

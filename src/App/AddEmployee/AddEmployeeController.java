@@ -138,7 +138,7 @@ public class AddEmployeeController implements Initializable {
 
         try {
 
-            String sql = "insert into EMPLOYEE(name, email, contact, department, designation,gender) values (?,?,?,?,?,?)";
+            String sql = "insert into EMPLOYEE(name, email, contact, department, designation, gender) values (?,?,?,?,?,?)";
             ps = connection.prepareStatement(sql);
             ps.setString(1, getEmployee_name().getText());
             ps.setString(2, getEmployee_email().getText());

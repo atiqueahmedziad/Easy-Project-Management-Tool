@@ -7,6 +7,7 @@ import App.ProjectSummary.ProjectSummaryController;
 import App.ProjectDetail.ProjectDetailController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,6 +29,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
@@ -42,9 +44,26 @@ public class SearchProject implements Initializable {
     public TableColumn<ProjectEach, String> projectStartDate;
     public TableColumn<ProjectEach, String> projectEndDate;
     public Label errorLabel;
+    public TableView<ProjectEach> clientProjectTable;
+    public TableColumn<ProjectEach, String> client_id;
+    public TableColumn<ProjectEach, String> client_project_name;
+    public TableColumn<ProjectEach, String> client_start_date;
+    public TableColumn<ProjectEach, String> client_end_date;
+    public Label errorLabelClientTab;
+    public JFXButton showPDBtnClient;
+    public JFXDatePicker startDate;
+    public JFXDatePicker endDate;
+    public TableView<ProjectEach> DateProjectTable;
+    public TableColumn<ProjectEach, String> dateProjectId;
+    public TableColumn<ProjectEach, String> dateprojectName;
+    public TableColumn<ProjectEach, String> dateprojectStartDate;
+    public TableColumn<ProjectEach, String> dateprojectEndDate;
+    public Tab searchByDates;
+    public Label errorLabelDate;
+
 
     @FXML
-    ChoiceBox<String> clientDropdown = new ChoiceBox<String>();
+    JFXComboBox<String> clientDropdown = new JFXComboBox<>();
 
     @FXML
     JFXComboBox<String> employeeDropdown = new JFXComboBox<String>();
@@ -203,6 +222,7 @@ public class SearchProject implements Initializable {
                 projectDetailController.getEnd_date().setDisable(true);
                 projectDetailController.setEsti_time(estitime);
                 projectDetailController.getEsti_time().setEditable(false);
+                projectDetailController.setProjectClient(id);
                 projectDetailController.getTableData();
 
                 projectDetailController.setUserRole(getUserRole());
@@ -316,6 +336,31 @@ public class SearchProject implements Initializable {
         }
     }
 
+    public void getClientList() {
+        Connect connect = new Connect();
+        Connection connection = connect.getConnection();
+
+        ObservableList<String> clientList = FXCollections.observableArrayList();
+
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT name FROM CLIENT");
+
+            while (rs.next()) {
+                clientList.add(rs.getString("name"));
+            }
+
+            clientDropdown.setItems(clientList);
+
+            rs.close();
+            statement.close();
+            connection.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -323,6 +368,16 @@ public class SearchProject implements Initializable {
         projectName.setCellValueFactory(new PropertyValueFactory<>("projectName"));
         projectStartDate.setCellValueFactory(new PropertyValueFactory<>("projectStartDate"));
         projectEndDate.setCellValueFactory(new PropertyValueFactory<>("projectEndDate"));
+
+        client_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        client_project_name.setCellValueFactory(new PropertyValueFactory<>("projectName"));
+        client_start_date.setCellValueFactory(new PropertyValueFactory<>("projectStartDate"));
+        client_end_date.setCellValueFactory(new PropertyValueFactory<>("projectEndDate"));
+
+        dateProjectId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        dateprojectName.setCellValueFactory(new PropertyValueFactory<>("projectName"));
+        dateprojectStartDate.setCellValueFactory(new PropertyValueFactory<>("projectStartDate"));
+        dateprojectEndDate.setCellValueFactory(new PropertyValueFactory<>("projectEndDate"));
 
         Image imageDecline = new Image(getClass().getResourceAsStream("../icons/home-icon.png"));
         ImageView cameraIconView = new ImageView(imageDecline);
@@ -342,7 +397,7 @@ public class SearchProject implements Initializable {
 
     public void showProjectDetailAction(ActionEvent event) {
         ProjectEach project = EmProjectTable.getSelectionModel().getSelectedItem();
-        if(project != null){
+        if (project != null) {
 
             FXMLLoader Loader = new FXMLLoader();
 
@@ -378,12 +433,13 @@ public class SearchProject implements Initializable {
             projectDetailController.getEnd_date().setDisable(true);
             projectDetailController.setEsti_time(project.getEstTime());
             projectDetailController.getEsti_time().setEditable(false);
+            projectDetailController.setProjectClient(project.getClientId());
 
             // Calling getTableData() method to fill the table data from database following the above information
             projectDetailController.getTableData();
 
             projectDetailController.setUserRole(getUserRole());
-            if(getUserRole().matches("EMPLOYEE_AUTH")) {
+            if (getUserRole().matches("EMPLOYEE_AUTH")) {
                 projectDetailController.setEmployeeId(getEmployeeId());
                 projectDetailController.userIsEmployee();
             }
@@ -394,12 +450,12 @@ public class SearchProject implements Initializable {
             stage.setScene(scene);
             stage.show();
         } else {
-           errorLabel.setText("Nothing is selected from table");
+            errorLabel.setText("Nothing is selected from table");
         }
     }
 
     public void selectEmAction(ActionEvent event) {
-        if(employeeDropdown.getValue() != null) {
+        if (employeeDropdown.getValue() != null) {
             EmProjectTable.getItems().clear();
 
             System.out.println("aokk");
@@ -411,7 +467,7 @@ public class SearchProject implements Initializable {
 
             try {
                 Statement statement = connection.createStatement();
-                ResultSet rs = statement.executeQuery("SELECT distinct PROJECT_INFO.id, project_name, start_date, end_date, estimated_time FROM PROJECT_INFO INNER JOIN PROJECT_TASK ON PROJECT_INFO.id = PROJECT_TASK.id AND assigned=" + employeeId);
+                ResultSet rs = statement.executeQuery("SELECT distinct PROJECT_INFO.id, project_name, start_date, end_date, estimated_time, client_id FROM PROJECT_INFO INNER JOIN PROJECT_TASK ON PROJECT_INFO.id = PROJECT_TASK.id AND assigned=" + employeeId);
 
                 while (rs.next()) {
                     String id = String.valueOf(rs.getInt("id"));
@@ -419,8 +475,9 @@ public class SearchProject implements Initializable {
                     String startDate = rs.getString("start_date");
                     String endDate = rs.getString("end_date");
                     String estTime = rs.getString("estimated_time");
+                    String clientId = String.valueOf(rs.getInt("client_id"));
 
-                    ProjectEach projectEach = new ProjectEach(id, projectName, startDate, endDate, estTime);
+                    ProjectEach projectEach = new ProjectEach(id, projectName, startDate, endDate, estTime, clientId);
                     EmProjectTable.getItems().add(projectEach);
                 }
 
@@ -431,6 +488,211 @@ public class SearchProject implements Initializable {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void selectClientAction(ActionEvent event) {
+        if (clientDropdown.getValue() != null) {
+            clientProjectTable.getItems().clear();
+//            System.out.println("clientaokk");
+            String clientName = clientDropdown.getValue().trim();
+            //System.out.println(employeeId);
+            Connect connect = new Connect();
+            Connection connection = connect.getConnection();
+
+            try {
+                Statement statement = connection.createStatement();
+                ResultSet rs = statement.executeQuery("SELECT distinct PROJECT_INFO.id, project_name, start_date, end_date, estimated_time, client_id FROM PROJECT_INFO WHERE client_id=(SELECT id FROM CLIENT WHERE name='" + clientName + "')");
+
+                while (rs.next()) {
+                    //System.out.println("asdsd");
+                    String id = String.valueOf(rs.getInt("id"));
+                    String projectName = rs.getString("project_name");
+                    String startDate = rs.getString("start_date");
+                    String endDate = rs.getString("end_date");
+                    String estTime = rs.getString("estimated_time");
+                    String clientId = String.valueOf(rs.getInt("client_id"));
+
+                    ProjectEach projectEach = new ProjectEach(id, projectName, startDate, endDate, estTime, clientId);
+
+                    clientProjectTable.getItems().add(projectEach);
+                }
+
+                rs.close();
+                statement.close();
+                connection.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void selectTabClient(Event event) {
+        if (searchByClient.isSelected()) {
+            getClientList();
+//            System.out.println("tab selected");
+            clientProjectTable.getItems().clear();
+        }
+        clientDropdown.valueProperty().set(null);
+
+    }
+
+    public void showPDBtnClientAction(ActionEvent event) {
+        ProjectEach project = clientProjectTable.getSelectionModel().getSelectedItem();
+        if (project != null) {
+
+            FXMLLoader Loader = new FXMLLoader();
+
+            Loader.setLocation(getClass().getResource("../ProjectDetail/projectdetail.fxml"));
+
+            try {
+                Loader.load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            ProjectDetailController projectDetailController = Loader.getController();
+
+            projectDetailController.setAdminId(getAdminId());
+            projectDetailController.setUserRole(getUserRole());
+
+            projectDetailController.setProjectID(project.getId());
+            projectDetailController.getProjectID().setDisable(true);
+            projectDetailController.setProjectName(project.getProjectName());
+            projectDetailController.getProjectName().setEditable(false);
+
+            projectDetailController.setStart_date(LocalDate.parse(project.getProjectStartDate()));
+            projectDetailController.getStart_date().setDisable(true);
+
+            projectDetailController.setEnd_date(LocalDate.parse(project.getProjectEndDate()));
+
+            // Note: for LocalDate setEditable() method doesn't work in Jfonix.
+            // Ref: https://github.com/jfoenixadmin/JFoenix/issues/708
+            projectDetailController.getEnd_date().setDisable(true);
+            projectDetailController.setEsti_time(project.getEstTime());
+            projectDetailController.getEsti_time().setEditable(false);
+            projectDetailController.setProjectClient(project.getClientId());
+
+            projectDetailController.getTableData();
+
+            projectDetailController.setUserRole(getUserRole());
+            if (getUserRole().matches("EMPLOYEE_AUTH")) {
+                projectDetailController.setEmployeeId(getEmployeeId());
+                projectDetailController.userIsEmployee();
+            }
+
+            Parent p = Loader.getRoot();
+            stage = (Stage) searchprojectid.getScene().getWindow();
+            Scene scene = new Scene(p);
+            stage.setScene(scene);
+            stage.show();
+        } else {
+            errorLabelClientTab.setText("Nothing is selected from table.");
+        }
+    }
+
+    public void selectTabDate(Event event) {
+        if (searchByDates.isSelected()) {
+            DateProjectTable.getItems().clear();
+            startDate.setValue(null);
+            endDate.setValue(null);
+        }
+    }
+
+    public void showPDFromDate(ActionEvent event) {
+        ProjectEach project = DateProjectTable.getSelectionModel().getSelectedItem();
+        if (project != null) {
+
+            FXMLLoader Loader = new FXMLLoader();
+
+            Loader.setLocation(getClass().getResource("../ProjectDetail/projectdetail.fxml"));
+
+            try {
+                Loader.load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            ProjectDetailController projectDetailController = Loader.getController();
+
+            projectDetailController.setAdminId(getAdminId());
+            projectDetailController.setUserRole(getUserRole());
+
+            projectDetailController.setProjectID(project.getId());
+            projectDetailController.getProjectID().setDisable(true);
+            projectDetailController.setProjectName(project.getProjectName());
+            projectDetailController.getProjectName().setEditable(false);
+
+            projectDetailController.setStart_date(LocalDate.parse(project.getProjectStartDate()));
+            projectDetailController.getStart_date().setDisable(true);
+
+            projectDetailController.setEnd_date(LocalDate.parse(project.getProjectEndDate()));
+
+            // Note: for LocalDate setEditable() method doesn't work in Jfonix.
+            // Ref: https://github.com/jfoenixadmin/JFoenix/issues/708
+            projectDetailController.getEnd_date().setDisable(true);
+            projectDetailController.setEsti_time(project.getEstTime());
+            projectDetailController.getEsti_time().setEditable(false);
+            projectDetailController.setProjectClient(project.getClientId());
+
+            projectDetailController.getTableData();
+
+            projectDetailController.setUserRole(getUserRole());
+            if (getUserRole().matches("EMPLOYEE_AUTH")) {
+                projectDetailController.setEmployeeId(getEmployeeId());
+                projectDetailController.userIsEmployee();
+            }
+
+            Parent p = Loader.getRoot();
+            stage = (Stage) searchprojectid.getScene().getWindow();
+            Scene scene = new Scene(p);
+            stage.setScene(scene);
+            stage.show();
+        } else {
+            errorLabelClientTab.setText("Nothing is selected from table.");
+        }
+    }
+
+    public void findProjectWithDates(ActionEvent event) {
+        if(startDate.getValue() == null){
+            errorLabelDate.setText("Start Date is not selected.");
+            endDate.setValue(null);
+            return;
+        }
+
+        errorLabelDate.setText("");
+
+        DateProjectTable.getItems().clear();
+
+        String getStartDate = startDate.getValue().toString();
+        String getEndDate = endDate.getValue().toString();
+
+        Connect connect = new Connect();
+        Connection connection = connect.getConnection();
+
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM PROJECT_INFO WHERE end_date BETWEEN '"+ getStartDate +"' AND '"+ getEndDate +"'");
+
+            while (rs.next()) {
+                String id = String.valueOf(rs.getInt("id"));
+                String projectName = rs.getString("project_name");
+                String startDate = rs.getString("start_date");
+                String endDate = rs.getString("end_date");
+                String estTime = rs.getString("estimated_time");
+                String clientId = String.valueOf(rs.getInt("client_id"));
+
+                ProjectEach projectEach = new ProjectEach(id, projectName, startDate, endDate, estTime, clientId);
+                DateProjectTable.getItems().add(projectEach);
+            }
+
+            rs.close();
+            statement.close();
+            connection.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

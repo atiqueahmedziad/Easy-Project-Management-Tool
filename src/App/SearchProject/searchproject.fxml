@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
@@ -51,26 +52,36 @@
                               <Font size="15.0" />
                            </font>
                         </JFXButton>
-                        <Label fx:id="isprojectfound" alignment="CENTER" layoutX="205.0" layoutY="234.0" prefHeight="47.0" prefWidth="304.0" textAlignment="CENTER" textFill="#b90b0b" />
+                        <Label fx:id="isprojectfound" alignment="CENTER" layoutX="231.0" layoutY="234.0" prefHeight="47.0" prefWidth="304.0" textAlignment="CENTER" textFill="#b90b0b" />
                      </children></AnchorPane>
                </content></Tab>
-            <Tab fx:id="searchByClient" text="Search by Client">
+            <Tab fx:id="searchByClient" onSelectionChanged="#selectTabClient" text="Search by Client">
                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                   <children>
-                     <Label alignment="CENTER" layoutX="273.0" layoutY="33.0" prefHeight="47.0" prefWidth="216.0" text="Choose Client">
+                     <Label alignment="CENTER" layoutX="273.0" layoutY="26.0" prefHeight="47.0" prefWidth="216.0" text="Choose Client">
                         <font>
                            <Font name="Gill Sans MT" size="18.0" />
                         </font>
                      </Label>
                      <TableView fx:id="clientProjectTable" layoutX="66.0" layoutY="167.0" prefHeight="262.0" prefWidth="614.0">
                         <columns>
-                           <TableColumn prefWidth="61.0" text="ID" />
-                           <TableColumn minWidth="0.0" prefWidth="311.0" text="Project Name" />
-                           <TableColumn minWidth="0.0" prefWidth="124.0" text="Start Date" />
-                           <TableColumn minWidth="0.0" prefWidth="116.0" text="End Date" />
+                           <TableColumn fx:id="client_id" prefWidth="61.0" text="ID" />
+                           <TableColumn fx:id="client_project_name" minWidth="0.0" prefWidth="311.0" text="Project Name" />
+                           <TableColumn fx:id="client_start_date" minWidth="0.0" prefWidth="124.0" text="Start Date" />
+                           <TableColumn fx:id="client_end_date" minWidth="0.0" prefWidth="116.0" text="End Date" />
                         </columns>
                      </TableView>
-                     <JFXComboBox layoutX="302.0" layoutY="95.0" prefHeight="35.0" prefWidth="158.0" />
+                     <JFXComboBox fx:id="clientDropdown" layoutX="302.0" layoutY="81.0" onAction="#selectClientAction" prefHeight="35.0" prefWidth="158.0" promptText="Select Client" />
+                     <JFXButton fx:id="showPDBtnClient" buttonType="RAISED" graphicTextGap="5.0" layoutX="301.0" layoutY="434.0" onAction="#showPDBtnClientAction" prefHeight="47.0" prefWidth="161.0" styleClass="Btn" stylesheets="@../main.css" text="Show project details" textAlignment="CENTER" textFill="WHITE">
+                        <font>
+                           <Font name="Gill Sans MT" size="15.0" />
+                        </font>
+                     </JFXButton>
+                     <Label fx:id="errorLabelClientTab" alignment="CENTER" layoutX="252.0" layoutY="135.0" prefHeight="17.0" prefWidth="259.0" textFill="#e81212">
+                        <font>
+                           <Font name="Gill Sans MT" size="14.0" />
+                        </font>
+                     </Label>
                   </children>
                </AnchorPane>
             </Tab>
@@ -102,6 +113,39 @@
                               <Font name="Gill Sans MT" size="14.0" />
                            </font>
                         </Label>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="searchByDates" onSelectionChanged="#selectTabDate" text="Search by Dates">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="DateProjectTable" layoutX="67.0" layoutY="166.0" prefHeight="238.0" prefWidth="614.0">
+                           <columns>
+                              <TableColumn fx:id="dateProjectId" prefWidth="61.0" text="ID" />
+                              <TableColumn fx:id="dateprojectName" minWidth="0.0" prefWidth="311.0" text="Project Name" />
+                              <TableColumn fx:id="dateprojectStartDate" minWidth="0.0" prefWidth="124.0" text="Start Date" />
+                              <TableColumn fx:id="dateprojectEndDate" minWidth="0.0" prefWidth="116.0" text="End Date" />
+                           </columns>
+                        </TableView>
+                        <Label alignment="CENTER" layoutX="245.0" layoutY="28.0" prefHeight="47.0" prefWidth="296.0" text="Choose Dates">
+                           <font>
+                              <Font name="Gill Sans MT" size="18.0" />
+                           </font>
+                        </Label>
+                        <JFXButton fx:id="showPDFromDate" buttonType="RAISED" graphicTextGap="5.0" layoutX="312.0" layoutY="421.0" onAction="#showPDFromDate" prefHeight="47.0" prefWidth="161.0" styleClass="Btn" stylesheets="@../main.css" text="Show project details" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Gill Sans MT" size="15.0" />
+                           </font>
+                        </JFXButton>
+                        <Label fx:id="errorLabelDate" alignment="CENTER" layoutX="272.0" layoutY="132.0" prefHeight="17.0" prefWidth="241.0" textFill="#dd0000">
+                           <font>
+                              <Font name="Gill Sans MT" size="14.0" />
+                           </font>
+                        </Label>
+                        <JFXDatePicker fx:id="startDate" defaultColor="#07095d" layoutX="110.0" layoutY="86.0" promptText="Start Date" />
+                        <JFXDatePicker fx:id="endDate" defaultColor="#07095d" layoutX="473.0" layoutY="86.0" onAction="#findProjectWithDates" promptText="End Date" />
                      </children>
                   </AnchorPane>
                </content>

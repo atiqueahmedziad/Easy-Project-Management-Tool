@@ -9,6 +9,12 @@
 }
 
 .tab {
-    -fx-pref-width: 243;
+    -fx-pref-width: 200;
     -fx-pref-height: 60;
+}
+
+.tab .tab-label {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Gill Sans MT";
+    -fx-font-weight: 300;
 }

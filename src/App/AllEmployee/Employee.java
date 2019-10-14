@@ -43,7 +43,7 @@ public class Employee {
         this.empDesignation = new SimpleStringProperty(empDesignation);
     }
 
-    public String getempContact() {
+    public String getEmpPhone() {
         return empPhone.get();
     }
 

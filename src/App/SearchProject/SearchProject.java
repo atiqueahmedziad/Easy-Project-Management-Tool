@@ -306,8 +306,8 @@ public class SearchProject implements Initializable {
             searchByClient.setStyle("-fx-opacity: 0;");
             searchByEmployee.setDisable(true);
             searchByEmployee.setStyle("-fx-opacity: 0;");
-        } else {
-
+            searchByDates.setDisable(true);
+            searchByEmployee.setStyle("-fx-opacity: 0;");
         }
     }
 

@@ -352,8 +352,40 @@ public class ProjectDetailController implements Initializable {
 
     //CLient Choicebox
 
+    public String getClientNameText() {
+        return ClientNameText.getText();
+    }
+
+    public void setClientNameText(String clientNameText) {
+        this.ClientNameText.setText(clientNameText);
+    }
+
     public JFXTextField ClientNameText;
     private ObservableList<String> clientList = FXCollections.observableArrayList();
+
+    public void setProjectClient(String clientId) {
+        this.projectClient.setVisible(false);
+        String clientName = "";
+        Connect connect = new Connect();
+        Connection connection = connect.getConnection();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT name FROM CLIENT WHERE id="+clientId);
+
+            while (rs.next()) {
+                clientName = rs.getString("name");
+            }
+
+            rs.close();
+            statement.close();
+            connection.close();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        this.setClientNameText(clientName);
+    }
+
     public ChoiceBox<String> projectClient = new ChoiceBox<String>();
 
     public void getClientList() {

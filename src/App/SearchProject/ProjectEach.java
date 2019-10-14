@@ -8,13 +8,15 @@ public class ProjectEach {
     private SimpleStringProperty startDate;
     private SimpleStringProperty endDate;
     private SimpleStringProperty estTime;
+    private SimpleStringProperty clientId;
 
-    public ProjectEach(String id, String projectName, String startDate, String endDate, String estTime) {
+    public ProjectEach(String id, String projectName, String startDate, String endDate, String estTime, String clientId) {
         this.id = new SimpleStringProperty(id);
         this.projectName = new SimpleStringProperty(projectName);
         this.startDate = new SimpleStringProperty(startDate);
         this.endDate = new SimpleStringProperty(endDate);
         this.estTime = new SimpleStringProperty(estTime);
+        this.clientId = new SimpleStringProperty(clientId);
     }
 
     public String getId() {
@@ -55,6 +57,14 @@ public class ProjectEach {
 
     public void setEstTime(String estTime) {
         this.estTime = new SimpleStringProperty(estTime);
+    }
+
+    public String getClientId() {
+        return clientId.get();
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = new SimpleStringProperty(clientId);
     }
 
 }

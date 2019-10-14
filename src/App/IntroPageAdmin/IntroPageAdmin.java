@@ -1,6 +1,7 @@
 package App.IntroPageAdmin;
 
 import App.AdminProfile.AdminProfile;
+import App.AllEmployee.AllEmployeeController;
 import App.Client.AddClient.AddClientController;
 import App.Client.AllClient.AllClientController;
 import App.Connect;
@@ -38,6 +39,7 @@ public class IntroPageAdmin implements Initializable {
     public Label clientCountLabel;
     public JFXButton logoutBtn;
     public JFXButton addEmployeeBtn;
+    public JFXButton allEmployeeBtn;
 
     private int adminId;
 
@@ -342,6 +344,27 @@ public class IntroPageAdmin implements Initializable {
     }
 
     public void allEmployeeBtnAction(ActionEvent event) {
+        if(event.getSource() == allEmployeeBtn){
+            FXMLLoader Loader = new FXMLLoader();
+
+            Loader.setLocation(getClass().getResource("../AllEmployee/allemployee.fxml"));
+
+            try {
+                Loader.load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            AllEmployeeController allEmpController = Loader.getController();
+            allEmpController.setUserRole(getUserRole());
+            allEmpController.setAdminId(getAdminId());
+
+            Parent p = Loader.getRoot();
+            stage = (Stage) allEmployeeBtn.getScene().getWindow();
+            Scene scene = new Scene(p);
+            stage.setScene(scene);
+            stage.show();
+        }
     }
 
     public void addEmployeeBtnAction(ActionEvent event) {

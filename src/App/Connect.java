@@ -6,11 +6,10 @@ import java.sql.DriverManager;
 public class Connect {
 
     public Connection getConnection() {
-
         // Database name, username and password
         String dbaseName = "epmtdb";
-        String user = "ziad";
-        String pass = "ziad07";
+        String user = "root";
+        String pass = "root";
         Connection connect = null;
 
         try {

@@ -2,31 +2,15 @@
 
 Easy project management tool is a desktop application made with Java and Javafx which enables you to manage your personal/office projects. You can add serveral projects & project’s tasks with milestone which will help you to complete the project successfully.
 
-You can find how to use the tool [here](https://www.youtube.com/watch?v=W6fC6OQOjd0)
-
-# OUTDATED (WILL BE UPDATED SOON)
-
 ## How to build this application in your local machine
 This project is made using Intellij IDEA. So, I would **recommand** you to build this project using Intellij IDEA. 
-1. Install Intellij IDEA from [here](https://www.jetbrains.com/idea/) if you don't already have it installed. You can install the Community Edition. But if you are a student you can get the Ultimate Edition for free submitting your student identity info to jetbrains.
-2. Fork & clone / download the source code of this repository in your PC.
-3. Install MySQL in your local machine from [here](https://www.mysql.com/downloads/) 
-4. We have stored information about different projects in a MySQL Database. You need the create a database with following 3 Tables, columns with mentioned datatypes. If you are using the Ultimate Edition of Intellij IDEA, you can create the database inside the IDE. If you are a Community Edition user, you can make the database with [sequel pro](https://www.sequelpro.com/) / [MAMP](https://www.mamp.info/en/downloads/)  
-
-    Table name    | Column Name (String)   |  Column Name (String)
-    ------------- | -------------  | ------------
-    user          | ```username```   |  ```password```
-
-    Table name    | Column Name (int)|  Column Name (String)| Column Name (Date) | Column Name (Date) | Column Name (String)
-    ------------- | -------------  | -------------       | ------------        | ------------    | ------------
-    project_info  | ```id```       |  ```project_name``` | ```start_date```    | ```end_date```  | ```estimated_time```
-
-
-    Table name    | Column Name (int)|  Column Name (String)| Column Name (String) | Column Name (Date) | Column Name (Date) | Column Name (String)  | Column Name (String) | Column Name (String) | Column Name (String)  
-    ------------- | -------------    | -------------        | ------------- | ------------       | ------------    | ------------ |---------- | ----------- | -------------
-    project_task  | ```project_id``` |  ```task_name```     | ```time``` | ```task_start_date```   | ```task_end_date```  | ```progress``` | ```color``` |   ```dependency```  | ```assigned``` 
-5. Config the database with application. You may need to edit [```Connnect.java```](https://github.com/atiqueahmedziad/Easy-Project-Management-Tool/blob/master/src/App/Connect.java) with your database name, user and password.
-6. In ```User``` Table, make a row with filling with ```username``` and ```password```. You will use the username and password for login authentication.
+1. Install Intellij IDEA Community Edition from [here](https://www.jetbrains.com/idea/download) if you haven't installed it already. 
+2. Fork & clone/download the source code of this repository in your PC.
+3. Open the project with Intellij IDEA Community Edition and install the required JDK suggested by the IDE. Alternatively, you can download the JDK 8 from [here](https://www.openlogic.com/openjdk-downloads?field_java_parent_version_target_id=416&field_operating_system_target_id=All&field_architecture_target_id=All&field_java_package_target_id=All) and use it to build and run the project. 
+4. Install MySQL in your PC. To do that you can download & install [MAMP](https://www.mamp.info/en/downloads/). You can access the MySQL database in the web. The default address is [http://localhost/phpMyAdmin](http://localhost/phpMyAdmin). However, it may vary depending on your configuration. 
+5. Import this [sql dump](https://drive.google.com/file/d/11xXaQZtOtOGu_15sxblVy9ffhYsyfwbf/view?usp=sharing) in the MySQL database. 
+6. Config the database with application. You may need to edit [`Connnect.java`](https://github.com/atiqueahmedziad/Easy-Project-Management-Tool/blob/master/src/App/Connect.java) with your database username and password. 
+7. To login as Admin, use username - `admin` and password - `admin`.
 
 ## How to Contribute
 Follow the above instruction to build the application in your local machine. Feel free to fix any unassigned issues from [here](https://github.com/atiqueahmedziad/Easy-Project-Management-Tool/issues). If you are a first time contributor, I would recommand you to pick one of [these issues](https://github.com/atiqueahmedziad/Easy-Project-Management-Tool/labels/good%20first%20issue) and work on it to get familiar with the codebase.

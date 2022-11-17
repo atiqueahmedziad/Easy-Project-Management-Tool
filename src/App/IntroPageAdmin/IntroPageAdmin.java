@@ -96,7 +96,7 @@ public class IntroPageAdmin implements Initializable {
             Connection connection=connect.getConnection();
 
             Statement statement = connection.createStatement();
-            String sql = "SELECT project_name, start_date, end_date FROM PROJECT_INFO WHERE end_date > getdate()";
+            String sql = "SELECT project_name, start_date, end_date FROM PROJECT_INFO WHERE end_date > NOW()";
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
                 projectCount++;

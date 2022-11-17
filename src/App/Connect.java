@@ -9,16 +9,15 @@ public class Connect {
 
         // Database name, username and password
         String dbaseName = "epmtdb";
-        String user = "sa";
-        String pass = "austDhaka123";
+        String user = "ziad";
+        String pass = "ziad07";
         Connection connect = null;
 
         try {
-            // Java Driver for connecting MSSQL Database
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
-            // port number is 1433
-            connect = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;" +
-                    "databaseName="+dbaseName+";user="+user+";password="+pass+";");
+            // Java Driver for connecting MySQL Database
+            Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+            // port number is 3306
+            connect = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/" + dbaseName, user, pass);
         } catch (Exception e) {
             e.printStackTrace();
         }

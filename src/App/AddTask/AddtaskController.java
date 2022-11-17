@@ -222,7 +222,7 @@ public class AddtaskController implements Initializable {
             ps.setDate(5, Date.valueOf(task_end_date.getValue()));
             ps.setString(6, "0%");
             ps.setString(7, String.valueOf(getTask_color().getValue()));
-            ps.setString(8, dependency.getValue());
+            ps.setString(8, dependency.getValue() == null ? "" : dependency.getValue());
             ps.setInt(9, assignedEmployeeId);
             ps.executeUpdate();
 
